@@ -3,7 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 export type FiguraType = {
-    figura: 'ladya' | 'kon' | 'slon' | 'korol' | 'ferz' | 'peshka',
+    figura: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn",
     color: "white" | "black"
 }
 export type CelllType = {
