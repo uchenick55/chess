@@ -2,59 +2,40 @@ import {Action} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "../../../redux/store-redux";
 
-export type PostsType = {
-    id: number
-    message: string
-    like: number
+export type FiguraType = {
+    figura: 'ladya' | 'kon' | 'slon' | 'korol' | 'ferz' | 'peshka',
+    color: "white" | "black"
 }
-export type ProfileType = {
-    AboutMe: string,
-    FullName: string,
-    LookingForAJob: boolean,
-    LookingForAJobDescription: string,
-    contacts: {
-        facebook: string,
-        github: string,
-        instagram: string,
-        mainLink: string
-        twitter: string,
-        vk: string,
-        website: string,
-        youtube: string
-    }
+export type CelllType = {
+    isLightened: boolean,
+    cellFigura: FiguraType | "empty",
+    cellColor: "white" | "black",
+    cellAddress:
+        "a8" | "b8" | "c8" | "d8" | "e8" | "f8" | "g8" | "h8" |
+        "a7" | "b7" | "c7" | "d7" | "e7" | "f7" | "g7" | "h7" |
+        "a6" | "b6" | "c6" | "d6" | "e6" | "f6" | "g6" | "h6" |
+        "a5" | "b5" | "c5" | "d5" | "e5" | "f5" | "g5" | "h5" |
+        "a4" | "b4" | "c4" | "d4" | "e4" | "f4" | "g4" | "h4" |
+        "a3" | "b3" | "c3" | "d3" | "e3" | "f3" | "g3" | "h3" |
+        "a2" | "b2" | "c2" | "d2" | "e2" | "f2" | "g2" | "h2" |
+        "a1" | "b1" | "c1" | "d1" | "e1" | "f1" | "g1" | "h1"
 }
 
-export type ApiFeedBackDataType = {
-    email: string
-    message: string
-    name: string
-}
+export type RowType = [CelllType,CelllType,CelllType,CelllType,CelllType,CelllType,CelllType,CelllType]
 
-export type NulableType<n> = null | n // тип нулевой
+export type FiedlType = [RowType,RowType,RowType,RowType,RowType,RowType,RowType,RowType]
 
 
-export type TasksDataType = {
-    taskHeader: JSX.Element | string, // заголовок задачи
-    imgSrc: string, // источник картинки
-    taskLink: string, // ссылка на задачу
-    altTitle: string, // альтернатива картинке
-    description: JSX.Element[], // описание задачи
-    repositoryHref: string // ссылка на репозиторий
-    usedTech: string // список использованных технологий
-}
 
 
-export type DateType = {
+/*export type DateType = {
     Day: number
     Hour: number
     Minutes: number
     Month: string
     Seconds: number
     Year: number
-}
-
-export type ModalHeaderType = JSX.Element | string
-export type ModalBodyType = JSX.Element | string
+}*/
 
 
 export type ComThunkTp<A extends Action> = ThunkAction<
@@ -63,82 +44,3 @@ export type ComThunkTp<A extends Action> = ThunkAction<
     unknown,    // нет доп параметров
     A // все типы ActionCreator
     >
-
-export type HitsItemType = {
-    "created_at": string,
-    "title": string,
-    "url": string,
-    "author": string,
-    "points": number,
-    "story_text": null | string,
-    "comment_text": string,
-    "num_comments": number,
-    "story_id": null | number,
-    "story_title": null | string,
-    "story_url": null | string,
-    "parent_id": null | number,
-    "created_at_i": number,
-    "relevancy_score": number,
-    "_tags": Array<string>,
-    "objectID": any,
-    "_highlightResult": {
-        "title": {
-            "value": JSX.Element,
-            "matchLevel": string,
-            "fullyHighlighted": boolean,
-            "matchedWords": Array<string>
-        },
-        "url": {
-            "value": string,
-            "matchLevel": string,
-            "matchedWords": []
-        },
-        "author": {
-            "value": string,
-            "matchLevel": string,
-            "matchedWords": []
-        }
-    }
-}
-
-export type ErrorType = {
-    "message": string,
-    "name": string,
-    "config": {
-        "transitional": {
-            "silentJSONParsing": boolean,
-            "forcedJSONParsing": boolean,
-            "clarifyTimeoutError": boolean
-        },
-        "transformRequest": [
-            null
-        ],
-        "transformResponse": [
-            null
-        ],
-        "timeout": number,
-        "xsrfCookieName": string,
-        "xsrfHeaderName": string,
-        "maxContentLength": number,
-        "maxBodyLength": number,
-        "env": {
-            "FormData": null
-        },
-        "headers": {
-            "Accept": string,
-            "API-KEY": string
-        },
-        "baseURL": string,
-        "withCredentials": boolean,
-        "method": string,
-        "url": string
-    },
-    "code": string,
-    "status": null
-}
-
-export type NotifyType = {
-    message: string, // сообщение уведомления
-    timeUnix: number, // время сообщений в unix формате (для ключей)
-    style: string // внешний вид сообщения (warning/success и т.д)
-}

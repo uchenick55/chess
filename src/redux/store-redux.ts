@@ -1,10 +1,10 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import {thunk} from 'redux-thunk'; // thunkMiddleWare позволяет диспатчить санки помимо экшенов дл обновления стейта
 
-import dialod2Reducer from "./dialog2-reducer"
+import FieldReducer from "./field-reducer"
 
 const reducers = combineReducers({ // объединяем стейт редьюсеров в один объект store
-    dialog2: dialod2Reducer, // стейт диалог2
+    chess: FieldReducer, // стейт диалог2
 
 });
 
