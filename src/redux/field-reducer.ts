@@ -39,6 +39,11 @@ export type MarkersType = {
     needToScrollBottom: boolean // нужно ли прокрутить список сообщений
 }
 const initialState = {
+    commonFieldParam: {
+        fieldWidthHeight: 80 as number,
+        leftPadding: 100 as number,
+        topPadding: 100 as number,
+    },
     field: [
         [
             {isLightened: false, cellFigura: {figura:  "rook", color: "black"}, cellColor: "white", cellAddress: "a8" },
@@ -121,7 +126,7 @@ const initialState = {
             {isLightened: false, cellFigura: {figura: "rook", color: "black"}, cellColor: "white", cellAddress: "h1" },
         ] as RowType,
 
-    ] as any,
+    ] as FiedlType,
 
 }
 

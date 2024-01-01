@@ -25,19 +25,6 @@ export type RowType = [CelllType,CelllType,CelllType,CelllType,CelllType,CelllTy
 
 export type FiedlType = [RowType,RowType,RowType,RowType,RowType,RowType,RowType,RowType]
 
-
-
-
-/*export type DateType = {
-    Day: number
-    Hour: number
-    Minutes: number
-    Month: string
-    Seconds: number
-    Year: number
-}*/
-
-
 export type ComThunkTp<A extends Action> = ThunkAction<
     void,    // санка ничего не возвращает
     GlobalStateType,    // глобальный стейт из redux

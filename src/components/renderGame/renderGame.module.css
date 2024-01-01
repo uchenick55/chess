@@ -1,15 +1,12 @@
-.cellWhite {
-    width: 5rem;
-    height: 5rem;
-    background-color: rgba(200,200,200,1) ;
-    display: inline-block;
-    margin: 0rem;
-
+.div1 {
+    position: fixed;
 }
-.cellBlack {
-    width: 5rem;
-    height: 5rem;
-    background-color: rgba(0,0,0,1) ;
-    display: inline-block;
-    margin: 0rem;
+
+.div2 {
+    position: absolute;
+    left: 10rem;
+    top: 10rem;
+    background-color: green;
+    width: 35rem;
+    height: 35rem;
 }
