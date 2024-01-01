@@ -1,0 +1,15 @@
+.cellWhite {
+    width: 5rem;
+    height: 5rem;
+    background-color: rgba(200,200,200,1) ;
+    display: inline-block;
+    margin: 0rem;
+
+}
+.cellBlack {
+    width: 5rem;
+    height: 5rem;
+    background-color: rgba(0,0,0,1) ;
+    display: inline-block;
+    margin: 0rem;
+}
