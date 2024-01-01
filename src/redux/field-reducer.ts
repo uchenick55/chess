@@ -40,7 +40,7 @@ export type MarkersType = {
 }
 const initialState = {
     commonFieldParam: {
-        fieldWidthHeight: 80 as number,
+        fieldWidthHeight: 70 as number,
         leftPadding: 100 as number,
         topPadding: 100 as number,
     },

@@ -1,12 +1,17 @@
 .div1 {
-    position: fixed;
+    background-color: rgb(92,209,203);
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
 }
 
 .div2 {
     position: absolute;
-    left: 10rem;
-    top: 10rem;
-    background-color: green;
-    width: 35rem;
-    height: 35rem;
+    left: 25rem;
+    top: 2rem;
+    border: 2.5rem solid rgb(16,117,125);
+    border-radius: 1.5rem;
 }
+
