@@ -1,5 +1,5 @@
 import React from "react";
-import {CelllType, FiguraType} from "../common/types/commonTypes";
+import {CelllType} from "../common/types/commonTypes";
 import blackBishopVal from "../../assets/svg/black-bishop.svg"
 import blackKingVal from "../../assets/svg/black-king.svg"
 import blackKnightVal from "../../assets/svg/black-knight.svg"
@@ -12,6 +12,8 @@ import whiteKnightVal from "../../assets/svg/white-knight.svg"
 import whitePawnVal from "../../assets/svg/white-pawn.svg"
 import whiteQueenVal from "../../assets/svg/white-queen.svg"
 import whiteRookVal from "../../assets/svg/white-rook.svg"
+import {useDispatch} from "react-redux";
+import {fieldActions} from "../../redux/field-reducer";
 
 type CellRenderType = {
     cell: CelllType,
@@ -22,6 +24,8 @@ type CellRenderType = {
 
 const CellRender: React.FC<CellRenderType> = ({cell, indCell, i, fieldWHLocal}) => {
     console.log("CellRender")
+    const dispatch = useDispatch()
+
     let srcLocal=""// srcLocal - составить ключ по которому ищем название ключа рисунка в объекте рисунков
     if (cell.cellFigue!=="empty") {
         const figueColor = cell.cellFigue.color
@@ -60,6 +64,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, indCell, i, fieldWHLocal}) 
             onClick={()=>{
                 console.log(cell)
                 console.log(cell.cellAddress)
+                dispatch(fieldActions.setOnclickCellAC(cell)) // записать в стейт текущую ячейку, по чем мы кликнули
             }}
         />
 

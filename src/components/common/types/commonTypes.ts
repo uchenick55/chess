@@ -36,5 +36,7 @@ export type CommonGameParamType = {
     fieldWidthHeight: number,
     fieldLeftPadding: number,
     fieldTopPadding: number,
-    currentPlayer: "whitePlayer" | "blackPlayer"
+    currentPlayer: "whitePlayer" | "blackPlayer",
+    onclickCell: CelllType
+
 }

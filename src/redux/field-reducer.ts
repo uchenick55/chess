@@ -24,7 +24,8 @@ const initialState = {
         fieldWidthHeight: 70 as number,
         fieldLeftPadding: 400 as number,
         fieldTopPadding: 40 as number,
-        currentPlayer: "whitePlayer"
+        currentPlayer: "whitePlayer",
+        onclickCell: {}
     } as CommonGameParamType,
     field: [
         [
@@ -119,7 +120,9 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
     switch (action.type) {
         case SET_ON_CLICK_CELL: // задать ячейку при клике в стейт
             stateCopy = {
-                ...state
+                ...state,
+                commonGameParam: {...state.commonGameParam, onclickCell: action.onclickCell }
+
             }
             return stateCopy
 
