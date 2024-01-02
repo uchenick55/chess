@@ -21,12 +21,12 @@ type CellRenderType = {
 }
 
 const CellRender: React.FC<CellRenderType> = ({cell, indCell, i, fieldWHLocal}) => {
+    console.log("CellRender")
     let srcLocal=""// srcLocal - составить ключ по которому ищем название ключа рисунка в объекте рисунков
     if (cell.cellFigue!=="empty") {
         const figueColor = cell.cellFigue.color
         const figueLocal = cell.cellFigue.figue
         srcLocal = `${figueColor}${figueLocal}Key`.toLowerCase()
-        console.log(srcLocal)
     }
     const srcObj={  // объект со всеми картинками фигур
         blackbishopkey: blackBishopVal,

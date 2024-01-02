@@ -6,23 +6,24 @@ import classes from "./renderGame.module.css"
 import CellRender from "./CellRender";
 
 const RenderGame: React.FC = (() => {
+    console.log("RenderGame")
     const field: FiedlType = useSelector((state: GlobalStateType) => state.chess.field)
 
-    const commonFieldParam = useSelector((state: GlobalStateType) => state.chess.commonFieldParam)
+    const commonGameParam = useSelector((state: GlobalStateType) => state.chess.commonGameParam)
     return <div className={classes.div1}>
 
         <div className={classes.div2} style={{
-            width: 8 * commonFieldParam.fieldWidthHeight,
-            height: 8 * commonFieldParam.fieldWidthHeight,
-            left: commonFieldParam.leftPadding,
-            top: commonFieldParam.topPadding
+            width: 8 * commonGameParam.fieldWidthHeight,
+            height: 8 * commonGameParam.fieldWidthHeight,
+            left: commonGameParam.fieldLeftPadding,
+            top: commonGameParam.fieldTopPadding
         }}>
 
             {field.map((f, i) => { // пробегаем по каждому ряду ячеек (i)
                 return <div key={i}>
                     {f.map((cell, indCell) => { // пробегаем по каждой ячейке
                         return <CellRender key={indCell} cell={cell} indCell={indCell} i={i}
-                                           fieldWHLocal={commonFieldParam.fieldWidthHeight}/> // отрисовываем каждую ячейку
+                                           fieldWHLocal={commonGameParam.fieldWidthHeight}/> // отрисовываем каждую ячейку
                     })}
                 </div>
             })}

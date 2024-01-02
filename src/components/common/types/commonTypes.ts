@@ -31,3 +31,10 @@ export type ComThunkTp<A extends Action> = ThunkAction<
     unknown,    // нет доп параметров
     A // все типы ActionCreator
     >
+
+export type CommonGameParamType = {
+    fieldWidthHeight: number,
+    fieldLeftPadding: number,
+    fieldTopPadding: number,
+    currentPlayer: "whitePlayer" | "blackPlayer"
+}
