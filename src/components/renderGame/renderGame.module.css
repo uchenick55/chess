@@ -9,8 +9,6 @@
 
 .div2 {
     position: absolute;
-    left: 25rem;
-    top: 2rem;
     border: 2.5rem solid rgb(16,117,125);
     border-radius: 1.5rem;
 }

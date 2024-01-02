@@ -3,12 +3,12 @@ import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 export type FiguraType = {
-    figura: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn",
+    figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn",
     color: "white" | "black"
 }
 export type CelllType = {
     isLightened: boolean,
-    cellFigura: FiguraType | "empty",
+    cellFigue: FiguraType | "empty",
     cellColor: "white" | "black",
     cellAddress:
         "a8" | "b8" | "c8" | "d8" | "e8" | "f8" | "g8" | "h8" |
