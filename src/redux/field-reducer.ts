@@ -1,35 +1,23 @@
 import {InferActionsTypes} from "./store-redux";
 import {
+    CelllType,
     CommonGameParamType,
     ComThunkTp,
     FiedlType,
     RowType
 } from "../components/common/types/commonTypes";
 
-const SET_DIALOG_LIST = "myApp/dialog2-reducer/SET_DIALOG_LIST";
+const SET_ON_CLICK_CELL = "myApp/field-reducer/SET_ON_CLICK_CELL";
 
-export const dialog2Actions = {
-    /*
-        getDialog2AllAC: (dialog2All: GetDialog2AllType) => {
-            return {type: SET_DIALOG_LIST, dialog2All} as const
-        },
-        setMessagesNewerThen: (messagesNewerThen: Array<SendMessageType>, needToScrollBottom: boolean) => {
-            return {type: SET_MESSAGES_NEWER_THEN, messagesNewerThen, needToScrollBottom} as const
-        },
-        setDialog2InitialState: () => {
-            return {type: SET_DIALOG2_INITIALSTATE} as const
-        },
-        setD2Item: (d2Item: D2ItemType) => {
-            return {type: SET_D2_ITEM, d2Item} as const
-        },
-        setMarkers: (markers: MarkersType) => {
-            return {type: SET_MARKERS, markers} as const
-        },*/
+export const fieldActions = {
+    setOnclickCellAC: (onclickCell: CelllType) => {
+        return { type: SET_ON_CLICK_CELL, onclickCell} as const
+    }
 }
 
 
-type Dialog2ActionsTypes =
-    InferActionsTypes<typeof dialog2Actions>
+type FieldActionsTypes =
+    InferActionsTypes<typeof fieldActions>
 
 const initialState = {
     commonGameParam: {
@@ -124,16 +112,14 @@ const initialState = {
 
 }
 
-type InitialStateDialog2Type = typeof initialState
+type InitialStateFieldType = typeof initialState
 
-const FieldReducer = (state: InitialStateDialog2Type = initialState, action: Dialog2ActionsTypes): InitialStateDialog2Type => {
-    let stateCopy: InitialStateDialog2Type // объявлениечасти части стейта до изменения редьюсером
+const FieldReducer = (state: InitialStateFieldType = initialState, action: FieldActionsTypes): InitialStateFieldType => {
+    let stateCopy: InitialStateFieldType // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
-        case SET_DIALOG_LIST: // список всех диалогов
-            const dialog2AllLocal: any = []
-            const listUniqueDialog2Id: Array<number> = []
+        case SET_ON_CLICK_CELL: // задать ячейку при клике в стейт
             stateCopy = {
-                ...state,
+                ...state
             }
             return stateCopy
 
@@ -142,6 +128,6 @@ const FieldReducer = (state: InitialStateDialog2Type = initialState, action: Dia
     }
 }
 
-type ThType = ComThunkTp<Dialog2ActionsTypes> // тип, выведенный из общего типа санок сс учетом локального типа AC
+type ThType = ComThunkTp<FieldActionsTypes> // тип, выведенный из общего типа санок сс учетом локального типа AC
 
 export default FieldReducer

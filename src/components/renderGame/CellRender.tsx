@@ -49,14 +49,18 @@ const CellRender: React.FC<CellRenderType> = ({cell, indCell, i, fieldWHLocal}) 
         position: "absolute",
         left: indCell * fieldWHLocal,
         top: i * fieldWHLocal,
-        backgroundColor: cell.cellColor === "white" ? "rgb(95,201,197)" : "rgb(34,166,170)", // и отличающаяся
+        backgroundColor: cell.cellColor === "white" ? "rgb(95,201,197)" : "rgb(34,166,170)", // и отличающийся цвет
         display: "flex", alignItems: "center", justifyContent: "center" // выравнивание всего внутри
     }}>
-        <img alt="" style={{position: "absolute", height: `${fieldWHLocal*0.8}px`, }}
+        <img alt="" style={{position: "absolute", height: `${fieldWHLocal*0.8}px`, }} // сами фигуры
              src={ Object.values(srcObj)[Object.keys(srcObj).indexOf(srcLocal)]}
-            // srcLocal - составить ключ по которому ищем название ключа рисунка в объекте всех фигур
+            // srcLocal - составить ключ по которому ищем название ключа рисунка в массиве из объекта всех фигур
             // по этому ключу находим индекс картнки в массиве, полученном из объекта всех картинок
             // по индексу получаем сам рисунок и подставляем в поле (отрисовываем)
+            onClick={()=>{
+                console.log(cell)
+                console.log(cell.cellAddress)
+            }}
         />
 
     </div>
