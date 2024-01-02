@@ -49,9 +49,10 @@ const CellRender: React.FC<CellRenderType> = ({cell, indCell, i, fieldWHLocal}) 
         position: "absolute",
         left: indCell * fieldWHLocal,
         top: i * fieldWHLocal,
-        backgroundColor: cell.cellColor === "white" ? "rgb(95,201,197)" : "rgb(34,166,170)" // и отличающаяся
+        backgroundColor: cell.cellColor === "white" ? "rgb(95,201,197)" : "rgb(34,166,170)", // и отличающаяся
+        display: "flex", alignItems: "center", justifyContent: "center" // выравнивание всего внутри
     }}>
-        <img alt="" style={{position: "relative", width: `${fieldWHLocal*0.9}px`, top: "0.2rem", left: "0.2rem"}}
+        <img alt="" style={{position: "absolute", height: `${fieldWHLocal*0.8}px`, }}
              src={ Object.values(srcObj)[Object.keys(srcObj).indexOf(srcLocal)]}
             // srcLocal - составить ключ по которому ищем название ключа рисунка в объекте всех фигур
             // по этому ключу находим индекс картнки в массиве, полученном из объекта всех картинок
