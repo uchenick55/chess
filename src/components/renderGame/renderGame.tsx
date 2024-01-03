@@ -19,10 +19,10 @@ const RenderGame: React.FC = (() => {
             top: fieldWidthHeightLocal
         }}>
 
-            {field.map((f, i) => { // пробегаем по каждому ряду ячеек (i)
-                return <div key={i}>
-                    {f.map((cell, indCell) => { // пробегаем по каждой ячейке
-                        return <CellRender key={indCell} cell={cell} indCell={indCell} i={i}
+            {field.map((f, rowInd) => { // пробегаем по каждому ряду ячеек (i)
+                return <div key={rowInd}>
+                    {f.map((cell, colInd) => { // пробегаем по каждой ячейке
+                        return <CellRender key={colInd} cell={cell} colInd={colInd} rowInd={rowInd}
                                            fieldWHLocal={fieldWidthHeightLocal}/> // отрисовываем каждую ячейку
                     })}
                 </div>

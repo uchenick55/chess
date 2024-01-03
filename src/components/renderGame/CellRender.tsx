@@ -17,12 +17,12 @@ import {fieldActions} from "../../redux/field-reducer";
 
 type CellRenderType = {
     cell: CelllType,
-    indCell: number
-    i: number,
+    colInd: number
+    rowInd: number,
     fieldWHLocal: number
 }
 
-const CellRender: React.FC<CellRenderType> = ({cell, indCell, i, fieldWHLocal}) => {
+const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLocal}) => {
     console.log("CellRender")
     const dispatch = useDispatch()
 
@@ -51,8 +51,8 @@ const CellRender: React.FC<CellRenderType> = ({cell, indCell, i, fieldWHLocal}) 
         width: `${fieldWHLocal}px`,// ширина
         height: `${fieldWHLocal}px`, // высота
         position: "absolute", // абсолютное позиционирование
-        left: indCell * fieldWHLocal,// смещение слева для текущей ячейки
-        top: i * fieldWHLocal,// смещение сверху для текущей ячейки
+        left: colInd * fieldWHLocal,// смещение слева для текущей ячейки
+        top: rowInd * fieldWHLocal,// смещение сверху для текущей ячейки
         backgroundColor: cell.cellColor === "white" ? "rgb(95,201,197)" : "rgb(34,166,170)", // и отличающийся цвет
         display: "flex", alignItems: "center", justifyContent: "center" // выравнивание всего внутри
     }}>
@@ -64,8 +64,8 @@ const CellRender: React.FC<CellRenderType> = ({cell, indCell, i, fieldWHLocal}) 
             onClick={()=>{
                 dispatch(fieldActions.setOnclickFigueAC({
                     cellFigue: cell.cellFigue, // фигура по которой кликнули
-                    rowInd: i, // адрес ряда
-                    colInd: indCell, // адрес колонки
+                    rowInd: rowInd, // адрес ряда
+                    colInd: colInd, // адрес колонки
                     cellAddress: cell.cellAddress // буквенный адрес ячейки
                 })) // записать в стейт текущую фигуру, по чем мы кликнули
             }}

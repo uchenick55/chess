@@ -2,12 +2,12 @@ import {Action} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "../../../redux/store-redux";
 
-export type FigueType = {
-    figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn",
-    color: "white" | "black"
+export type FigueType = { // тип фигуры
+    figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn", // все возможные фигуры
+    color: "white" | "black" // цвет фигуры
 }
 
-type CellAddressType =
+type CellAddressType = // возможные варианты ячеек
     "a8" | "b8" | "c8" | "d8" | "e8" | "f8" | "g8" | "h8" |
     "a7" | "b7" | "c7" | "d7" | "e7" | "f7" | "g7" | "h7" |
     "a6" | "b6" | "c6" | "d6" | "e6" | "f6" | "g6" | "h6" |
@@ -17,17 +17,17 @@ type CellAddressType =
     "a2" | "b2" | "c2" | "d2" | "e2" | "f2" | "g2" | "h2" |
     "a1" | "b1" | "c1" | "d1" | "e1" | "f1" | "g1" | "h1"
 
-export type CelllType = {
-    isLightened: boolean,
-    cellFigue: FigueType | "empty",
-    cellColor: "white" | "black",
-    cellAddress:CellAddressType
+export type CelllType = { // тип ячейки
+    isLightened: boolean, // ячейка подсвечена?
+    cellFigue: FigueType | "empty", // тип фигуры - либо фигура, либо пустая ячейка
+    cellColor: "white" | "black", // цвет ячейки
+    cellAddress:CellAddressType // адрес ячейки
 }
 
-export type OnClickFigueType = {
-    cellFigue: FigueType | "empty",
-    rowInd: number,
-    colInd: number
+export type OnClickFigueType = { // фигура, по которой кликнули
+    cellFigue: FigueType | "empty", // либо сама фигура, либо пустое поле (на пустое поле не реагирует)
+    rowInd: number, // индес ряда
+    colInd: number // индекс колонки
     cellAddress: CellAddressType
 }
 
