@@ -3,7 +3,7 @@ import {
     CelllType,
     CommonGameParamType,
     ComThunkTp,
-    FiedlType, OnClickFigueType,
+    FiedlType, FigueLightenedStepsType, OnClickFigueType,
     RowType
 } from "../components/common/types/commonTypes";
 
@@ -39,14 +39,14 @@ const initialState = {
             {isLightened: false, cellFigue: {figue: "rook", color: "black"}, cellColor: "black", cellAddress: "h8"},
         ] as RowType,
         [
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black"}, cellColor: "black", cellAddress: "a7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black"}, cellColor: "white", cellAddress: "b7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black"}, cellColor: "black", cellAddress: "c7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black"}, cellColor: "white", cellAddress: "d7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black"}, cellColor: "black", cellAddress: "e7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black"}, cellColor: "white", cellAddress: "f7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black"}, cellColor: "black", cellAddress: "g7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black"}, cellColor: "white", cellAddress: "h7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "a7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "b7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "c7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "d7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "e7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "f7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "g7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "h7"},
         ] as RowType,
         [
             {isLightened: false, cellFigue: "empty", cellColor: "white", cellAddress: "a6"},
@@ -89,14 +89,14 @@ const initialState = {
             {isLightened: false, cellFigue: "empty", cellColor: "white", cellAddress: "h3"},
         ] as RowType,
         [
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white"}, cellColor: "white", cellAddress: "a2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white"}, cellColor: "black", cellAddress: "b2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white"}, cellColor: "white", cellAddress: "c2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white"}, cellColor: "black", cellAddress: "d2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white"}, cellColor: "white", cellAddress: "e2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white"}, cellColor: "black", cellAddress: "f2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white"}, cellColor: "white", cellAddress: "g2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white"}, cellColor: "black", cellAddress: "h2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "a2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "b2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "c2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "d2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "e2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "f2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "g2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "h2"},
         ] as RowType,
         [
             {isLightened: false, cellFigue: {figue: "rook", color: "white"}, cellColor: "black", cellAddress: "a1"},
@@ -114,6 +114,44 @@ const initialState = {
 }
 
 type InitialStateFieldType = typeof initialState
+
+const figueLightenedSteps: FigueLightenedStepsType = {
+    "knight": [
+        {rowInd: -2, collInd: -1}, {rowInd: -2, collInd: 1}, {rowInd: 2, collInd: -1}, {rowInd: 2, collInd: 1},
+        {rowInd: -1, collInd: -2}, {rowInd: -1, collInd: 2}, {rowInd: 1, collInd: -2}, {rowInd: 1, collInd: 2}
+    ],
+    "bishop": [
+        {rowInd: -1, collInd: -1}, {rowInd: -2, collInd: -2}, {rowInd: -3, collInd: -3}, {rowInd: -4, collInd: -4}, {rowInd: -5, collInd: -5},{rowInd: -6, collInd: -6},{rowInd: -7, collInd: -7},
+        {rowInd: -1, collInd: 1},  {rowInd: -2, collInd: 2},  {rowInd: -3, collInd: 3},  {rowInd: -4, collInd: 4},  {rowInd: -5, collInd: 5}, {rowInd: -6, collInd: 6}, {rowInd: -7, collInd: 7},
+        {rowInd: 1, collInd: -1},  {rowInd: 2, collInd: -2},  {rowInd: 3, collInd: -3},  {rowInd: 4, collInd: -4},  {rowInd: 5, collInd: -5}, {rowInd: 6, collInd: -6}, {rowInd: 7, collInd: -7},
+        {rowInd: 1, collInd: 1},   {rowInd: 2, collInd: 2},   {rowInd: 3, collInd: 3},   {rowInd: 4, collInd: 4},   {rowInd: 5, collInd: 5},  {rowInd: 6, collInd: 6},  {rowInd: 7, collInd: 7},
+    ],
+    "rook": [
+        {rowInd: 0, collInd: -1},{rowInd: 0, collInd: -2},{rowInd: 0, collInd: -3},{rowInd: 0, collInd: -4},{rowInd: 0, collInd: -5},{rowInd: 0, collInd: -6},{rowInd: 0, collInd: -7},
+        {rowInd: 0, collInd: 1}, {rowInd: 0, collInd: 2}, {rowInd: 0, collInd: 3}, {rowInd: 0, collInd: 4}, {rowInd: 0, collInd: 5}, {rowInd: 0, collInd: 6}, {rowInd: 0, collInd: 7},
+        {rowInd: -1, collInd: 0},{rowInd: -2, collInd: 0},{rowInd: -3, collInd: 0},{rowInd: -4, collInd: 0},{rowInd: -5, collInd: 0},{rowInd: -6, collInd: 0},{rowInd: -7, collInd: 0},
+        {rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0}, {rowInd: 4, collInd: 0}, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0},
+    ],
+    "king": [
+        {rowInd: -1, collInd: -1}, {rowInd: -1, collInd: 0},{rowInd: -1, collInd: 1},
+        {rowInd: 0, collInd: -1},  {rowInd: 0, collInd: 0}, {rowInd: 0, collInd: 1},
+        {rowInd: 1, collInd: -1},  {rowInd: 1, collInd: 0}, {rowInd: 1, collInd: 1},
+    ],
+    "queen": [
+        {rowInd: -1, collInd: -1}, {rowInd: -2, collInd: -2}, {rowInd: -3, collInd: -3}, {rowInd: -4, collInd: -4}, {rowInd: -5, collInd: -5},{rowInd: -6, collInd: -6},{rowInd: -7, collInd: -7},
+        {rowInd: -1, collInd: 1},  {rowInd: -2, collInd: 2},  {rowInd: -3, collInd: 3},  {rowInd: -4, collInd: 4},  {rowInd: -5, collInd: 5}, {rowInd: -6, collInd: 6}, {rowInd: -7, collInd: 7},
+        {rowInd: 1, collInd: -1},  {rowInd: 2, collInd: -2},  {rowInd: 3, collInd: -3},  {rowInd: 4, collInd: -4},  {rowInd: 5, collInd: -5}, {rowInd: 6, collInd: -6}, {rowInd: 7, collInd: -7},
+        {rowInd: 1, collInd: 1},   {rowInd: 2, collInd: 2},   {rowInd: 3, collInd: 3},   {rowInd: 4, collInd: 4},   {rowInd: 5, collInd: 5},  {rowInd: 6, collInd: 6},  {rowInd: 7, collInd: 7},
+        {rowInd: 0, collInd: -1},{rowInd: 0, collInd: -2},{rowInd: 0, collInd: -3},{rowInd: 0, collInd: -4},{rowInd: 0, collInd: -5},{rowInd: 0, collInd: -6},{rowInd: 0, collInd: -7},
+        {rowInd: 0, collInd: 1}, {rowInd: 0, collInd: 2}, {rowInd: 0, collInd: 3}, {rowInd: 0, collInd: 4}, {rowInd: 0, collInd: 5}, {rowInd: 0, collInd: 6}, {rowInd: 0, collInd: 7},
+        {rowInd: -1, collInd: 0},{rowInd: -2, collInd: 0},{rowInd: -3, collInd: 0},{rowInd: -4, collInd: 0},{rowInd: -5, collInd: 0},{rowInd: -6, collInd: 0},{rowInd: -7, collInd: 0},
+        {rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0}, {rowInd: 4, collInd: 0}, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0},
+    ],
+    "pawn" : [
+        {rowInd: 0, collInd: -1},{rowInd: 0, collInd: -2}
+    ]
+
+}
 
 const FieldReducer = (state: InitialStateFieldType = initialState, action: FieldActionsTypes): InitialStateFieldType => {
     let stateCopy: InitialStateFieldType // объявлениечасти части стейта до изменения редьюсером

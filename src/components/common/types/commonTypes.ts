@@ -5,6 +5,7 @@ import {GlobalStateType} from "../../../redux/store-redux";
 export type FigueType = { // тип фигуры
     figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn", // все возможные фигуры
     color: "white" | "black" // цвет фигуры
+    isFirstStep?: boolean
 }
 
 type CellAddressType = // возможные варианты ячеек
@@ -21,7 +22,7 @@ export type CelllType = { // тип ячейки
     isLightened: boolean, // ячейка подсвечена?
     cellFigue: FigueType | "empty", // тип фигуры - либо фигура, либо пустая ячейка
     cellColor: "white" | "black", // цвет ячейки
-    cellAddress:CellAddressType // адрес ячейки
+    cellAddress: CellAddressType // адрес ячейки
 }
 
 export type OnClickFigueType = { // фигура, по которой кликнули
@@ -31,12 +32,11 @@ export type OnClickFigueType = { // фигура, по которой кликн
     cellAddress: CellAddressType
 }
 
-export type RowType = [CelllType,CelllType,CelllType,CelllType,CelllType,CelllType,CelllType,CelllType]
+export type RowType = [CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType]
 
-export type FiedlType = [RowType,RowType,RowType,RowType,RowType,RowType,RowType,RowType]
+export type FiedlType = [RowType, RowType, RowType, RowType, RowType, RowType, RowType, RowType]
 
-export type ComThunkTp<A extends Action> = ThunkAction<
-    void,    // санка ничего не возвращает
+export type ComThunkTp<A extends Action> = ThunkAction<void,    // санка ничего не возвращает
     GlobalStateType,    // глобальный стейт из redux
     unknown,    // нет доп параметров
     A // все типы ActionCreator
@@ -48,5 +48,42 @@ export type CommonGameParamType = {
     fieldTopPadding: number,
     currentPlayer: "whitePlayer" | "blackPlayer",
     onclickFigue: OnClickFigueType
+}
+
+export type FigueLightenedStepsType = {
+    "knight": [
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }
+    ],
+    "bishop": [
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+    ],
+    "rook": [
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+    ],
+    "king": [
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+    ],
+    "queen": [
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+    ],
+    "pawn" : [
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }
+    ]
 
 }
