@@ -21,10 +21,11 @@ type FieldActionsTypes =
 
 const initialState = {
     commonGameParam: {
-        fieldWidthHeight: 70 as number,
+        fieldWidthHeight: 60 as number,
         fieldLeftPadding: 400 as number,
-        fieldTopPadding: 40 as number,
-        currentPlayer: "whitePlayer",
+        fieldTopPadding: 20 as number,
+        currentStep: "whitePlayer",
+        firstStep: "blackPlayer",
         onclickFigue: {}
     } as CommonGameParamType,
     field: [
@@ -102,8 +103,8 @@ const initialState = {
             {isLightened: false, cellFigue: {figue: "rook", color: "white"}, cellColor: "black", cellAddress: "a1"},
             {isLightened: false, cellFigue: {figue: "knight", color: "white"}, cellColor: "white", cellAddress: "b1"},
             {isLightened: false, cellFigue: {figue: "bishop", color: "white"}, cellColor: "black", cellAddress: "c1"},
-            {isLightened: false, cellFigue: {figue: "king", color: "white"}, cellColor: "white", cellAddress: "d1"},
-            {isLightened: false, cellFigue: {figue: "queen", color: "white"}, cellColor: "black", cellAddress: "e1"},
+            {isLightened: false, cellFigue: {figue: "queen", color: "white"}, cellColor: "white", cellAddress: "e1"},
+            {isLightened: false, cellFigue: {figue: "king", color: "white"}, cellColor: "black", cellAddress: "d1"},
             {isLightened: false, cellFigue: {figue: "bishop", color: "white"}, cellColor: "white", cellAddress: "f1"},
             {isLightened: false, cellFigue: {figue: "knight", color: "white"}, cellColor: "black", cellAddress: "g1"},
             {isLightened: false, cellFigue: {figue: "rook", color: "white"}, cellColor: "white", cellAddress: "h1"},

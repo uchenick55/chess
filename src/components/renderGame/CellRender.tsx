@@ -68,6 +68,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
                     colInd: colInd, // адрес колонки
                     cellAddress: cell.cellAddress // буквенный адрес ячейки
                 })) // записать в стейт текущую фигуру, по чем мы кликнули
+                console.log(cell.cellAddress)
             }}
         />
 

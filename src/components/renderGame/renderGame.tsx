@@ -7,16 +7,24 @@ import CellRender from "./CellRender";
 
 const RenderGame: React.FC = (() => {
     console.log("RenderGame")
-    const field: FiedlType = useSelector((state: GlobalStateType) => state.chess.field)
+    const field: FiedlType = useSelector((state: GlobalStateType) => state.chess.field) // поле с ячейками и фигурами
+
+    const firstStepLocal: "whitePlayer" | "blackPlayer" = useSelector((state: GlobalStateType) => state.chess.commonGameParam.firstStep) // кто первый ходит
+
+    if (firstStepLocal!=="whitePlayer") { // если первыми ходят не белые
+        field.reverse() // переворот поля и фигур на поле при выборе игры за черных
+        field.forEach((f,rowInd)=>{
+            console.log(f)
+            f.reverse()
+        })
+    }
 
     const fieldWidthHeightLocal = useSelector((state: GlobalStateType) => state.chess.commonGameParam.fieldWidthHeight)
-    return <div className={classes.div1}>
+    return <div className={classes.div1} style={{ display: "flex", alignItems: "center", justifyContent: "center",}}>
 
         <div className={classes.div2} style={{
             width: 8 * fieldWidthHeightLocal,
             height: 8 * fieldWidthHeightLocal,
-            left: fieldWidthHeightLocal,
-            top: fieldWidthHeightLocal
         }}>
 
             {field.map((f, rowInd) => { // пробегаем по каждому ряду ячеек (i)

@@ -46,7 +46,8 @@ export type CommonGameParamType = {
     fieldWidthHeight: number,
     fieldLeftPadding: number,
     fieldTopPadding: number,
-    currentPlayer: "whitePlayer" | "blackPlayer",
+    currentStep: "whitePlayer" | "blackPlayer",
+    firstStep: "whitePlayer" | "blackPlayer",
     onclickFigue: OnClickFigueType
 }
 
