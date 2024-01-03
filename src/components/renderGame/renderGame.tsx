@@ -14,7 +14,6 @@ const RenderGame: React.FC = (() => {
     if (firstStepLocal!=="whitePlayer") { // если первыми ходят не белые
         field.reverse() // переворот поля и фигур на поле при выборе игры за черных
         field.forEach((f,rowInd)=>{
-            console.log(f)
             f.reverse()
         })
     }
