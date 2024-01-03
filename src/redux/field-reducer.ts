@@ -26,8 +26,46 @@ const initialState = {
         fieldTopPadding: 20 as number,
         currentStep: "whitePlayer",
         firstStep: "blackPlayer",
-        onclickFigue: {}
-    } as CommonGameParamType,
+        onclickFigue: {},
+        figueLightenedSteps: {
+    "knight": [
+        {rowInd: -2, collInd: -1}, {rowInd: -2, collInd: 1}, {rowInd: 2, collInd: -1}, {rowInd: 2, collInd: 1},
+        {rowInd: -1, collInd: -2}, {rowInd: -1, collInd: 2}, {rowInd: 1, collInd: -2}, {rowInd: 1, collInd: 2}
+    ],
+    "bishop": [
+        {rowInd: -1, collInd: -1}, {rowInd: -2, collInd: -2}, {rowInd: -3, collInd: -3}, {rowInd: -4, collInd: -4}, {rowInd: -5, collInd: -5},{rowInd: -6, collInd: -6},{rowInd: -7, collInd: -7},
+        {rowInd: -1, collInd: 1},  {rowInd: -2, collInd: 2},  {rowInd: -3, collInd: 3},  {rowInd: -4, collInd: 4},  {rowInd: -5, collInd: 5}, {rowInd: -6, collInd: 6}, {rowInd: -7, collInd: 7},
+        {rowInd: 1, collInd: -1},  {rowInd: 2, collInd: -2},  {rowInd: 3, collInd: -3},  {rowInd: 4, collInd: -4},  {rowInd: 5, collInd: -5}, {rowInd: 6, collInd: -6}, {rowInd: 7, collInd: -7},
+        {rowInd: 1, collInd: 1},   {rowInd: 2, collInd: 2},   {rowInd: 3, collInd: 3},   {rowInd: 4, collInd: 4},   {rowInd: 5, collInd: 5},  {rowInd: 6, collInd: 6},  {rowInd: 7, collInd: 7},
+    ],
+    "rook": [
+        {rowInd: 0, collInd: -1},{rowInd: 0, collInd: -2},{rowInd: 0, collInd: -3},{rowInd: 0, collInd: -4},{rowInd: 0, collInd: -5},{rowInd: 0, collInd: -6},{rowInd: 0, collInd: -7},
+        {rowInd: 0, collInd: 1}, {rowInd: 0, collInd: 2}, {rowInd: 0, collInd: 3}, {rowInd: 0, collInd: 4}, {rowInd: 0, collInd: 5}, {rowInd: 0, collInd: 6}, {rowInd: 0, collInd: 7},
+        {rowInd: -1, collInd: 0},{rowInd: -2, collInd: 0},{rowInd: -3, collInd: 0},{rowInd: -4, collInd: 0},{rowInd: -5, collInd: 0},{rowInd: -6, collInd: 0},{rowInd: -7, collInd: 0},
+        {rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0}, {rowInd: 4, collInd: 0}, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0},
+    ],
+    "king": [
+        {rowInd: -1, collInd: -1}, {rowInd: -1, collInd: 0},{rowInd: -1, collInd: 1},
+        {rowInd: 0, collInd: -1},  {rowInd: 0, collInd: 0}, {rowInd: 0, collInd: 1},
+        {rowInd: 1, collInd: -1},  {rowInd: 1, collInd: 0}, {rowInd: 1, collInd: 1},
+    ],
+    "queen": [
+        {rowInd: -1, collInd: -1}, {rowInd: -2, collInd: -2}, {rowInd: -3, collInd: -3}, {rowInd: -4, collInd: -4}, {rowInd: -5, collInd: -5},{rowInd: -6, collInd: -6},{rowInd: -7, collInd: -7},
+        {rowInd: -1, collInd: 1},  {rowInd: -2, collInd: 2},  {rowInd: -3, collInd: 3},  {rowInd: -4, collInd: 4},  {rowInd: -5, collInd: 5}, {rowInd: -6, collInd: 6}, {rowInd: -7, collInd: 7},
+        {rowInd: 1, collInd: -1},  {rowInd: 2, collInd: -2},  {rowInd: 3, collInd: -3},  {rowInd: 4, collInd: -4},  {rowInd: 5, collInd: -5}, {rowInd: 6, collInd: -6}, {rowInd: 7, collInd: -7},
+        {rowInd: 1, collInd: 1},   {rowInd: 2, collInd: 2},   {rowInd: 3, collInd: 3},   {rowInd: 4, collInd: 4},   {rowInd: 5, collInd: 5},  {rowInd: 6, collInd: 6},  {rowInd: 7, collInd: 7},
+        {rowInd: 0, collInd: -1},{rowInd: 0, collInd: -2},{rowInd: 0, collInd: -3},{rowInd: 0, collInd: -4},{rowInd: 0, collInd: -5},{rowInd: 0, collInd: -6},{rowInd: 0, collInd: -7},
+        {rowInd: 0, collInd: 1}, {rowInd: 0, collInd: 2}, {rowInd: 0, collInd: 3}, {rowInd: 0, collInd: 4}, {rowInd: 0, collInd: 5}, {rowInd: 0, collInd: 6}, {rowInd: 0, collInd: 7},
+        {rowInd: -1, collInd: 0},{rowInd: -2, collInd: 0},{rowInd: -3, collInd: 0},{rowInd: -4, collInd: 0},{rowInd: -5, collInd: 0},{rowInd: -6, collInd: 0},{rowInd: -7, collInd: 0},
+        {rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0}, {rowInd: 4, collInd: 0}, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0},
+    ],
+    "pawn" : [
+        {rowInd: 0, collInd: -1},{rowInd: 0, collInd: -2}
+    ]
+
+}
+
+} as CommonGameParamType,
     field: [
         [
             {isLightened: false, cellFigue: {figue: "rook", color: "black"}, cellColor: "white", cellAddress: "a8"},
@@ -115,44 +153,6 @@ const initialState = {
 }
 
 type InitialStateFieldType = typeof initialState
-
-const figueLightenedSteps: FigueLightenedStepsType = {
-    "knight": [
-        {rowInd: -2, collInd: -1}, {rowInd: -2, collInd: 1}, {rowInd: 2, collInd: -1}, {rowInd: 2, collInd: 1},
-        {rowInd: -1, collInd: -2}, {rowInd: -1, collInd: 2}, {rowInd: 1, collInd: -2}, {rowInd: 1, collInd: 2}
-    ],
-    "bishop": [
-        {rowInd: -1, collInd: -1}, {rowInd: -2, collInd: -2}, {rowInd: -3, collInd: -3}, {rowInd: -4, collInd: -4}, {rowInd: -5, collInd: -5},{rowInd: -6, collInd: -6},{rowInd: -7, collInd: -7},
-        {rowInd: -1, collInd: 1},  {rowInd: -2, collInd: 2},  {rowInd: -3, collInd: 3},  {rowInd: -4, collInd: 4},  {rowInd: -5, collInd: 5}, {rowInd: -6, collInd: 6}, {rowInd: -7, collInd: 7},
-        {rowInd: 1, collInd: -1},  {rowInd: 2, collInd: -2},  {rowInd: 3, collInd: -3},  {rowInd: 4, collInd: -4},  {rowInd: 5, collInd: -5}, {rowInd: 6, collInd: -6}, {rowInd: 7, collInd: -7},
-        {rowInd: 1, collInd: 1},   {rowInd: 2, collInd: 2},   {rowInd: 3, collInd: 3},   {rowInd: 4, collInd: 4},   {rowInd: 5, collInd: 5},  {rowInd: 6, collInd: 6},  {rowInd: 7, collInd: 7},
-    ],
-    "rook": [
-        {rowInd: 0, collInd: -1},{rowInd: 0, collInd: -2},{rowInd: 0, collInd: -3},{rowInd: 0, collInd: -4},{rowInd: 0, collInd: -5},{rowInd: 0, collInd: -6},{rowInd: 0, collInd: -7},
-        {rowInd: 0, collInd: 1}, {rowInd: 0, collInd: 2}, {rowInd: 0, collInd: 3}, {rowInd: 0, collInd: 4}, {rowInd: 0, collInd: 5}, {rowInd: 0, collInd: 6}, {rowInd: 0, collInd: 7},
-        {rowInd: -1, collInd: 0},{rowInd: -2, collInd: 0},{rowInd: -3, collInd: 0},{rowInd: -4, collInd: 0},{rowInd: -5, collInd: 0},{rowInd: -6, collInd: 0},{rowInd: -7, collInd: 0},
-        {rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0}, {rowInd: 4, collInd: 0}, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0},
-    ],
-    "king": [
-        {rowInd: -1, collInd: -1}, {rowInd: -1, collInd: 0},{rowInd: -1, collInd: 1},
-        {rowInd: 0, collInd: -1},  {rowInd: 0, collInd: 0}, {rowInd: 0, collInd: 1},
-        {rowInd: 1, collInd: -1},  {rowInd: 1, collInd: 0}, {rowInd: 1, collInd: 1},
-    ],
-    "queen": [
-        {rowInd: -1, collInd: -1}, {rowInd: -2, collInd: -2}, {rowInd: -3, collInd: -3}, {rowInd: -4, collInd: -4}, {rowInd: -5, collInd: -5},{rowInd: -6, collInd: -6},{rowInd: -7, collInd: -7},
-        {rowInd: -1, collInd: 1},  {rowInd: -2, collInd: 2},  {rowInd: -3, collInd: 3},  {rowInd: -4, collInd: 4},  {rowInd: -5, collInd: 5}, {rowInd: -6, collInd: 6}, {rowInd: -7, collInd: 7},
-        {rowInd: 1, collInd: -1},  {rowInd: 2, collInd: -2},  {rowInd: 3, collInd: -3},  {rowInd: 4, collInd: -4},  {rowInd: 5, collInd: -5}, {rowInd: 6, collInd: -6}, {rowInd: 7, collInd: -7},
-        {rowInd: 1, collInd: 1},   {rowInd: 2, collInd: 2},   {rowInd: 3, collInd: 3},   {rowInd: 4, collInd: 4},   {rowInd: 5, collInd: 5},  {rowInd: 6, collInd: 6},  {rowInd: 7, collInd: 7},
-        {rowInd: 0, collInd: -1},{rowInd: 0, collInd: -2},{rowInd: 0, collInd: -3},{rowInd: 0, collInd: -4},{rowInd: 0, collInd: -5},{rowInd: 0, collInd: -6},{rowInd: 0, collInd: -7},
-        {rowInd: 0, collInd: 1}, {rowInd: 0, collInd: 2}, {rowInd: 0, collInd: 3}, {rowInd: 0, collInd: 4}, {rowInd: 0, collInd: 5}, {rowInd: 0, collInd: 6}, {rowInd: 0, collInd: 7},
-        {rowInd: -1, collInd: 0},{rowInd: -2, collInd: 0},{rowInd: -3, collInd: 0},{rowInd: -4, collInd: 0},{rowInd: -5, collInd: 0},{rowInd: -6, collInd: 0},{rowInd: -7, collInd: 0},
-        {rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0}, {rowInd: 4, collInd: 0}, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0},
-    ],
-    "pawn" : [
-        {rowInd: 0, collInd: -1},{rowInd: 0, collInd: -2}
-    ]
-
-}
 
 const FieldReducer = (state: InitialStateFieldType = initialState, action: FieldActionsTypes): InitialStateFieldType => {
     let stateCopy: InitialStateFieldType // объявлениечасти части стейта до изменения редьюсером
