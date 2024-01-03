@@ -3,15 +3,15 @@ import {
     CelllType,
     CommonGameParamType,
     ComThunkTp,
-    FiedlType,
+    FiedlType, OnClickFigueType,
     RowType
 } from "../components/common/types/commonTypes";
 
-const SET_ON_CLICK_CELL = "myApp/field-reducer/SET_ON_CLICK_CELL";
+const SET_ON_CLICK_FIGUE = "myApp/field-reducer/SET_ON_CLICK_FIGUE";
 
 export const fieldActions = {
-    setOnclickCellAC: (onclickCell: CelllType) => {
-        return { type: SET_ON_CLICK_CELL, onclickCell} as const
+    setOnclickFigueAC: (onClickFigue: OnClickFigueType) => {
+        return { type: SET_ON_CLICK_FIGUE, onClickFigue} as const
     }
 }
 
@@ -25,7 +25,7 @@ const initialState = {
         fieldLeftPadding: 400 as number,
         fieldTopPadding: 40 as number,
         currentPlayer: "whitePlayer",
-        onclickCell: {}
+        onclickFigue: {}
     } as CommonGameParamType,
     field: [
         [
@@ -118,10 +118,10 @@ type InitialStateFieldType = typeof initialState
 const FieldReducer = (state: InitialStateFieldType = initialState, action: FieldActionsTypes): InitialStateFieldType => {
     let stateCopy: InitialStateFieldType // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
-        case SET_ON_CLICK_CELL: // задать ячейку при клике в стейт
+        case SET_ON_CLICK_FIGUE: // задать ячейку при клике в стейт
             stateCopy = {
                 ...state,
-                commonGameParam: {...state.commonGameParam, onclickCell: action.onclickCell }
+                commonGameParam: {...state.commonGameParam, onclickFigue: action.onClickFigue } // записать в стейт текущую ячейку, по чем кликнули
 
             }
             return stateCopy

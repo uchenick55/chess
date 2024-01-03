@@ -47,12 +47,12 @@ const CellRender: React.FC<CellRenderType> = ({cell, indCell, i, fieldWHLocal}) 
         whiterookkey: whiteRookVal,
     }
 
-    return <div style={{ //стилизация ячееку общая
-        width: `${fieldWHLocal}px`,
-        height: `${fieldWHLocal}px`,
-        position: "absolute",
-        left: indCell * fieldWHLocal,
-        top: i * fieldWHLocal,
+    return <div style={{ //стилизация ячееки общая
+        width: `${fieldWHLocal}px`,// ширина
+        height: `${fieldWHLocal}px`, // высота
+        position: "absolute", // абсолютное позиционирование
+        left: indCell * fieldWHLocal,// смещение слева для текущей ячейки
+        top: i * fieldWHLocal,// смещение сверху для текущей ячейки
         backgroundColor: cell.cellColor === "white" ? "rgb(95,201,197)" : "rgb(34,166,170)", // и отличающийся цвет
         display: "flex", alignItems: "center", justifyContent: "center" // выравнивание всего внутри
     }}>
@@ -62,9 +62,12 @@ const CellRender: React.FC<CellRenderType> = ({cell, indCell, i, fieldWHLocal}) 
             // по этому ключу находим индекс картнки в массиве, полученном из объекта всех картинок
             // по индексу получаем сам рисунок и подставляем в поле (отрисовываем)
             onClick={()=>{
-                console.log(cell)
-                console.log(cell.cellAddress)
-                dispatch(fieldActions.setOnclickCellAC(cell)) // записать в стейт текущую ячейку, по чем мы кликнули
+                dispatch(fieldActions.setOnclickFigueAC({
+                    cellFigue: cell.cellFigue, // фигура по которой кликнули
+                    rowInd: i, // адрес ряда
+                    colInd: indCell, // адрес колонки
+                    cellAddress: cell.cellAddress // буквенный адрес ячейки
+                })) // записать в стейт текущую фигуру, по чем мы кликнули
             }}
         />
 
