@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/chess/static/css/main.ef46836d.css",
-    "main.js": "/chess/static/js/main.29b76b18.js",
+    "main.css": "/chess/static/css/main.98135b35.css",
+    "main.js": "/chess/static/js/main.708696d8.js",
     "static/media/white-knight.svg": "/chess/static/media/white-knight.612ebff6e5d3972e9320580156507b98.svg",
     "static/media/white-bishop.svg": "/chess/static/media/white-bishop.ab0b84d441d71eb74d640d2492eb4a93.svg",
     "static/media/black-knight.svg": "/chess/static/media/black-knight.b798f882c15bcf4ba7b5473e6bbd0b14.svg",
@@ -15,11 +15,11 @@
     "index.html": "/chess/index.html",
     "static/media/black-queen.svg": "/chess/static/media/black-queen.e89de35ff91bb2cd23211271aefce4af.svg",
     "static/media/black-rook.svg": "/chess/static/media/black-rook.318e52a3d667cc8f2a55e99f9e5c807d.svg",
-    "main.ef46836d.css.map": "/chess/static/css/main.ef46836d.css.map",
-    "main.29b76b18.js.map": "/chess/static/js/main.29b76b18.js.map"
+    "main.98135b35.css.map": "/chess/static/css/main.98135b35.css.map",
+    "main.708696d8.js.map": "/chess/static/js/main.708696d8.js.map"
   },
   "entrypoints": [
-    "static/css/main.ef46836d.css",
-    "static/js/main.29b76b18.js"
+    "static/css/main.98135b35.css",
+    "static/js/main.708696d8.js"
   ]
 }
