@@ -17,12 +17,7 @@ const RenderGame: React.FC = (() => {
     const fieldWidthHeightLocal = useSelector((state: GlobalStateType) => state.chess.commonGameParam.fieldWidthHeight)
 
     useEffect(() => {
-/*
-        field.reverse() // переворот поля и фигур на поле при выборе игры за черных
-        field.forEach((f, rowInd) => {
-            f.reverse()
-        })
-*/
+
     dispatch(fieldActions.severseFieldAC())
     }, [firstStepLocal])
 
