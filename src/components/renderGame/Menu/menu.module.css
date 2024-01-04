@@ -1,0 +1,19 @@
+
+.menuCommon {
+    position: absolute;
+    width: 20rem;
+    height: 20rem;
+    right: 2rem;
+    top: 5rem;
+    border-radius: 2rem;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+}
+
+.chooseWhooPlay {
+    position: absolute;
+    top: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}

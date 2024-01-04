@@ -41,13 +41,14 @@ export type ComThunkTp<A extends Action> = ThunkAction<void,    // санка н
     unknown,    // нет доп параметров
     A // все типы ActionCreator
     >
+export type PlayerType =    "whitePlayer" | "blackPlayer"
 
 export type CommonGameParamType = {
     fieldWidthHeight: number,
     fieldLeftPadding: number,
     fieldTopPadding: number,
-    currentStep: "whitePlayer" | "blackPlayer",
-    firstStep: "whitePlayer" | "blackPlayer",
+    currentStep: PlayerType,
+    firstStep: PlayerType,
     onclickFigue: OnClickFigueType,
     figueLightenedSteps: FigueLightenedStepsType
 }

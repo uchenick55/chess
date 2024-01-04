@@ -3,16 +3,24 @@ import {
     CelllType,
     CommonGameParamType,
     ComThunkTp,
-    FiedlType, FigueLightenedStepsType, OnClickFigueType,
+    FiedlType, FigueLightenedStepsType, OnClickFigueType, PlayerType,
     RowType
 } from "../components/common/types/commonTypes";
 import React from "react";
 
 const SET_ON_CLICK_FIGUE = "myApp/field-reducer/SET_ON_CLICK_FIGUE";
+const SET_FIRST_STEP = "myApp/field-reducer/SET_FIRST_STEP";
+const REVERSE_FIELD = "myApp/field-reducer/REVERSE_FIELD";
 
 export const fieldActions = {
     setOnclickFigueAC: (onClickFigue: OnClickFigueType) => {
         return { type: SET_ON_CLICK_FIGUE, onClickFigue} as const
+    },
+    setFirstStepAC: (firstStep: PlayerType) => {
+        return { type: SET_FIRST_STEP, firstStep} as const
+    },
+    severseFieldAC: () => {
+        return { type: REVERSE_FIELD} as const
     }
 }
 
@@ -22,11 +30,11 @@ type FieldActionsTypes =
 
 const initialState = {
     commonGameParam: {
-        fieldWidthHeight: 60 as number,
+        fieldWidthHeight: 55 as number,
         fieldLeftPadding: 400 as number,
         fieldTopPadding: 20 as number,
         currentStep: "whitePlayer",
-        firstStep: "blackPlayer",
+        firstStep: "whitePlayer",
         onclickFigue: {},
         figueLightenedSteps: {
             "knight": [
@@ -168,7 +176,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                     console.log(figue)
                     console.log(Object.values(stateCopy.commonGameParam.figueLightenedSteps)[indFigue]) // массив объектов с полями, со смещением
                     Object.values(stateCopy.commonGameParam.figueLightenedSteps)[indFigue].forEach((item, ind )=>{
-                       console.log(item)
+                     //  console.log(item)
 
                     })
                 }
@@ -179,7 +187,25 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             // по индексу получаем сам рисунок и подставляем в поле (отрисовываем)
 
             return stateCopy
+        case SET_FIRST_STEP: // поменять кто ходит первым (белые/черные)
+            stateCopy = {
+                ...state,
+                commonGameParam: {...state.commonGameParam, firstStep: action.firstStep}
+            }
+            return stateCopy
+        case REVERSE_FIELD: // реверс поля при смене хода черные/белые
+            const fieldReversed = structuredClone(state.field) // полная копия поля field
 
+            fieldReversed.reverse() // инвертируем все ряды
+
+            fieldReversed.forEach((f:RowType ) => { // проходим по каждому ряду, и оборачиваем его
+                f.reverse()
+            })
+            stateCopy = {
+                ...state,
+                field: fieldReversed
+            }
+            return stateCopy
         default:
             return state
     }
