@@ -1,16 +1,14 @@
 import {InferActionsTypes} from "./store-redux";
 import {
-    CelllType,
     CommonGameParamType,
     ComThunkTp,
     FiedlType, FigueLightenedStepsType, OnClickFigueType, PlayerType,
     RowType
 } from "../components/common/types/commonTypes";
-import React from "react";
 
 const SET_ON_CLICK_FIGUE = "myApp/field-reducer/SET_ON_CLICK_FIGUE";
 const SET_FIRST_STEP = "myApp/field-reducer/SET_FIRST_STEP";
-const REVERSE_FIELD = "myApp/field-reducer/REVERSE_FIELD";
+const SHOW_MENU = "myApp/field-reducer/SHOW_MENU";
 
 export const fieldActions = {
     setOnclickFigueAC: (onClickFigue: OnClickFigueType) => {
@@ -19,8 +17,8 @@ export const fieldActions = {
     setFirstStepAC: (firstStep: PlayerType) => {
         return { type: SET_FIRST_STEP, firstStep} as const
     },
-    severseFieldAC: () => {
-        return { type: REVERSE_FIELD} as const
+    showMenuAC: (showMenu: boolean) => {
+        return { type: SHOW_MENU, showMenu} as const
     }
 }
 
@@ -34,8 +32,9 @@ const initialState = {
         fieldLeftPadding: 400 as number,
         fieldTopPadding: 20 as number,
         currentStep: "whitePlayer",
-        firstStep: "whitePlayer",
+        firstStep: "unchecked",
         onclickFigue: {},
+        showMenu: true,
         figueLightenedSteps: {
             "knight": [
                 {rowInd: -2, collInd: -1}, {rowInd: -2, collInd: 1}, {rowInd: 2, collInd: -1}, {rowInd: 2, collInd: 1},
@@ -171,7 +170,6 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                 commonGameParam: {...state.commonGameParam, onclickFigue: action.onClickFigue } // записать в стейт текущую ячейку, по чем кликнули
             }
             Object.keys(stateCopy.commonGameParam.figueLightenedSteps).forEach((figue, indFigue)=>{
-              //  console.log(figue)
                 if (action.onClickFigue.cellFigue!=="empty" && figue===action.onClickFigue.cellFigue.figue) { // если название фигуры, как которую кликнули совпадает с названием фигуры в массиве проверки подсветки
                     console.log(figue)
                     console.log(Object.values(stateCopy.commonGameParam.figueLightenedSteps)[indFigue]) // массив объектов с полями, со смещением
@@ -187,25 +185,26 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             // по индексу получаем сам рисунок и подставляем в поле (отрисовываем)
 
             return stateCopy
-        case SET_FIRST_STEP: // поменять кто ходит первым (белые/черные)
-            stateCopy = {
-                ...state,
-                commonGameParam: {...state.commonGameParam, firstStep: action.firstStep}
-            }
-            return stateCopy
-        case REVERSE_FIELD: // реверс поля при смене хода черные/белые
+        case SET_FIRST_STEP: // установить, кто ходит первым (белые/черные)
             const fieldReversed = structuredClone(state.field) // полная копия поля field
-
             fieldReversed.reverse() // инвертируем все ряды
-
             fieldReversed.forEach((f:RowType ) => { // проходим по каждому ряду, и оборачиваем его
                 f.reverse()
             })
             stateCopy = {
                 ...state,
+                commonGameParam: {...state.commonGameParam, firstStep: action.firstStep},
                 field: fieldReversed
+
             }
             return stateCopy
+        case SHOW_MENU: // показать/скрыть меню
+            stateCopy = {
+                ...state,
+                commonGameParam: {...state.commonGameParam, showMenu: action.showMenu},
+            }
+            return stateCopy
+
         default:
             return state
     }

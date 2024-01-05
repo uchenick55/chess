@@ -3,11 +3,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {PlayerType} from "../../common/types/commonTypes";
 import {GlobalStateType} from "../../../redux/store-redux";
 import {fieldActions} from "../../../redux/field-reducer";
-import rook from "../../../assets/svg/black-rook.svg"
+import blackRook from "../../../assets/svg/black-rook.svg"
 import whiteRook from "../../../assets/svg/white-rook.svg"
+import checkboxNotChoosen from "../../../assets/svg/checkboxNotChoosen.svg"
+import checkboxChoosen from "../../../assets/svg/checkboxChoosen.svg"
 
 const Menu: React.FC = () => {
     const firstStep: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.firstStep) // кто ходит первым
+    const showMenu = useSelector((state: GlobalStateType) => state.chess.commonGameParam.showMenu) // нужно ли показывать меню
 
     const dispatch = useDispatch()
 
@@ -27,7 +30,7 @@ const Menu: React.FC = () => {
                 />
 
                 <div>
-                    <img src={rook} alt="" className={classes.rook}/>
+                    <img src={blackRook} alt="" className={classes.rook}/>
                     за чёрных
                 </div>
 
@@ -50,6 +53,14 @@ const Menu: React.FC = () => {
                     за белых
                 </div>
             </label>
+        </div>
+        <div className={classes.checkboxCommon} >
+            <img src={firstStep==="unchecked" ?checkboxNotChoosen :checkboxChoosen} alt=""
+                 className={firstStep==="unchecked"?classes.checkboxDisabled: classes.checkbox}
+                onClick={()=>{
+                    firstStep!=="unchecked" && dispatch(fieldActions.showMenuAC(false))
+                }}
+            />
         </div>
 
     </div>

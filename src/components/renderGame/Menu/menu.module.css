@@ -101,3 +101,26 @@
     padding-right: 0.7rem;
     transform: rotate(12deg);
 }
+
+.checkboxCommon {
+    position: absolute;
+    bottom: 2rem;
+    left: 4rem;
+    right: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.checkboxDisabled {
+    width: 4rem;
+}
+.checkbox {
+    width: 4rem;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+}
+.checkbox:hover {
+    transform: scale(1.1);
+}
+
+

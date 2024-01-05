@@ -41,7 +41,7 @@ export type ComThunkTp<A extends Action> = ThunkAction<void,    // санка н
     unknown,    // нет доп параметров
     A // все типы ActionCreator
     >
-export type PlayerType =    "whitePlayer" | "blackPlayer"
+export type PlayerType =    "whitePlayer" | "blackPlayer" | "unchecked"
 
 export type CommonGameParamType = {
     fieldWidthHeight: number,
@@ -50,6 +50,7 @@ export type CommonGameParamType = {
     currentStep: PlayerType,
     firstStep: PlayerType,
     onclickFigue: OnClickFigueType,
+    showMenu: boolean
     figueLightenedSteps: FigueLightenedStepsType
 }
 

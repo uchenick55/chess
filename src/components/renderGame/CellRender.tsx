@@ -1,5 +1,5 @@
 import React from "react";
-import {CelllType} from "../common/types/commonTypes";
+import {CelllType, PlayerType} from "../common/types/commonTypes";
 import blackBishopVal from "../../assets/svg/black-bishop.svg"
 import blackKingVal from "../../assets/svg/black-king.svg"
 import blackKnightVal from "../../assets/svg/black-knight.svg"
@@ -12,19 +12,21 @@ import whiteKnightVal from "../../assets/svg/white-knight.svg"
 import whitePawnVal from "../../assets/svg/white-pawn.svg"
 import whiteQueenVal from "../../assets/svg/white-queen.svg"
 import whiteRookVal from "../../assets/svg/white-rook.svg"
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {fieldActions} from "../../redux/field-reducer";
+import {GlobalStateType} from "../../redux/store-redux";
 
 type CellRenderType = {
     cell: CelllType,
     colInd: number
     rowInd: number,
-    fieldWHLocal: number
+    fieldWHLocal: number,
 }
 
 const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLocal}) => {
     console.log("CellRender")
     const dispatch = useDispatch()
+    const firstStep: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.firstStep) // кто первый ходит
 
     let srcLocal=""// srcLocal - составить ключ по которому ищем название ключа рисунка в объекте рисунков
     if (cell.cellFigue!=="empty") {
@@ -56,21 +58,21 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
         backgroundColor: cell.cellColor === "white" ? "rgb(95,201,197)" : "rgb(34,166,170)", // и отличающийся цвет
         display: "flex", alignItems: "center", justifyContent: "center" // выравнивание всего внутри
     }}>
-        <img alt="" style={{position: "absolute", height: `${fieldWHLocal*0.8}px`, }} // сами фигуры
-             src={ Object.values(srcObj)[Object.keys(srcObj).indexOf(srcLocal)]}
+        {firstStep !== "unchecked" && <img alt="" style={{position: "absolute", height: `${fieldWHLocal * 0.8}px`,}} // сами фигуры
+              src={Object.values(srcObj)[Object.keys(srcObj).indexOf(srcLocal)]}
             // srcLocal - составить ключ по которому ищем название ключа рисунка в массиве из объекта всех фигур
             // по этому ключу находим индекс картнки в массиве, полученном из объекта всех картинок
             // по индексу получаем сам рисунок и подставляем в поле (отрисовываем)
-            onClick={()=>{
-                dispatch(fieldActions.setOnclickFigueAC({
-                    cellFigue: cell.cellFigue, // фигура по которой кликнули
-                    rowInd: rowInd, // адрес ряда
-                    colInd: colInd, // адрес колонки
-                    cellAddress: cell.cellAddress // буквенный адрес ячейки
-                })) // записать в стейт текущую фигуру, по чем мы кликнули
-                console.log(cell.cellAddress)
-            }}
-        />
+              onClick={() => {
+                  dispatch(fieldActions.setOnclickFigueAC({
+                      cellFigue: cell.cellFigue, // фигура по которой кликнули
+                      rowInd: rowInd, // адрес ряда
+                      colInd: colInd, // адрес колонки
+                      cellAddress: cell.cellAddress // буквенный адрес ячейки
+                  })) // записать в стейт текущую фигуру, по чем мы кликнули
+                  console.log(cell.cellAddress)
+              }}
+        />}
 
     </div>
 }

@@ -10,16 +10,8 @@ import {fieldActions} from "../../redux/field-reducer";
 const RenderGame: React.FC = (() => {
     console.log("RenderGame")
     const field: FiedlType = useSelector((state: GlobalStateType) => state.chess.field) // поле с ячейками и фигурами
-
-    const firstStepLocal: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.firstStep) // кто первый ходит
-    const dispatch = useDispatch()
-
     const fieldWidthHeightLocal = useSelector((state: GlobalStateType) => state.chess.commonGameParam.fieldWidthHeight)
-
-    useEffect(() => {
-
-    dispatch(fieldActions.severseFieldAC())
-    }, [firstStepLocal])
+    const showMenu = useSelector((state: GlobalStateType) => state.chess.commonGameParam.showMenu) // нужно ли показывать меню
 
     return <div className={classes.div1} style={{display: "flex", alignItems: "center", justifyContent: "center",}}>
 
@@ -32,13 +24,14 @@ const RenderGame: React.FC = (() => {
                 return <div key={rowInd}>
                     {f.map((cell, colInd) => { // пробегаем по каждой ячейке
                         return <CellRender key={colInd} cell={cell} colInd={colInd} rowInd={rowInd}
-                                           fieldWHLocal={fieldWidthHeightLocal}/> // отрисовываем каждую ячейку
+                                           fieldWHLocal={fieldWidthHeightLocal}
+                        /> // отрисовываем каждую ячейку
                     })}
                 </div>
             })}
 
         </div>
-        <Menu/>
+        {showMenu && <Menu/>}
 
     </div>
 })
