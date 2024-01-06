@@ -164,22 +164,43 @@ type InitialStateFieldType = typeof initialState
 const FieldReducer = (state: InitialStateFieldType = initialState, action: FieldActionsTypes): InitialStateFieldType => {
     let stateCopy: InitialStateFieldType // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
-        case SET_ON_CLICK_FIGUE: // задать ячейку при клике в стейт
+        case SET_ON_CLICK_FIGUE: // записать в стейт фигуру при клике и подсветить возможные ходы
+
             stateCopy = {
                 ...state,
-                commonGameParam: {...state.commonGameParam, onclickFigue: action.onClickFigue } // записать в стейт текущую ячейку, по чем кликнули
+                commonGameParam: {...state.commonGameParam, onclickFigue: action.onClickFigue }, // записать в стейт текущую ячейку, по чем кликнули
             }
+
+            const fieldFullCopy = structuredClone(state.field) // полная копия поля field
+            const onClickRowInd = action.onClickFigue.rowInd // индекс ряда фигуры, по которой кликнули
+            const onClickCollInd = action.onClickFigue.colInd // индекс колонки фигуры, по которой кликнули
             Object.keys(stateCopy.commonGameParam.figueLightenedSteps).forEach((figue, indFigue)=>{
                 if (action.onClickFigue.cellFigue!=="empty" && figue===action.onClickFigue.cellFigue.figue) { // если название фигуры, как которую кликнули совпадает с названием фигуры в массиве проверки подсветки
                     console.log(figue)
-                    console.log(Object.values(stateCopy.commonGameParam.figueLightenedSteps)[indFigue]) // массив объектов с полями, со смещением
+                    console.log(Object.values(stateCopy.commonGameParam.figueLightenedSteps)[indFigue]) // массив объектов с полями, со смещением от фигуры, по которой кликнули
                     Object.values(stateCopy.commonGameParam.figueLightenedSteps)[indFigue].forEach((item, ind )=>{
-                     //  console.log(item)
+                        console.log(item)
 
+                        const totalRowInd = onClickRowInd + item.rowInd // итоговый индекс ряда клетки возможной подсветки
+                        const totalCollInd = onClickCollInd + item.collInd // итоговый индекс столбца клетки возможной подсветки
+
+                        if (totalRowInd > 7 || totalRowInd <0 || totalCollInd> 7 || totalCollInd <0 || fieldFullCopy[totalRowInd][totalCollInd].cellFigue !=='empty' ) {
+                            console.log("totalRowInd оr totalCollInd break", totalRowInd, totalCollInd)
+                            return
+                        }
+                        console.log("totalRowInd", totalRowInd)
+                        console.log("totalCollInd", totalCollInd)
+                        fieldFullCopy[totalRowInd][totalCollInd].isLightened=true
                     })
                 }
             })
-         //   const src={ Object.values(state.commonGameParam.figueLightenedSteps)[Object.keys(state.commonGameParam.figueLightenedSteps).indexOf("knight")]}
+
+            stateCopy = {
+                ...stateCopy,
+                field: fieldFullCopy
+            }
+
+            //   const src={ Object.values(state.commonGameParam.figueLightenedSteps)[Object.keys(state.commonGameParam.figueLightenedSteps).indexOf("knight")]}
             // srcLocal - составить ключ по которому ищем название ключа рисунка в массиве из объекта всех фигур
             // по этому ключу находим индекс картнки в массиве, полученном из объекта всех картинок
             // по индексу получаем сам рисунок и подставляем в поле (отрисовываем)
