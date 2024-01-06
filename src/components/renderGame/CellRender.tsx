@@ -38,20 +38,20 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
         blackbishopkey: blackBishopVal,
         blackkingkey: blackKingVal,
         blackknightkey: blackKnightVal,
-        blackpawnkey: blackPawnVal,
+        blackpawnblackkey: blackPawnVal,
         blackqueenkey: blackQueenVal,
         blackrookkey: blackRookVal,
         whitebishopkey: whiteBishopVal,
         whitekingkey: whiteKingVal,
         whiteknightkey: whiteKnightVal,
-        whitepawnkey: whitePawnVal,
+        whitepawnwhitekey: whitePawnVal,
         whitequeenkey: whiteQueenVal,
         whiterookkey: whiteRookVal,
     }
     const isLightenedLocal = cell.isLightened // подсвечена ли ячейка (куда может ходить фигура после клика)
 
-    const cellColorWhite = isLightenedLocal?  "rgb(105,211,237)" : "rgb(95,201,197)" // цвет всетлой ячейки
-    const cellColorBlack = isLightenedLocal? "rgb(34,166,210)": "rgb(34,166,170)"  // цвет темной ячейки
+    const cellColorWhite = isLightenedLocal?  "rgb(105,211,237)" : "rgb(95,201,197)" // цвет всетлой ячейки, в зависимости от подсветки
+    const cellColorBlack = isLightenedLocal? "rgb(34,166,210)": "rgb(34,166,170)"  // цвет темной ячейки, в зависимости от подсветки
 
     return <div style={{ //стилизация ячееки общая
         width: `${fieldWHLocal}px`,// ширина

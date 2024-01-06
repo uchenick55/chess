@@ -3,7 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 export type FigueType = { // тип фигуры
-    figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn", // все возможные фигуры
+    figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawnWhite"| "pawnBlack", // все возможные фигуры
     color: "white" | "black" // цвет фигуры
     isFirstStep?: boolean
 }
@@ -73,7 +73,7 @@ export type FigueLightenedStepsType = {
     ],
     "king": [
         { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
         { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
     ],
     "queen": [
@@ -86,7 +86,10 @@ export type FigueLightenedStepsType = {
         { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
         { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
     ],
-    "pawn" : [
+    "pawnWhite" : [
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }
+    ],
+    "pawnBlack" : [
         { rowInd: number, collInd: number }, { rowInd: number, collInd: number }
     ]
 
