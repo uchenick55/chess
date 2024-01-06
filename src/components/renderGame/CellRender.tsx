@@ -48,6 +48,10 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
         whitequeenkey: whiteQueenVal,
         whiterookkey: whiteRookVal,
     }
+    const isLightenedLocal = cell.isLightened // подсвечена ли ячейка (куда может ходить фигура после клика)
+
+    const cellColorWhite = isLightenedLocal?  "rgb(105,211,237)" : "rgb(95,201,197)" // цвет всетлой ячейки
+    const cellColorBlack = isLightenedLocal? "rgb(34,166,210)": "rgb(34,166,170)"  // цвет темной ячейки
 
     return <div style={{ //стилизация ячееки общая
         width: `${fieldWHLocal}px`,// ширина
@@ -55,8 +59,9 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
         position: "absolute", // абсолютное позиционирование
         left: colInd * fieldWHLocal,// смещение слева для текущей ячейки
         top: rowInd * fieldWHLocal,// смещение сверху для текущей ячейки
-        backgroundColor: cell.cellColor === "white" ? "rgb(95,201,197)" : "rgb(34,166,170)", // и отличающийся цвет
-        display: "flex", alignItems: "center", justifyContent: "center" // выравнивание всего внутри
+        display: "flex", alignItems: "center", justifyContent: "center", // выравнивание всего внутри
+
+        backgroundColor: cell.cellColor === "white" ? cellColorWhite : cellColorBlack, // и отличающийся цвет
     }}>
         {firstStep !== "unchecked" && <img alt="" style={{position: "absolute", height: `${fieldWHLocal * 0.8}px`,}} // сами фигуры
               src={Object.values(srcObj)[Object.keys(srcObj).indexOf(srcLocal)]}

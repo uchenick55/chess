@@ -30,8 +30,9 @@ const Menu: React.FC = () => {
                 />
 
                 <div>
-                    <img src={blackRook} alt="" className={classes.rook}/>
-                    за чёрных
+                    <img src={whiteRook} alt="" className={classes.rook}/>
+                    за белых
+
                 </div>
 
             </label>
@@ -49,8 +50,9 @@ const Menu: React.FC = () => {
                     checked={firstStep === "blackPlayer"}
                 />
                 <div>
-                    <img src={whiteRook} alt="" className={classes.rook}/>
-                    за белых
+                    <img src={blackRook} alt="" className={classes.rook}/>
+                    за чёрных
+
                 </div>
             </label>
         </div>
