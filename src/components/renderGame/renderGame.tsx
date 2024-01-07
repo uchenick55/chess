@@ -10,7 +10,7 @@ import {fieldActions} from "../../redux/field-reducer";
 const RenderGame: React.FC = (() => {
     console.log("RenderGame")
     const field: FiedlType = useSelector((state: GlobalStateType) => state.chess.field) // поле с ячейками и фигурами
-    const fieldWidthHeightLocal = useSelector((state: GlobalStateType) => state.chess.commonGameParam.fieldWidthHeight)
+    const fieldWidthHeightLocal = useSelector((state: GlobalStateType) => state.chess.commonGameParam.fieldParams.fieldWidthHeight)
     const showMenu = useSelector((state: GlobalStateType) => state.chess.commonGameParam.showMenu) // нужно ли показывать меню
 
     return <div className={classes.div1} style={{display: "flex", alignItems: "center", justifyContent: "center",}}>

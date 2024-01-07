@@ -28,14 +28,14 @@ type FieldActionsTypes =
 
 const initialState = {
     commonGameParam: {
-        fieldWidthHeight: 55 as number,
-        fieldLeftPadding: 400 as number,
-        fieldTopPadding: 20 as number,
-        currentStep: "whitePlayer",
-        player1Color: "unchecked",
-        onclickFigue: {},
-        showMenu: true,
-        figueLightenedSteps: {
+        fieldParams: {
+            fieldWidthHeight: 55 as number,
+        },
+        currentStep: "whitePlayer", // текущий ход (пока не чередуется)
+        player1Color: "unchecked",//какие фигуры будут снизу
+        onclickFigue: {},// фигура, по которой кликнули
+        showMenu: true, // флаг, показать ли меню выбора цвета фигур в начале
+        figueLightenedSteps: { // возможные комбинации подсветки в зависимости от имени фигуры
             "knight": [
                 {rowInd: -2, collInd: -1}, {rowInd: -2, collInd: 1}, {rowInd: 2, collInd: -1}, {rowInd: 2, collInd: 1},
                 {rowInd: -1, collInd: -2}, {rowInd: -1, collInd: 2}, {rowInd: 1, collInd: -2}, {rowInd: 1, collInd: 2}
