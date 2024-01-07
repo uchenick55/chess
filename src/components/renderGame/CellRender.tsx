@@ -28,13 +28,13 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
     const dispatch = useDispatch()
     const player1Color: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.player1Color) // кто первый ходит
 
-    let srcLocal=""// srcLocal - составить ключ по которому ищем название ключа рисунка в объекте рисунков
-    if (cell.cellFigue!=="empty") {
+    let srcLocal = ""// srcLocal - составить ключ по которому ищем название ключа рисунка в объекте рисунков
+    if (cell.cellFigue !== "empty") {
         const figueColor = cell.cellFigue.color
         const figueLocal = cell.cellFigue.figue
         srcLocal = `${figueColor}${figueLocal}Key`.toLowerCase()
     }
-    const srcObj={  // объект со всеми картинками фигур
+    const srcObj = {  // объект со всеми картинками фигур
         blackbishopkey: blackBishopVal,
         blackkingkey: blackKingVal,
         blackknightkey: blackKnightVal,
@@ -50,8 +50,8 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
     }
     const isLightenedLocal = cell.isLightened // подсвечена ли ячейка (куда может ходить фигура после клика)
 
-    const cellColorWhite = isLightenedLocal?  "rgb(105,211,237)" : "rgb(95,201,197)" // цвет всетлой ячейки, в зависимости от подсветки
-    const cellColorBlack = isLightenedLocal? "rgb(34,166,210)": "rgb(34,166,170)"  // цвет темной ячейки, в зависимости от подсветки
+    const cellColorWhite = isLightenedLocal ? "rgb(105,211,237)" : "rgb(95,201,197)" // цвет всетлой ячейки, в зависимости от подсветки
+    const cellColorBlack = isLightenedLocal ? "rgb(34,166,210)" : "rgb(34,166,170)"  // цвет темной ячейки, в зависимости от подсветки
 
     return <div style={{ //стилизация ячееки общая
         width: `${fieldWHLocal}px`,// ширина
@@ -63,19 +63,23 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
 
         backgroundColor: cell.cellColor === "white" ? cellColorWhite : cellColorBlack, // и отличающийся цвет
     }}>
-        {player1Color !== "unchecked" && <img alt="" style={{position: "absolute", height: `${fieldWHLocal * 0.8}px`,}} // сами фигуры
-              src={Object.values(srcObj)[Object.keys(srcObj).indexOf(srcLocal)]}
+        {player1Color !== "unchecked" &&
+        <img alt="" style={{position: "absolute", height: `${fieldWHLocal * 0.8}px`,}} // сами фигуры
+             src={Object.values(srcObj)[Object.keys(srcObj).indexOf(srcLocal)]}
+            // alt={`r:${rowInd},c:${colInd}`}
+
             // srcLocal - составить ключ по которому ищем название ключа рисунка в массиве из объекта всех фигур
             // по этому ключу находим индекс картнки в массиве, полученном из объекта всех картинок
             // по индексу получаем сам рисунок и подставляем в поле (отрисовываем)
-              onClick={() => {
-                  dispatch(fieldActions.setOnclickFigueAC({
-                      cellFigue: cell.cellFigue, // фигура по которой кликнули
-                      rowInd: rowInd, // адрес ряда
-                      colInd: colInd, // адрес колонки
-                      cellAddress: cell.cellAddress // буквенный адрес ячейки
-                  })) // записать в стейт текущую фигуру, по чем мы кликнули
-              }}
+             onClick={() => {
+                 console.log("colInd:", colInd, "rowInd:", rowInd)
+                 dispatch(fieldActions.setOnclickFigueAC({
+                     cellFigue: cell.cellFigue, // фигура по которой кликнули
+                     rowInd: rowInd, // адрес ряда
+                     colInd: colInd, // адрес колонки
+                     cellAddress: cell.cellAddress // буквенный адрес ячейки
+                 })) // записать в стейт текущую фигуру, по чем мы кликнули
+             }}
         />}
 
     </div>

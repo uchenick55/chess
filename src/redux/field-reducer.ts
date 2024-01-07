@@ -65,10 +65,12 @@ const initialState = {
                 }, {rowInd: 5, collInd: 5}, {rowInd: 6, collInd: 6}, {rowInd: 7, collInd: 7}]
             ],
             "rook": [
-                [{rowInd: 0, collInd: -1}, {rowInd: 0, collInd: -2}, {rowInd: 0, collInd: -3}, {
+                [
+                    {rowInd: 0, collInd: -1}, {rowInd: 0, collInd: -2}, {rowInd: 0, collInd: -3}, {
                     rowInd: 0,
                     collInd: -4
-                }, {rowInd: 0, collInd: -5}, {rowInd: 0, collInd: -6}, {rowInd: 0, collInd: -7}],
+                },
+                    {rowInd: 0, collInd: -5}, {rowInd: 0, collInd: -6}, {rowInd: 0, collInd: -7}],
                 [{rowInd: 0, collInd: 1}, {rowInd: 0, collInd: 2}, {rowInd: 0, collInd: 3}, {
                     rowInd: 0,
                     collInd: 4
@@ -77,10 +79,11 @@ const initialState = {
                     rowInd: -4,
                     collInd: 0
                 }, {rowInd: -5, collInd: 0}, {rowInd: -6, collInd: 0}, {rowInd: -7, collInd: 0}],
-                [{rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0}, {
-                    rowInd: 4,
-                    collInd: 0
-                }, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0},]
+                [{rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0},
+                    {
+                        rowInd: 4,
+                        collInd: 0
+                    }, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0},]
             ],
             "king": [
                 [{rowInd: -1, collInd: -1}],
@@ -339,30 +342,36 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                 ? 1// разное направление для светлых и темных фигур
                 : -1
 
-
-            //const player1ColorforPawnCoeff = state.commonGameParam.player1Color === "whitePlayer"? 1 : -1 // кто ходил первым для пешек коэфф
-
             Object.keys(stateCopy.commonGameParam.figueLightenedSteps).forEach((figue, indFigue) => { // если фигура может сюда ходить, подсвечиваем поле в полной копии field
 
-
                 if (action.onClickFigue.cellFigue !== "empty" && figue === action.onClickFigue.cellFigue.figue) { // если название фигуры, как которую кликнули совпадает с названием фигуры в массиве проверки подсветки
+
                     Object.values(stateCopy.commonGameParam.figueLightenedSteps)[indFigue].forEach((item, ind) => {// массив объектов с полями, со смещением от фигуры, по которой кликнули
-                        item.forEach((itemRay, indRay) => {
+                        let isBreakRay = false
+                        item.forEach((itemRay, indRay) => {// item это луч для каждой фигуры, а itemRay - отдельная ячейка проверки. Если есть фигура в ячеке - луч должен прерываться
 
-                            const totalRowInd = onClickRowInd + itemRay.rowInd// итоговый индекс ряда клетки возможной подсветки
-                                * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn // доп коэффициенты только для пешек (цвет фигуры по которой кликнули и цвет выбранных в начале фигур)
-                            const totalCollInd = onClickCollInd + itemRay.collInd // итоговый индекс столбца клетки возможной подсветки
+                            if (!isBreakRay) {
+                                const totalRowInd = onClickRowInd + itemRay.rowInd// итоговый индекс ряда клетки возможной подсветки
+                                    * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn // доп коэффициенты только для пешек (цвет фигуры по которой кликнули и цвет выбранных в начале фигур)
+                                const totalCollInd = onClickCollInd + itemRay.collInd // итоговый индекс столбца клетки возможной подсветки
 
-                            //if (totalRowInd > 7 || totalRowInd <0 || totalCollInd> 7 || totalCollInd <0 || fieldFullCopy[totalRowInd][totalCollInd].cellFigue !=='empty' ) { // прерывание цикла, если выходим за поле, или клетка занята фигурой
-                            if (totalRowInd > 7 || totalRowInd < 0 || totalCollInd > 7 || totalCollInd < 0) { // прерывание цикла, если выходим за поле, или клетка занята фигурой
-                                return
+                                const isOutsideTheField = totalRowInd > 7 || totalRowInd < 0 || totalCollInd > 7 || totalCollInd < 0 // ячейка за пределами поля?
+                                if (isOutsideTheField) { // прерывание цикла, если выходим за поле
+                                    isBreakRay = true
+                                    return
+                                }
+
+                                const isCellNotEmpty = fieldFullCopy[totalRowInd][totalCollInd].cellFigue !== 'empty' // ячейка не пустая (с фигурой)
+                                console.log(totalRowInd, totalCollInd)
+                                if (isCellNotEmpty) { // прерывание цикла, если клетка не пустая
+                                    isBreakRay = true
+                                    return
+                                }
+                                fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
                             }
-                            fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
 
 
                         })
-
-
 
                     })
                 }
