@@ -56,44 +56,49 @@ export type CommonGameParamType = {
 
 export type FigueLightenedStepsType = {
     "knight": [
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }]
     ],
     "bishop": [
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
     ],
     "rook": [
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }]
     ],
     "king": [
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }]
     ],
     "queen": [
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number },
-    ],
-    "pawnWhite" : [
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }
-    ],
-    "pawnBlack" : [
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }]
     ],
     "pawn" : [
-        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }
+        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }]
     ]
 
 }

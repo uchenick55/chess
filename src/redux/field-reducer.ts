@@ -12,13 +12,13 @@ const SHOW_MENU = "myApp/field-reducer/SHOW_MENU";
 
 export const fieldActions = {
     setOnclickFigueAC: (onClickFigue: OnClickFigueType) => {
-        return { type: SET_ON_CLICK_FIGUE, onClickFigue} as const
+        return {type: SET_ON_CLICK_FIGUE, onClickFigue} as const
     },
     setFirstStepAC: (player1Color: PlayerType) => {
-        return { type: SET_PLAYER1_COLOR, player1Color} as const
+        return {type: SET_PLAYER1_COLOR, player1Color} as const
     },
     showMenuAC: (showMenu: boolean) => {
-        return { type: SHOW_MENU, showMenu} as const
+        return {type: SHOW_MENU, showMenu} as const
     }
 }
 
@@ -37,48 +37,101 @@ const initialState = {
         showMenu: true, // флаг, показать ли меню выбора цвета фигур в начале
         figueLightenedSteps: { // возможные комбинации подсветки в зависимости от имени фигуры
             "knight": [
-                {rowInd: -2, collInd: -1}, {rowInd: -2, collInd: 1}, {rowInd: 2, collInd: -1}, {rowInd: 2, collInd: 1},
-                {rowInd: -1, collInd: -2}, {rowInd: -1, collInd: 2}, {rowInd: 1, collInd: -2}, {rowInd: 1, collInd: 2}
+                [{rowInd: -2, collInd: -1}],
+                [{rowInd: -2, collInd: 1}],
+                [{rowInd: 2, collInd: -1}],
+                [{rowInd: 2, collInd: 1}],
+                [{rowInd: -1, collInd: -2}],
+                [{rowInd: -1, collInd: 2}],
+                [{rowInd: 1, collInd: -2}],
+                [{rowInd: 1, collInd: 2}]
             ],
             "bishop": [
-                {rowInd: -1, collInd: -1}, {rowInd: -2, collInd: -2}, {rowInd: -3, collInd: -3}, {rowInd: -4, collInd: -4}, {rowInd: -5, collInd: -5},{rowInd: -6, collInd: -6},{rowInd: -7, collInd: -7},
-                {rowInd: -1, collInd: 1},  {rowInd: -2, collInd: 2},  {rowInd: -3, collInd: 3},  {rowInd: -4, collInd: 4},  {rowInd: -5, collInd: 5}, {rowInd: -6, collInd: 6}, {rowInd: -7, collInd: 7},
-                {rowInd: 1, collInd: -1},  {rowInd: 2, collInd: -2},  {rowInd: 3, collInd: -3},  {rowInd: 4, collInd: -4},  {rowInd: 5, collInd: -5}, {rowInd: 6, collInd: -6}, {rowInd: 7, collInd: -7},
-                {rowInd: 1, collInd: 1},   {rowInd: 2, collInd: 2},   {rowInd: 3, collInd: 3},   {rowInd: 4, collInd: 4},   {rowInd: 5, collInd: 5},  {rowInd: 6, collInd: 6},  {rowInd: 7, collInd: 7},
+                [{rowInd: -1, collInd: -1}, {rowInd: -2, collInd: -2}, {rowInd: -3, collInd: -3}, {
+                    rowInd: -4,
+                    collInd: -4
+                }, {rowInd: -5, collInd: -5}, {rowInd: -6, collInd: -6}, {rowInd: -7, collInd: -7}],
+                [{rowInd: -1, collInd: 1}, {rowInd: -2, collInd: 2}, {rowInd: -3, collInd: 3}, {
+                    rowInd: -4,
+                    collInd: 4
+                }, {rowInd: -5, collInd: 5}, {rowInd: -6, collInd: 6}, {rowInd: -7, collInd: 7}],
+                [{rowInd: 1, collInd: -1}, {rowInd: 2, collInd: -2}, {rowInd: 3, collInd: -3}, {
+                    rowInd: 4,
+                    collInd: -4
+                }, {rowInd: 5, collInd: -5}, {rowInd: 6, collInd: -6}, {rowInd: 7, collInd: -7}],
+                [{rowInd: 1, collInd: 1}, {rowInd: 2, collInd: 2}, {rowInd: 3, collInd: 3}, {
+                    rowInd: 4,
+                    collInd: 4
+                }, {rowInd: 5, collInd: 5}, {rowInd: 6, collInd: 6}, {rowInd: 7, collInd: 7}]
             ],
             "rook": [
-                {rowInd: 0, collInd: -1},{rowInd: 0, collInd: -2},{rowInd: 0, collInd: -3},{rowInd: 0, collInd: -4},{rowInd: 0, collInd: -5},{rowInd: 0, collInd: -6},{rowInd: 0, collInd: -7},
-                {rowInd: 0, collInd: 1}, {rowInd: 0, collInd: 2}, {rowInd: 0, collInd: 3}, {rowInd: 0, collInd: 4}, {rowInd: 0, collInd: 5}, {rowInd: 0, collInd: 6}, {rowInd: 0, collInd: 7},
-                {rowInd: -1, collInd: 0},{rowInd: -2, collInd: 0},{rowInd: -3, collInd: 0},{rowInd: -4, collInd: 0},{rowInd: -5, collInd: 0},{rowInd: -6, collInd: 0},{rowInd: -7, collInd: 0},
-                {rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0}, {rowInd: 4, collInd: 0}, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0},
+                [{rowInd: 0, collInd: -1}, {rowInd: 0, collInd: -2}, {rowInd: 0, collInd: -3}, {
+                    rowInd: 0,
+                    collInd: -4
+                }, {rowInd: 0, collInd: -5}, {rowInd: 0, collInd: -6}, {rowInd: 0, collInd: -7}],
+                [{rowInd: 0, collInd: 1}, {rowInd: 0, collInd: 2}, {rowInd: 0, collInd: 3}, {
+                    rowInd: 0,
+                    collInd: 4
+                }, {rowInd: 0, collInd: 5}, {rowInd: 0, collInd: 6}, {rowInd: 0, collInd: 7}],
+                [{rowInd: -1, collInd: 0}, {rowInd: -2, collInd: 0}, {rowInd: -3, collInd: 0}, {
+                    rowInd: -4,
+                    collInd: 0
+                }, {rowInd: -5, collInd: 0}, {rowInd: -6, collInd: 0}, {rowInd: -7, collInd: 0}],
+                [{rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0}, {
+                    rowInd: 4,
+                    collInd: 0
+                }, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0},]
             ],
             "king": [
-                {rowInd: -1, collInd: -1}, {rowInd: -1, collInd: 0},{rowInd: -1, collInd: 1},
-                {rowInd: 0, collInd: -1}, {rowInd: 0, collInd: 1},
-                {rowInd: 1, collInd: -1},  {rowInd: 1, collInd: 0}, {rowInd: 1, collInd: 1},
+                [{rowInd: -1, collInd: -1}],
+                [{rowInd: -1, collInd: 0}],
+                [{rowInd: -1, collInd: 1}],
+                [{rowInd: 0, collInd: -1}],
+                [{rowInd: 0, collInd: 1}],
+                [{rowInd: 1, collInd: -1}],
+                [{rowInd: 1, collInd: 0}],
+                [{rowInd: 1, collInd: 1}]
             ],
             "queen": [
-                {rowInd: -1, collInd: -1}, {rowInd: -2, collInd: -2}, {rowInd: -3, collInd: -3}, {rowInd: -4, collInd: -4}, {rowInd: -5, collInd: -5},{rowInd: -6, collInd: -6},{rowInd: -7, collInd: -7},
-                {rowInd: -1, collInd: 1},  {rowInd: -2, collInd: 2},  {rowInd: -3, collInd: 3},  {rowInd: -4, collInd: 4},  {rowInd: -5, collInd: 5}, {rowInd: -6, collInd: 6}, {rowInd: -7, collInd: 7},
-                {rowInd: 1, collInd: -1},  {rowInd: 2, collInd: -2},  {rowInd: 3, collInd: -3},  {rowInd: 4, collInd: -4},  {rowInd: 5, collInd: -5}, {rowInd: 6, collInd: -6}, {rowInd: 7, collInd: -7},
-                {rowInd: 1, collInd: 1},   {rowInd: 2, collInd: 2},   {rowInd: 3, collInd: 3},   {rowInd: 4, collInd: 4},   {rowInd: 5, collInd: 5},  {rowInd: 6, collInd: 6},  {rowInd: 7, collInd: 7},
-                {rowInd: 0, collInd: -1},{rowInd: 0, collInd: -2},{rowInd: 0, collInd: -3},{rowInd: 0, collInd: -4},{rowInd: 0, collInd: -5},{rowInd: 0, collInd: -6},{rowInd: 0, collInd: -7},
-                {rowInd: 0, collInd: 1}, {rowInd: 0, collInd: 2}, {rowInd: 0, collInd: 3}, {rowInd: 0, collInd: 4}, {rowInd: 0, collInd: 5}, {rowInd: 0, collInd: 6}, {rowInd: 0, collInd: 7},
-                {rowInd: -1, collInd: 0},{rowInd: -2, collInd: 0},{rowInd: -3, collInd: 0},{rowInd: -4, collInd: 0},{rowInd: -5, collInd: 0},{rowInd: -6, collInd: 0},{rowInd: -7, collInd: 0},
-                {rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0}, {rowInd: 4, collInd: 0}, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0},
+                [{rowInd: -1, collInd: -1}, {rowInd: -2, collInd: -2}, {rowInd: -3, collInd: -3}, {
+                    rowInd: -4,
+                    collInd: -4
+                }, {rowInd: -5, collInd: -5}, {rowInd: -6, collInd: -6}, {rowInd: -7, collInd: -7}],
+                [{rowInd: -1, collInd: 1}, {rowInd: -2, collInd: 2}, {rowInd: -3, collInd: 3}, {
+                    rowInd: -4,
+                    collInd: 4
+                }, {rowInd: -5, collInd: 5}, {rowInd: -6, collInd: 6}, {rowInd: -7, collInd: 7}],
+                [{rowInd: 1, collInd: -1}, {rowInd: 2, collInd: -2}, {rowInd: 3, collInd: -3}, {
+                    rowInd: 4,
+                    collInd: -4
+                }, {rowInd: 5, collInd: -5}, {rowInd: 6, collInd: -6}, {rowInd: 7, collInd: -7}],
+                [{rowInd: 1, collInd: 1}, {rowInd: 2, collInd: 2}, {rowInd: 3, collInd: 3}, {
+                    rowInd: 4,
+                    collInd: 4
+                }, {rowInd: 5, collInd: 5}, {rowInd: 6, collInd: 6}, {rowInd: 7, collInd: 7}],
+                [{rowInd: 0, collInd: -1}, {rowInd: 0, collInd: -2}, {rowInd: 0, collInd: -3}, {
+                    rowInd: 0,
+                    collInd: -4
+                }, {rowInd: 0, collInd: -5}, {rowInd: 0, collInd: -6}, {rowInd: 0, collInd: -7}],
+                [{rowInd: 0, collInd: 1}, {rowInd: 0, collInd: 2}, {rowInd: 0, collInd: 3}, {
+                    rowInd: 0,
+                    collInd: 4
+                }, {rowInd: 0, collInd: 5}, {rowInd: 0, collInd: 6}, {rowInd: 0, collInd: 7}],
+                [{rowInd: -1, collInd: 0}, {rowInd: -2, collInd: 0}, {rowInd: -3, collInd: 0}, {
+                    rowInd: -4,
+                    collInd: 0
+                }, {rowInd: -5, collInd: 0}, {rowInd: -6, collInd: 0}, {rowInd: -7, collInd: 0}],
+                [{rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}, {rowInd: 3, collInd: 0}, {
+                    rowInd: 4,
+                    collInd: 0
+                }, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0}],
             ],
-            "pawnWhite" : [
-                {rowInd: 1, collInd: 0},{rowInd: 2, collInd: 0}
-            ],
-            "pawnBlack" : [
-                {rowInd: -1, collInd: 0},{rowInd: -2, collInd: 0}
-            ],
-            "pawn" : [
-                {rowInd: 1, collInd: 0},{rowInd: 2, collInd: 0}
+            "pawn": [
+                [{rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}]
             ]
-}
+        }
 
-} as CommonGameParamType,
+    } as CommonGameParamType,
     field: [
         [
             {isLightened: false, cellFigue: {figue: "rook", color: "black"}, cellColor: "white", cellAddress: "a8"},
@@ -91,14 +144,54 @@ const initialState = {
             {isLightened: false, cellFigue: {figue: "rook", color: "black"}, cellColor: "black", cellAddress: "h8"},
         ] as RowType,
         [
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "a7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "b7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "c7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "d7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "e7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "f7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "g7"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "h7"},
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
+                cellColor: "black",
+                cellAddress: "a7"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
+                cellColor: "white",
+                cellAddress: "b7"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
+                cellColor: "black",
+                cellAddress: "c7"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
+                cellColor: "white",
+                cellAddress: "d7"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
+                cellColor: "black",
+                cellAddress: "e7"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
+                cellColor: "white",
+                cellAddress: "f7"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
+                cellColor: "black",
+                cellAddress: "g7"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
+                cellColor: "white",
+                cellAddress: "h7"
+            },
         ] as RowType,
         [
             {isLightened: false, cellFigue: "empty", cellColor: "white", cellAddress: "a6"},
@@ -141,14 +234,54 @@ const initialState = {
             {isLightened: false, cellFigue: "empty", cellColor: "white", cellAddress: "h3"},
         ] as RowType,
         [
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "a2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "b2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "c2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "d2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "e2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "f2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "g2"},
-            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "h2"},
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "white", isFirstStep: true},
+                cellColor: "white",
+                cellAddress: "a2"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "white", isFirstStep: true},
+                cellColor: "black",
+                cellAddress: "b2"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "white", isFirstStep: true},
+                cellColor: "white",
+                cellAddress: "c2"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "white", isFirstStep: true},
+                cellColor: "black",
+                cellAddress: "d2"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "white", isFirstStep: true},
+                cellColor: "white",
+                cellAddress: "e2"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "white", isFirstStep: true},
+                cellColor: "black",
+                cellAddress: "f2"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "white", isFirstStep: true},
+                cellColor: "white",
+                cellAddress: "g2"
+            },
+            {
+                isLightened: false,
+                cellFigue: {figue: "pawn", color: "white", isFirstStep: true},
+                cellColor: "black",
+                cellAddress: "h2"
+            },
         ] as RowType,
         [
             {isLightened: false, cellFigue: {figue: "rook", color: "white"}, cellColor: "black", cellAddress: "a1"},
@@ -175,58 +308,66 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             stateCopy = {
                 ...state,
-                commonGameParam: {...state.commonGameParam, onclickFigue: action.onClickFigue }, // записать в стейт текущую ячейку, по чем кликнули
+                commonGameParam: {...state.commonGameParam, onclickFigue: action.onClickFigue}, // записать в стейт текущую ячейку, по чем кликнули
             }
 
             fieldFullCopy = structuredClone(state.field) // полная копия поля field
 
-            fieldFullCopy.forEach((ffcItem, ffcInd )=> { // обнуление подсветки полей при каждом клике на фигуру
-                ffcItem.forEach((cellItem, cellInd)=>{
-                   cellItem.isLightened = false // обнуление подсветки полей при каждом клике на фигуру
+            fieldFullCopy.forEach((ffcItem, ffcInd) => { // обнуление подсветки полей при каждом клике на фигуру
+                ffcItem.forEach((cellItem, cellInd) => {
+                    cellItem.isLightened = false // обнуление подсветки полей при каждом клике на фигуру
                 })
             })
 
             const onClickRowInd = action.onClickFigue.rowInd // индекс ряда фигуры, по которой кликнули
             const onClickCollInd = action.onClickFigue.colInd // индекс колонки фигуры, по которой кликнули
 
-            const figueFromAction = action.onClickFigue.cellFigue!=="empty" && action.onClickFigue.cellFigue.figue
+            const figueFromAction = action.onClickFigue.cellFigue !== "empty" && action.onClickFigue.cellFigue.figue
 
             let actionFigueColorCoeffForPawn = 1 // коэффициент цвета кликнутой фигуры для всех кроме пешек равен 1
 
-                actionFigueColorCoeffForPawn = action.onClickFigue.cellFigue!=="empty" //поле содержит фигуру
-                    && figueFromAction === "pawn" // только для пешек
-                    && action.onClickFigue.cellFigue.color==="white"
-                        ? -1// разное направление для светлых и темных фигур
-                        : 1
+            actionFigueColorCoeffForPawn = action.onClickFigue.cellFigue !== "empty" //поле содержит фигуру
+            && figueFromAction === "pawn" // только для пешек
+            && action.onClickFigue.cellFigue.color === "white"
+                ? -1// разное направление для светлых и темных фигур
+                : 1
 
             let player1ColorCoeffForPawn = 1 // коэффициент цвета выбранных в начале фигур для всех кроме пешек равен 1
 
             player1ColorCoeffForPawn = state.commonGameParam.player1Color === "whitePlayer"
-                && figueFromAction === "pawn" // только для пешек
-                    ? 1// разное направление для светлых и темных фигур
-                    :-1
-
+            && figueFromAction === "pawn" // только для пешек
+                ? 1// разное направление для светлых и темных фигур
+                : -1
 
 
             //const player1ColorforPawnCoeff = state.commonGameParam.player1Color === "whitePlayer"? 1 : -1 // кто ходил первым для пешек коэфф
 
-            Object.keys(stateCopy.commonGameParam.figueLightenedSteps).forEach((figue, indFigue)=>{ // если фигура может сюда ходить, подсвечиваем поле в полной копии field
-                if (action.onClickFigue.cellFigue!=="empty" && figue===action.onClickFigue.cellFigue.figue) { // если название фигуры, как которую кликнули совпадает с названием фигуры в массиве проверки подсветки
+            Object.keys(stateCopy.commonGameParam.figueLightenedSteps).forEach((figue, indFigue) => { // если фигура может сюда ходить, подсвечиваем поле в полной копии field
 
-                    Object.values(stateCopy.commonGameParam.figueLightenedSteps)[indFigue].forEach((item, ind )=>{// массив объектов с полями, со смещением от фигуры, по которой кликнули
 
-                        const totalRowInd = onClickRowInd + item.rowInd// итоговый индекс ряда клетки возможной подсветки
-                            *actionFigueColorCoeffForPawn*player1ColorCoeffForPawn // доп коэффициенты только для пешек (цвет фигуры по которой кликнули и цвет выбранных в начале фигур)
-                        const totalCollInd = onClickCollInd + item.collInd // итоговый индекс столбца клетки возможной подсветки
+                if (action.onClickFigue.cellFigue !== "empty" && figue === action.onClickFigue.cellFigue.figue) { // если название фигуры, как которую кликнули совпадает с названием фигуры в массиве проверки подсветки
+                    Object.values(stateCopy.commonGameParam.figueLightenedSteps)[indFigue].forEach((item, ind) => {// массив объектов с полями, со смещением от фигуры, по которой кликнули
+                        item.forEach((itemRay, indRay) => {
 
-                        //if (totalRowInd > 7 || totalRowInd <0 || totalCollInd> 7 || totalCollInd <0 || fieldFullCopy[totalRowInd][totalCollInd].cellFigue !=='empty' ) { // прерывание цикла, если выходим за поле, или клетка занята фигурой
-                        if (totalRowInd > 7 || totalRowInd <0 || totalCollInd> 7 || totalCollInd <0 ) { // прерывание цикла, если выходим за поле, или клетка занята фигурой
-                            return
-                        }
-                            fieldFullCopy[totalRowInd][totalCollInd].isLightened=true // подсвечиваем пустую ячейку, куда фигура может ходить
+                            const totalRowInd = onClickRowInd + itemRay.rowInd// итоговый индекс ряда клетки возможной подсветки
+                                * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn // доп коэффициенты только для пешек (цвет фигуры по которой кликнули и цвет выбранных в начале фигур)
+                            const totalCollInd = onClickCollInd + itemRay.collInd // итоговый индекс столбца клетки возможной подсветки
+
+                            //if (totalRowInd > 7 || totalRowInd <0 || totalCollInd> 7 || totalCollInd <0 || fieldFullCopy[totalRowInd][totalCollInd].cellFigue !=='empty' ) { // прерывание цикла, если выходим за поле, или клетка занята фигурой
+                            if (totalRowInd > 7 || totalRowInd < 0 || totalCollInd > 7 || totalCollInd < 0) { // прерывание цикла, если выходим за поле, или клетка занята фигурой
+                                return
+                            }
+                            fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
+
+
+                        })
+
+
 
                     })
                 }
+
+
             })
 
             stateCopy = { // доюавляем в итоговый стейт поля с подсветкой
@@ -240,7 +381,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             const reverseFieldFn = () => {
                 fieldReversed.reverse() // инвертируем все ряды
-                fieldReversed.forEach((f:RowType ) => { // проходим по каждому ряду, и оборачиваем его
+                fieldReversed.forEach((f: RowType) => { // проходим по каждому ряду, и оборачиваем его
                     f.reverse()
                 })
             }
