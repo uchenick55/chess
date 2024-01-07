@@ -7,15 +7,15 @@ import {
 } from "../components/common/types/commonTypes";
 
 const SET_ON_CLICK_FIGUE = "myApp/field-reducer/SET_ON_CLICK_FIGUE";
-const SET_FIRST_STEP = "myApp/field-reducer/SET_FIRST_STEP";
+const SET_PLAYER1_COLOR = "myApp/field-reducer/SET_PLAYER1_COLOR";
 const SHOW_MENU = "myApp/field-reducer/SHOW_MENU";
 
 export const fieldActions = {
     setOnclickFigueAC: (onClickFigue: OnClickFigueType) => {
         return { type: SET_ON_CLICK_FIGUE, onClickFigue} as const
     },
-    setFirstStepAC: (firstStep: PlayerType) => {
-        return { type: SET_FIRST_STEP, firstStep} as const
+    setFirstStepAC: (player1Color: PlayerType) => {
+        return { type: SET_PLAYER1_COLOR, player1Color} as const
     },
     showMenuAC: (showMenu: boolean) => {
         return { type: SHOW_MENU, showMenu} as const
@@ -32,7 +32,7 @@ const initialState = {
         fieldLeftPadding: 400 as number,
         fieldTopPadding: 20 as number,
         currentStep: "whitePlayer",
-        firstStep: "unchecked",
+        player1Color: "unchecked",
         onclickFigue: {},
         showMenu: true,
         figueLightenedSteps: {
@@ -72,6 +72,9 @@ const initialState = {
             ],
             "pawnBlack" : [
                 {rowInd: -1, collInd: 0},{rowInd: -2, collInd: 0}
+            ],
+            "pawn" : [
+                {rowInd: 1, collInd: 0},{rowInd: 2, collInd: 0}
             ]
 }
 
@@ -88,14 +91,14 @@ const initialState = {
             {isLightened: false, cellFigue: {figue: "rook", color: "black"}, cellColor: "black", cellAddress: "h8"},
         ] as RowType,
         [
-            {isLightened: false, cellFigue: {figue: "pawnBlack", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "a7"},
-            {isLightened: false, cellFigue: {figue: "pawnBlack", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "b7"},
-            {isLightened: false, cellFigue: {figue: "pawnBlack", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "c7"},
-            {isLightened: false, cellFigue: {figue: "pawnBlack", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "d7"},
-            {isLightened: false, cellFigue: {figue: "pawnBlack", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "e7"},
-            {isLightened: false, cellFigue: {figue: "pawnBlack", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "f7"},
-            {isLightened: false, cellFigue: {figue: "pawnBlack", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "g7"},
-            {isLightened: false, cellFigue: {figue: "pawnBlack", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "h7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "a7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "b7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "c7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "d7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "e7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "f7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "black", cellAddress: "g7"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "black", isFirstStep: true}, cellColor: "white", cellAddress: "h7"},
         ] as RowType,
         [
             {isLightened: false, cellFigue: "empty", cellColor: "white", cellAddress: "a6"},
@@ -138,14 +141,14 @@ const initialState = {
             {isLightened: false, cellFigue: "empty", cellColor: "white", cellAddress: "h3"},
         ] as RowType,
         [
-            {isLightened: false, cellFigue: {figue: "pawnWhite", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "a2"},
-            {isLightened: false, cellFigue: {figue: "pawnWhite", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "b2"},
-            {isLightened: false, cellFigue: {figue: "pawnWhite", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "c2"},
-            {isLightened: false, cellFigue: {figue: "pawnWhite", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "d2"},
-            {isLightened: false, cellFigue: {figue: "pawnWhite", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "e2"},
-            {isLightened: false, cellFigue: {figue: "pawnWhite", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "f2"},
-            {isLightened: false, cellFigue: {figue: "pawnWhite", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "g2"},
-            {isLightened: false, cellFigue: {figue: "pawnWhite", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "h2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "a2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "b2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "c2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "d2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "e2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "f2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "white", cellAddress: "g2"},
+            {isLightened: false, cellFigue: {figue: "pawn", color: "white", isFirstStep: true}, cellColor: "black", cellAddress: "h2"},
         ] as RowType,
         [
             {isLightened: false, cellFigue: {figue: "rook", color: "white"}, cellColor: "black", cellAddress: "a1"},
@@ -188,17 +191,36 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             const figueFromAction = action.onClickFigue.cellFigue!=="empty" && action.onClickFigue.cellFigue.figue
 
+            let actionFigueColorCoeffForPawn = 1 // коэффициент цвета кликнутой фигуры для всех кроме пешек равен 1
+
+                actionFigueColorCoeffForPawn = action.onClickFigue.cellFigue!=="empty" //поле содержит фигуру
+                    && figueFromAction === "pawn" // только для пешек
+                    && action.onClickFigue.cellFigue.color==="white"
+                        ? -1// разное направление для светлых и темных фигур
+                        : 1
+
+            let player1ColorCoeffForPawn = 1 // коэффициент цвета выбранных в начале фигур для всех кроме пешек равен 1
+
+            player1ColorCoeffForPawn = state.commonGameParam.player1Color === "whitePlayer"
+                && figueFromAction === "pawn" // только для пешек
+                    ? 1// разное направление для светлых и темных фигур
+                    :-1
+
+
+
+            //const player1ColorforPawnCoeff = state.commonGameParam.player1Color === "whitePlayer"? 1 : -1 // кто ходил первым для пешек коэфф
+
             Object.keys(stateCopy.commonGameParam.figueLightenedSteps).forEach((figue, indFigue)=>{ // если фигура может сюда ходить, подсвечиваем поле в полной копии field
                 if (action.onClickFigue.cellFigue!=="empty" && figue===action.onClickFigue.cellFigue.figue) { // если название фигуры, как которую кликнули совпадает с названием фигуры в массиве проверки подсветки
 
                     Object.values(stateCopy.commonGameParam.figueLightenedSteps)[indFigue].forEach((item, ind )=>{// массив объектов с полями, со смещением от фигуры, по которой кликнули
 
-                        const totalRowInd = onClickRowInd + item.rowInd // итоговый индекс ряда клетки возможной подсветки
+                        const totalRowInd = onClickRowInd + item.rowInd// итоговый индекс ряда клетки возможной подсветки
+                            *actionFigueColorCoeffForPawn*player1ColorCoeffForPawn // доп коэффициенты только для пешек (цвет фигуры по которой кликнули и цвет выбранных в начале фигур)
                         const totalCollInd = onClickCollInd + item.collInd // итоговый индекс столбца клетки возможной подсветки
 
                         //if (totalRowInd > 7 || totalRowInd <0 || totalCollInd> 7 || totalCollInd <0 || fieldFullCopy[totalRowInd][totalCollInd].cellFigue !=='empty' ) { // прерывание цикла, если выходим за поле, или клетка занята фигурой
                         if (totalRowInd > 7 || totalRowInd <0 || totalCollInd> 7 || totalCollInd <0 ) { // прерывание цикла, если выходим за поле, или клетка занята фигурой
-                            console.log("totalRowInd оr totalCollInd break", totalRowInd, totalCollInd)
                             return
                         }
                             fieldFullCopy[totalRowInd][totalCollInd].isLightened=true // подсвечиваем пустую ячейку, куда фигура может ходить
@@ -213,7 +235,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             }
 
             return stateCopy
-        case SET_FIRST_STEP: // установить, кто ходит первым (белые/черные)
+        case SET_PLAYER1_COLOR: // установить, кто ходит первым (белые/черные)
             const fieldReversed = structuredClone(state.field) // полная копия поля field
 
             const reverseFieldFn = () => {
@@ -222,17 +244,17 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                     f.reverse()
                 })
             }
-            if (state.commonGameParam.firstStep === "unchecked") { // первый ход и выбраны не белые
-                if (action.firstStep !== "whitePlayer") {
+            if (state.commonGameParam.player1Color === "unchecked") { // первый ход и выбраны не белые
+                if (action.player1Color !== "whitePlayer") {
                     reverseFieldFn()
                 }
-            } else if (action.firstStep !== state.commonGameParam.firstStep) {
+            } else if (action.player1Color !== state.commonGameParam.player1Color) {
                 reverseFieldFn()
             }
 
             stateCopy = {
                 ...state,
-                commonGameParam: {...state.commonGameParam, firstStep: action.firstStep},
+                commonGameParam: {...state.commonGameParam, player1Color: action.player1Color},
                 field: fieldReversed
 
             }

@@ -3,7 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 export type FigueType = { // тип фигуры
-    figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawnWhite"| "pawnBlack", // все возможные фигуры
+    figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn", // все возможные фигуры
     color: "white" | "black" // цвет фигуры
     isFirstStep?: boolean
 }
@@ -48,7 +48,7 @@ export type CommonGameParamType = {
     fieldLeftPadding: number,
     fieldTopPadding: number,
     currentStep: PlayerType,
-    firstStep: PlayerType,
+    player1Color: PlayerType,
     onclickFigue: OnClickFigueType,
     showMenu: boolean
     figueLightenedSteps: FigueLightenedStepsType
@@ -90,6 +90,9 @@ export type FigueLightenedStepsType = {
         { rowInd: number, collInd: number }, { rowInd: number, collInd: number }
     ],
     "pawnBlack" : [
+        { rowInd: number, collInd: number }, { rowInd: number, collInd: number }
+    ],
+    "pawn" : [
         { rowInd: number, collInd: number }, { rowInd: number, collInd: number }
     ]
 

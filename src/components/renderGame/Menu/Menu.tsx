@@ -9,7 +9,7 @@ import checkboxNotChoosen from "../../../assets/svg/checkboxNotChoosen.svg"
 import checkboxChoosen from "../../../assets/svg/checkboxChoosen.svg"
 
 const Menu: React.FC = () => {
-    const firstStep: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.firstStep) // кто ходит первым
+    const player1Color: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.player1Color) // кто ходит первым
     const showMenu = useSelector((state: GlobalStateType) => state.chess.commonGameParam.showMenu) // нужно ли показывать меню
 
     const dispatch = useDispatch()
@@ -26,7 +26,7 @@ const Menu: React.FC = () => {
                     onChange={() => {
                         dispatch(fieldActions.setFirstStepAC("whitePlayer"))
                     }}
-                    checked={firstStep === "whitePlayer"}
+                    checked={player1Color === "whitePlayer"}
                 />
 
                 <div>
@@ -47,7 +47,7 @@ const Menu: React.FC = () => {
                     onChange={() => {
                         dispatch(fieldActions.setFirstStepAC("blackPlayer"))
                     }}
-                    checked={firstStep === "blackPlayer"}
+                    checked={player1Color === "blackPlayer"}
                 />
                 <div>
                     <img src={blackRook} alt="" className={classes.rook}/>
@@ -57,10 +57,10 @@ const Menu: React.FC = () => {
             </label>
         </div>
         <div className={classes.checkboxCommon} >
-            <img src={firstStep==="unchecked" ?checkboxNotChoosen :checkboxChoosen} alt=""
-                 className={firstStep==="unchecked"?classes.checkboxDisabled: classes.checkbox}
+            <img src={player1Color==="unchecked" ?checkboxNotChoosen :checkboxChoosen} alt=""
+                 className={player1Color==="unchecked"?classes.checkboxDisabled: classes.checkbox}
                 onClick={()=>{
-                    firstStep!=="unchecked" && dispatch(fieldActions.showMenuAC(false))
+                    player1Color!=="unchecked" && dispatch(fieldActions.showMenuAC(false))
                 }}
             />
         </div>

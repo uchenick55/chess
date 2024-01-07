@@ -26,7 +26,7 @@ type CellRenderType = {
 const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLocal}) => {
     console.log("CellRender")
     const dispatch = useDispatch()
-    const firstStep: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.firstStep) // кто первый ходит
+    const player1Color: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.player1Color) // кто первый ходит
 
     let srcLocal=""// srcLocal - составить ключ по которому ищем название ключа рисунка в объекте рисунков
     if (cell.cellFigue!=="empty") {
@@ -38,13 +38,13 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
         blackbishopkey: blackBishopVal,
         blackkingkey: blackKingVal,
         blackknightkey: blackKnightVal,
-        blackpawnblackkey: blackPawnVal,
+        blackpawnkey: blackPawnVal,
         blackqueenkey: blackQueenVal,
         blackrookkey: blackRookVal,
         whitebishopkey: whiteBishopVal,
         whitekingkey: whiteKingVal,
         whiteknightkey: whiteKnightVal,
-        whitepawnwhitekey: whitePawnVal,
+        whitepawnkey: whitePawnVal,
         whitequeenkey: whiteQueenVal,
         whiterookkey: whiteRookVal,
     }
@@ -63,7 +63,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
 
         backgroundColor: cell.cellColor === "white" ? cellColorWhite : cellColorBlack, // и отличающийся цвет
     }}>
-        {firstStep !== "unchecked" && <img alt="" style={{position: "absolute", height: `${fieldWHLocal * 0.8}px`,}} // сами фигуры
+        {player1Color !== "unchecked" && <img alt="" style={{position: "absolute", height: `${fieldWHLocal * 0.8}px`,}} // сами фигуры
               src={Object.values(srcObj)[Object.keys(srcObj).indexOf(srcLocal)]}
             // srcLocal - составить ключ по которому ищем название ключа рисунка в массиве из объекта всех фигур
             // по этому ключу находим индекс картнки в массиве, полученном из объекта всех картинок
@@ -75,7 +75,6 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
                       colInd: colInd, // адрес колонки
                       cellAddress: cell.cellAddress // буквенный адрес ячейки
                   })) // записать в стейт текущую фигуру, по чем мы кликнули
-                  console.log(cell.cellAddress)
               }}
         />}
 
