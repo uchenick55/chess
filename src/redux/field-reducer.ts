@@ -166,6 +166,7 @@ type InitialStateFieldType = typeof initialState
 
 const FieldReducer = (state: InitialStateFieldType = initialState, action: FieldActionsTypes): InitialStateFieldType => {
     let stateCopy: InitialStateFieldType // объявлениечасти части стейта до изменения редьюсером
+    let fieldFullCopy: FiedlType
     switch (action.type) {
         case SET_ON_CLICK_FIGUE: // записать в стейт фигуру при клике и подсветить возможные ходы
 
@@ -174,7 +175,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                 commonGameParam: {...state.commonGameParam, onclickFigue: action.onClickFigue }, // записать в стейт текущую ячейку, по чем кликнули
             }
 
-            const fieldFullCopy: FiedlType = structuredClone(state.field) // полная копия поля field
+            fieldFullCopy = structuredClone(state.field) // полная копия поля field
 
             fieldFullCopy.forEach((ffcItem, ffcInd )=> { // обнуление подсветки полей при каждом клике на фигуру
                 ffcItem.forEach((cellItem, cellInd)=>{
@@ -214,10 +215,21 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             return stateCopy
         case SET_FIRST_STEP: // установить, кто ходит первым (белые/черные)
             const fieldReversed = structuredClone(state.field) // полная копия поля field
-            fieldReversed.reverse() // инвертируем все ряды
-            fieldReversed.forEach((f:RowType ) => { // проходим по каждому ряду, и оборачиваем его
-                f.reverse()
-            })
+
+            const reverseFieldFn = () => {
+                fieldReversed.reverse() // инвертируем все ряды
+                fieldReversed.forEach((f:RowType ) => { // проходим по каждому ряду, и оборачиваем его
+                    f.reverse()
+                })
+            }
+            if (state.commonGameParam.firstStep === "unchecked") { // первый ход и выбраны не белые
+                if (action.firstStep !== "whitePlayer") {
+                    reverseFieldFn()
+                }
+            } else if (action.firstStep !== state.commonGameParam.firstStep) {
+                reverseFieldFn()
+            }
+
             stateCopy = {
                 ...state,
                 commonGameParam: {...state.commonGameParam, firstStep: action.firstStep},
