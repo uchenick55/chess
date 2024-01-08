@@ -29,11 +29,10 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
     const player1Color: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.player1Color) // кто первый ходит
 
     let srcLocal = ""// srcLocal - составить ключ по которому ищем название ключа рисунка в объекте рисунков
-    if (cell.cellFigue !== "empty") {
-        const figueColor = cell.cellFigue.color
-        const figueLocal = cell.cellFigue.figue
-        srcLocal = `${figueColor}${figueLocal}Key`.toLowerCase()
-    }
+    const figueColor = cell.cellFigue.color
+    const figueLocal = cell.cellFigue.figue
+    srcLocal = `${figueColor}${figueLocal}Key`.toLowerCase()
+
     const srcObj = {  // объект со всеми картинками фигур
         blackbishopkey: blackBishopVal,
         blackkingkey: blackKingVal,

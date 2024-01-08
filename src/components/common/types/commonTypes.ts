@@ -3,8 +3,8 @@ import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 export type FigueType = { // тип фигуры
-    figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn", // все возможные фигуры
-    color: "white" | "black" // цвет фигуры
+    figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn" | "empty", // все возможные фигуры
+    color: "white" | "black" | "unset"// цвет фигуры
     isFirstStep?: boolean
 }
 
@@ -21,13 +21,13 @@ type CellAddressType = // возможные варианты ячеек
 export type CelllType = { // тип ячейки
     isLightened: boolean, // ячейка подсвечена, если фигура по которой кликнули может сюда ходить
     isDarkened: boolean, // ячейка затемнена, если фигура, по которой мы клинкули, может подить данную фигуру
-    cellFigue: FigueType | "empty", // тип фигуры - либо фигура, либо пустая ячейка
+    cellFigue: FigueType, // тип фигуры
     cellColor: "white" | "black", // цвет ячейки
     cellAddress: CellAddressType // адрес ячейки
 }
 
 export type OnClickFigueType = { // фигура, по которой кликнули
-    cellFigue: FigueType | "empty", // либо сама фигура, либо пустое поле (на пустое поле не реагирует)
+    cellFigue: FigueType, // либо сама фигура, либо пустой объект фигуры
     rowInd: number, // индес ряда
     colInd: number // индекс колонки
     cellAddress: CellAddressType
