@@ -247,44 +247,236 @@ const initialState = {
             },
         ] as RowType,
         [
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "a6"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "b6"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "c6"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "d6"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "e6"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "f6"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "g6"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "h6"},
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "a6"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "knight", color: "black"},
+                cellColor: "black",
+                cellAddress: "b6"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "knight", color: "black"},
+                cellColor: "white",
+                cellAddress: "c6"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "knight", color: "black"},
+                cellColor: "black",
+                cellAddress: "d6"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "knight", color: "white"},
+                cellColor: "white",
+                cellAddress: "e6"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "knight", color: "white"},
+                cellColor: "black",
+                cellAddress: "f6"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "knight", color: "white"},
+                cellColor: "white",
+                cellAddress: "g6"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "h6"
+            },
         ] as RowType,
         [
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "a5"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "b5"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "c5"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "d5"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "e5"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "f5"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "g5"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "h5"},
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "a5"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "b5"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "c5"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "d5"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "e5"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "f5"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "g5"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "h5"
+            },
         ] as RowType,
         [
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "a4"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "b4"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "c4"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "d4"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "e4"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "f4"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "g4"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "h4"},
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "a4"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "b4"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "c4"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "d4"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "e4"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "f4"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "g4"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "h4"
+            },
         ] as RowType,
         [
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "a3"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "b3"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "c3"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "d3"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "e3"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "f3"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "black", cellAddress: "g3"},
-            {isLightened: false, isDarkened: false, cellFigue: {figue: "empty", color: "unset"}, cellColor: "white", cellAddress: "h3"},
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "a3"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "b3"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "c3"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "d3"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "e3"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "f3"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "black",
+                cellAddress: "g3"
+            },
+            {
+                isLightened: false,
+                isDarkened: false,
+                cellFigue: {figue: "empty", color: "unset"},
+                cellColor: "white",
+                cellAddress: "h3"
+            },
         ] as RowType,
         [
             {
@@ -406,7 +598,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
     let fieldFullCopy: FiedlType
     switch (action.type) {
         case SET_ON_CLICK_FIGUE: // записать в стейт фигуру при клике и подсветить возможные ходы
-
+            console.log(action.onClickFigue)
             stateCopy = {
                 ...state,
                 commonGameParam: {...state.commonGameParam, onclickFigue: action.onClickFigue}, // записать в стейт текущую ячейку, по чем кликнули
@@ -463,18 +655,60 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                                     return
                                 }
 
-                                const isCellNotEmpty = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая (с фигурой)
-                                if (isCellNotEmpty) { // прерывание цикла, если клетка не пустая
-                                    isBreakRay = true
-                                    const actionFigueColor = action.onClickFigue.cellFigue.color // цвет фигуры по которой кликнули
-                                    const isDarkenedFigueColor = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.color // цвет фигуры, до которой доходит луч боя фигуры
-                                    if (actionFigueColor!==isDarkenedFigueColor) {
-                                        fieldFullCopy[totalRowInd][totalCollInd].isDarkened = true // затемняем поле с фигурой, которую фигура что ходит, может побить
+                                if (action.onClickFigue.cellFigue.figue === "pawn") { // если кликнули по пешке
+
+                                    const isCellNotEmptyStraight1Row = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 1 поле (с фигурой)
+                                    const isCellNotEmptyStraight2Row = totalRowInd-1>=0 && fieldFullCopy[totalRowInd-1][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 2 поля (с фигурой)
+
+                                    if (!isCellNotEmptyStraight1Row) {
+                                        fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
+                                        if (!isCellNotEmptyStraight2Row) {
+                                            fieldFullCopy[totalRowInd-1][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
+                                        }
                                     }
 
-                                    return
+                                    const isCellNotEmptyLeft = totalCollInd - 1 >= 0 && fieldFullCopy[totalRowInd][totalCollInd - 1].cellFigue.figue !== 'empty' // ячейка не пустая слева (с фигурой)
+                                    const isCellNotEmptyRight = totalCollInd + 1 <= 7 && fieldFullCopy[totalRowInd][totalCollInd + 1].cellFigue.figue !== 'empty' // ячейка не пустая справа (с фигурой)
+
+                                    const actionFigueColor = action.onClickFigue.cellFigue.color // цвет фигуры по которой кликнули
+
+                                    if (isCellNotEmptyLeft || isCellNotEmptyRight) { // прерывание цикла, если клетка справа или слева не пустая
+                                        isBreakRay = true
+                                        const isDarkenedFigueColorLeft = totalCollInd - 1 >= 0 && fieldFullCopy[totalRowInd][totalCollInd - 1].cellFigue.color // цвет фигуры, которую может бить пешка слева от себя
+                                        const isDarkenedFigueColorRight = totalCollInd + 1 <= 7 && fieldFullCopy[totalRowInd][totalCollInd + 1].cellFigue.color // цвет фигуры, которую может бить пешка справа от себя
+                                        if (actionFigueColor !== isDarkenedFigueColorLeft && // цвет пешки и фигуры под боем слева отдичается
+                                            isDarkenedFigueColorLeft !== "unset" && // не бьем пустые поля
+                                            totalCollInd - 1 >= 0) { // и не выходим слева за поле
+                                            fieldFullCopy[totalRowInd][totalCollInd - 1].isDarkened = true // затемняем поле слева с фигурой, которую пешка может побить
+                                        }
+                                        if (actionFigueColor !== isDarkenedFigueColorRight && // цвет пешки и фигуры под боем справа отдичается
+                                            isDarkenedFigueColorRight !== "unset" && // не бьем пустые поля
+                                            totalCollInd + 1 <= 7) {// и не выходим справа за поле
+                                            fieldFullCopy[totalRowInd][totalCollInd + 1].isDarkened = true // затемняем поле справа с фигурой, которую пешка может побить
+                                        }
+                                        return
+                                    }
+
+
                                 }
-                                fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
+                                if (action.onClickFigue.cellFigue.figue !== "pawn") { // если кликнули не по пешке
+                                    const isCellNotEmpty = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая (с фигурой)
+
+                                    const actionFigueColor = action.onClickFigue.cellFigue.color // цвет фигуры по которой кликнули
+
+                                    if (isCellNotEmpty) { // прерывание цикла, если клетка не пустая
+                                        isBreakRay = true
+                                        const isDarkenedFigueColor = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.color // цвет фигуры, до которой доходит луч боя фигуры
+                                        if (actionFigueColor !== isDarkenedFigueColor) {
+                                            fieldFullCopy[totalRowInd][totalCollInd].isDarkened = true // затемняем поле с фигурой, которую фигура что ходит, может побить
+                                        }
+
+                                        return
+                                    }
+                                    fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
+
+                                }
+
                             }
                         })
                     })
