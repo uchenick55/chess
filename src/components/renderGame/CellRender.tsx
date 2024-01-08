@@ -50,8 +50,18 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
     }
     const isLightenedLocal = cell.isLightened // подсвечена ли ячейка (куда может ходить фигура после клика)
 
-    const cellColorWhite = isLightenedLocal ? "rgb(105,211,237)" : "rgb(95,201,197)" // цвет всетлой ячейки, в зависимости от подсветки
-    const cellColorBlack = isLightenedLocal ? "rgb(34,166,210)" : "rgb(34,166,170)"  // цвет темной ячейки, в зависимости от подсветки
+    const isDarkenedLocal = cell.isDarkened // затемненное поле с фигурой, которую можно побить выбранной фигурой
+
+    const cellColorWhite = isLightenedLocal // цвет всетлой ячейки, в зависимости от подсветки
+        ? "rgb(105,211,237)"
+        : isDarkenedLocal
+            ? "rgb(95,201,97)"
+            : "rgb(95,201,197)"
+    const cellColorBlack = isLightenedLocal // цвет темной ячейки, в зависимости от подсветки
+        ? "rgb(34,166,210)"
+        : isDarkenedLocal
+            ? "rgb(34,166,70)"
+            : "rgb(34,166,170)"
 
     return <div style={{ //стилизация ячееки общая
         width: `${fieldWHLocal}px`,// ширина
@@ -72,7 +82,6 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
             // по этому ключу находим индекс картнки в массиве, полученном из объекта всех картинок
             // по индексу получаем сам рисунок и подставляем в поле (отрисовываем)
              onClick={() => {
-                 console.log("colInd:", colInd, "rowInd:", rowInd)
                  dispatch(fieldActions.setOnclickFigueAC({
                      cellFigue: cell.cellFigue, // фигура по которой кликнули
                      rowInd: rowInd, // адрес ряда

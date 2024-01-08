@@ -19,7 +19,8 @@ type CellAddressType = // возможные варианты ячеек
     "a1" | "b1" | "c1" | "d1" | "e1" | "f1" | "g1" | "h1"
 
 export type CelllType = { // тип ячейки
-    isLightened: boolean, // ячейка подсвечена?
+    isLightened: boolean, // ячейка подсвечена, если фигура по которой кликнули может сюда ходить
+    isDarkened: boolean, // ячейка затемнена, если фигура, по которой мы клинкули, может подить данную фигуру
     cellFigue: FigueType | "empty", // тип фигуры - либо фигура, либо пустая ячейка
     cellColor: "white" | "black", // цвет ячейки
     cellAddress: CellAddressType // адрес ячейки
@@ -46,6 +47,8 @@ export type PlayerType =    "whitePlayer" | "blackPlayer" | "unchecked"
 export type CommonGameParamType = {
     fieldParams: {
         fieldWidthHeight: number,
+        numABC: ["a", "b", "c", "d", "e", "f", "g", "h"],
+        num123: ["1", "2", "3", "4", "5", "6", "7", "8"]
     },
     currentStep: PlayerType,
     player1Color: PlayerType,
