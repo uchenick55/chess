@@ -5,6 +5,7 @@ import {GlobalStateType} from "../../../redux/store-redux";
 export type FigueType = { // тип фигуры
     figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn" | "empty", // все возможные фигуры
     color: "white" | "black" | "unset"// цвет фигуры
+    uuid?: string,
     isFirstStep?: boolean
 }
 
@@ -45,6 +46,7 @@ export type ComThunkTp<A extends Action> = ThunkAction<void,    // санка н
 export type PlayerType =    "whitePlayer" | "blackPlayer" | "unchecked"
 
 export type CommonGameParamType = {
+    initialisedApp: boolean,
     fieldParams: {
         fieldWidthHeight: number,
         numABC: ["a", "b", "c", "d", "e", "f", "g", "h"],
@@ -53,7 +55,7 @@ export type CommonGameParamType = {
     currentStep: PlayerType,
     player1Color: PlayerType,
     onclickFigue: OnClickFigueType,
-    showMenu: boolean
+    showMenu: boolean,
     figueLightenedSteps: FigueLightenedStepsType
 }
 

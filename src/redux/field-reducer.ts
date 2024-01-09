@@ -9,17 +9,26 @@ import {
 const SET_ON_CLICK_FIGUE = "myApp/field-reducer/SET_ON_CLICK_FIGUE";
 const SET_PLAYER1_COLOR = "myApp/field-reducer/SET_PLAYER1_COLOR";
 const SHOW_MENU = "myApp/field-reducer/SHOW_MENU";
+const SET_INITIALISED_APP = "myApp/field-reducer/SET_INITIALISED_APP";
+const GET_UUID = "myApp/field-reducer/GET_UUID";
+
 
 export const fieldActions = {
-    setOnclickFigueAC: (onClickFigue: OnClickFigueType) => {
+    setOnclickFigueAC: (onClickFigue: OnClickFigueType) => {// экшн креатор клика по фигуре для хода
         return {type: SET_ON_CLICK_FIGUE, onClickFigue} as const
     },
-    setFirstStepAC: (player1Color: PlayerType) => {
+    setFirstStepAC: (player1Color: PlayerType) => { // экшн креатор выбора цвета фигур
         return {type: SET_PLAYER1_COLOR, player1Color} as const
     },
-    showMenuAC: (showMenu: boolean) => {
+    showMenuAC: (showMenu: boolean) => {// экшн креатор показа меню
         return {type: SHOW_MENU, showMenu} as const
-    }
+    },
+    setInitialisedApp: () => { // экшн креатор  инициализации приложения
+        return {type: SET_INITIALISED_APP} as const
+    },
+    getUuidAC: () => { // экшн креатор  получения уникального id для фигур
+        return {type: GET_UUID} as const
+    },
 }
 
 
@@ -27,6 +36,7 @@ type FieldActionsTypes =
     InferActionsTypes<typeof fieldActions>
 
 const initialState = {
+    initialisedApp: false,
     commonGameParam: {
         fieldParams: {
             fieldWidthHeight: 55 as number,
@@ -660,13 +670,13 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
                                     const isCellNotEmptyStraight1Row = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 1 поле (с фигурой)
                                     const isCellNotEmptyStraight2Row =
-                                        totalRowInd+1 * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn>=0 //проверяем непустое поле перед пешкой в зависимости от выбора цвета фигур в начале и цвета пешки, по которой клинкули
-                                        && fieldFullCopy[totalRowInd+1* actionFigueColorCoeffForPawn * player1ColorCoeffForPawn][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 2 поля (с фигурой)
+                                        totalRowInd + 1 * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn >= 0 //проверяем непустое поле перед пешкой в зависимости от выбора цвета фигур в начале и цвета пешки, по которой клинкули
+                                        && fieldFullCopy[totalRowInd + 1 * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 2 поля (с фигурой)
 
                                     if (!isCellNotEmptyStraight1Row) {
                                         fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
                                         if (!isCellNotEmptyStraight2Row && action.onClickFigue.cellFigue.isFirstStep) { // если это первый ход пешки и ячейка на 2 поля вперед пусто, то
-                                            fieldFullCopy[totalRowInd+1*actionFigueColorCoeffForPawn * player1ColorCoeffForPawn][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
+                                            fieldFullCopy[totalRowInd + 1 * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
                                         }
                                     }
 
@@ -754,6 +764,26 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                 commonGameParam: {...state.commonGameParam, showMenu: action.showMenu},
             }
             return stateCopy
+        case SET_INITIALISED_APP: // экшн инициализации приложения
+            stateCopy = {
+                ...state, // копия всего стейта
+                initialisedApp: true, // смена флага инициализации приложения на true
+            }
+            return stateCopy; // возврат копии стейта после изменения
+        case GET_UUID: // экшн получения Uuid для фигур
+            const { v4: uuidv4 } = require('uuid');
+
+            fieldFullCopy = structuredClone(state.field) // полная копия поля field
+            fieldFullCopy.forEach((rowItem, indItem) => {
+                rowItem.forEach((cellItem, cellInd) => {
+                    cellItem.cellFigue.uuid = uuidv4()
+                })
+            })
+            stateCopy = {
+                ...state, // копия всего стейта
+                field: fieldFullCopy, // смена флага инициализации приложения на true
+            }
+            return stateCopy; // возврат копии стейта после изменения
 
         default:
             return state
@@ -761,5 +791,17 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 }
 
 type ThType = ComThunkTp<FieldActionsTypes> // тип, выведенный из общего типа санок сс учетом локального типа AC
+
+export const initialisedAppThunkCreator = (): ComThunkTp<FieldActionsTypes> => {// санкреатор инициализации приложения
+    return (dispatch, getState) => { // санки  инициализации приложения
+
+        const promise1 = dispatch((fieldActions.getUuidAC())) // проверка статуса авторизации
+        Promise.all([promise1]) // если все промисы зарезолвились
+            .then(() => {
+                dispatch(fieldActions.setInitialisedApp()) // смена флага инициализации на true
+            })
+    };
+}
+
 
 export default FieldReducer
