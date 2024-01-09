@@ -15,6 +15,8 @@ import whiteRookVal from "../../assets/svg/white-rook.svg"
 import {useDispatch, useSelector} from "react-redux";
 import {fieldActions} from "../../redux/field-reducer";
 import {GlobalStateType} from "../../redux/store-redux";
+import circle from "../../assets/svg/circle.svg"
+
 
 type CellRenderType = {
     cell: CelllType,
@@ -51,15 +53,13 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
 
     const isDarkenedLocal = cell.isDarkened // затемненное поле с фигурой, которую можно побить выбранной фигурой
 
-    const cellColorWhite = isLightenedLocal // цвет всетлой ячейки, в зависимости от подсветки
-        ? "rgb(105,211,237)"
-        : isDarkenedLocal
-            ? "rgb(95,201,97)"
+    const cellColorWhite = // цвет всетлой ячейки, в зависимости от затемнения (боя фигуры врага)
+        isDarkenedLocal
+            ? "rgb(95,181,167)"
             : "rgb(95,201,197)"
-    const cellColorBlack = isLightenedLocal // цвет темной ячейки, в зависимости от подсветки
-        ? "rgb(34,166,210)"
-        : isDarkenedLocal
-            ? "rgb(34,166,70)"
+    const cellColorBlack = // цвет темной ячейки, в зависимости от затемнения (боя фигуры врага)
+        isDarkenedLocal
+            ? "rgb(34,166,150)"
             : "rgb(34,166,170)"
 
     return <div style={{ //стилизация ячееки общая
@@ -73,7 +73,11 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
         backgroundColor: cell.cellColor === "white" ? cellColorWhite : cellColorBlack, // и отличающийся цвет
     }}>
         {player1Color !== "unchecked" &&
-        <img alt="" style={{position: "absolute", height: `${fieldWHLocal * 0.8}px`,}} // сами фигуры
+        <img alt="" style={{position: "absolute", height: `${fieldWHLocal * 0.8}px`,
+            transform: isDarkenedLocal? "scale(1.05)" : "scale(1)",// увеличение фигуры под боем 50%
+            transition: "0.5s ease-in-out"
+
+        }} // сами фигуры
              src={Object.values(srcObj)[Object.keys(srcObj).indexOf(srcLocal)]}
             // alt={`r:${rowInd},c:${colInd}`}
 
@@ -89,7 +93,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
                  })) // записать в стейт текущую фигуру, по чем мы кликнули
              }}
         />}
-
+       {isLightenedLocal && <img src={circle} style={{width: "1rem", opacity: "50%"}} alt=""/>}  {/*рисуем кружок возможного хода фигуры*/}
     </div>
 }
 export default CellRender

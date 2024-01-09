@@ -101,7 +101,7 @@ export type FigueLightenedStepsType = {
         [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }]
     ],
     "pawn" : [
-        [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }]
+        [{ rowInd: number, collInd: number }]
     ]
 
 }

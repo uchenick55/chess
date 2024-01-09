@@ -132,7 +132,7 @@ const initialState = {
                 }, {rowInd: 5, collInd: 0}, {rowInd: 6, collInd: 0}, {rowInd: 7, collInd: 0}],
             ],
             "pawn": [
-                [{rowInd: 1, collInd: 0}, {rowInd: 2, collInd: 0}]
+                [{rowInd: 1, collInd: 0}]
             ]
         }
 
@@ -350,14 +350,14 @@ const initialState = {
             {
                 isLightened: false,
                 isDarkened: false,
-                cellFigue: {figue: "empty", color: "unset"},
+                cellFigue: {figue: "knight", color: "white"},
                 cellColor: "black",
                 cellAddress: "g5"
             },
             {
                 isLightened: false,
                 isDarkened: false,
-                cellFigue: {figue: "empty", color: "unset"},
+                cellFigue: {figue: "knight", color: "black"},
                 cellColor: "white",
                 cellAddress: "h5"
             },
@@ -366,14 +366,14 @@ const initialState = {
             {
                 isLightened: false,
                 isDarkened: false,
-                cellFigue: {figue: "empty", color: "unset"},
+                cellFigue: {figue: "knight", color: "white"},
                 cellColor: "white",
                 cellAddress: "a4"
             },
             {
                 isLightened: false,
                 isDarkened: false,
-                cellFigue: {figue: "empty", color: "unset"},
+                cellFigue: {figue: "knight", color: "black"},
                 cellColor: "black",
                 cellAddress: "b4"
             },
@@ -649,6 +649,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                                     * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn // доп коэффициенты только для пешек (цвет фигуры по которой кликнули и цвет выбранных в начале фигур)
                                 const totalCollInd = onClickCollInd + itemRay.collInd // итоговый индекс столбца клетки возможной подсветки
 
+
                                 const isOutsideTheField = totalRowInd > 7 || totalRowInd < 0 || totalCollInd > 7 || totalCollInd < 0 // ячейка за пределами поля?
                                 if (isOutsideTheField) { // прерывание цикла, если выходим за поле
                                     isBreakRay = true
@@ -658,12 +659,14 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                                 if (action.onClickFigue.cellFigue.figue === "pawn") { // если кликнули по пешке
 
                                     const isCellNotEmptyStraight1Row = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 1 поле (с фигурой)
-                                    const isCellNotEmptyStraight2Row = totalRowInd-1>=0 && fieldFullCopy[totalRowInd-1][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 2 поля (с фигурой)
+                                    const isCellNotEmptyStraight2Row =
+                                        totalRowInd+1 * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn>=0 //проверяем непустое поле перед пешкой в зависимости от выбора цвета фигур в начале и цвета пешки, по которой клинкули
+                                        && fieldFullCopy[totalRowInd+1* actionFigueColorCoeffForPawn * player1ColorCoeffForPawn][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 2 поля (с фигурой)
 
                                     if (!isCellNotEmptyStraight1Row) {
                                         fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
-                                        if (!isCellNotEmptyStraight2Row) {
-                                            fieldFullCopy[totalRowInd-1][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
+                                        if (!isCellNotEmptyStraight2Row && action.onClickFigue.cellFigue.isFirstStep) { // если это первый ход пешки и ячейка на 2 поля вперед пусто, то
+                                            fieldFullCopy[totalRowInd+1*actionFigueColorCoeffForPawn * player1ColorCoeffForPawn][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
                                         }
                                     }
 
