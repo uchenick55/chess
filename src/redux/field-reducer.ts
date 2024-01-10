@@ -11,7 +11,7 @@ const SET_PLAYER1_COLOR = "myApp/field-reducer/SET_PLAYER1_COLOR";
 const SHOW_MENU = "myApp/field-reducer/SHOW_MENU";
 const SET_INITIALISED_APP = "myApp/field-reducer/SET_INITIALISED_APP";
 const GET_UUID = "myApp/field-reducer/GET_UUID";
-
+const CLICK_BY_OPPOSITE_FIGIUE = "myApp/field-reducer/CLICK_BY_OPPOSITE_FIGIUE";
 
 export const fieldActions = {
     setOnclickFigueAC: (onClickFigue: OnClickFigueType) => {// экшн креатор клика по фигуре для хода
@@ -28,6 +28,9 @@ export const fieldActions = {
     },
     getUuidAC: () => { // экшн креатор  получения уникального id для фигур
         return {type: GET_UUID} as const
+    },
+    clickByOppositeFigueAC: () => { // экшн креатор  клика по вражеской фигуре
+        return {type: CLICK_BY_OPPOSITE_FIGIUE} as const
     },
 }
 
@@ -611,7 +614,14 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             console.log(action.onClickFigue)
             stateCopy = {
                 ...state,
-                commonGameParam: {...state.commonGameParam, onclickFigue: action.onClickFigue}, // записать в стейт текущую ячейку, по чем кликнули
+                commonGameParam: {
+                    ...state.commonGameParam,
+                    onclickFigue: action.onClickFigue,
+/*                    currentStep: state.commonGameParam.currentStep==="whitePlayer"
+                        ?"blackPlayer" // инвертируем, кто сейчас ходит
+                        :"whitePlayer"*/
+
+                }, // записать в стейт текущую ячейку, по чем кликнули
             }
 
             fieldFullCopy = structuredClone(state.field) // полная копия поля field
@@ -753,7 +763,11 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             stateCopy = {
                 ...state,
-                commonGameParam: {...state.commonGameParam, player1Color: action.player1Color},
+                commonGameParam: {
+                    ...state.commonGameParam,
+                    player1Color: action.player1Color,
+                    currentStep: action.player1Color
+                },
                 field: fieldReversed
 
             }
@@ -782,6 +796,11 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             stateCopy = {
                 ...state, // копия всего стейта
                 field: fieldFullCopy, // смена флага инициализации приложения на true
+            }
+            return stateCopy; // возврат копии стейта после изменения
+        case CLICK_BY_OPPOSITE_FIGIUE: // экшн клика по вражеской фигуре
+            stateCopy = {
+                ...state, // копия всего стейта
             }
             return stateCopy; // возврат копии стейта после изменения
 

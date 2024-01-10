@@ -32,6 +32,8 @@ export type OnClickFigueType = { // фигура, по которой кликн
     rowInd: number, // индес ряда
     colInd: number // индекс колонки
     cellAddress: CellAddressType
+    isLightened: boolean,
+    isDarkened: boolean
 }
 
 export type RowType = [CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType]
