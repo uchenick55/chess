@@ -1,14 +1,14 @@
 import React from "react";
 import {GlobalStateType} from "../../redux/store-redux";
 import {useSelector} from "react-redux";
-import {FiedlType} from "../common/types/commonTypes";
+import {FiedType} from "../common/types/commonTypes";
 import classes from "./renderGame.module.css"
 import CellRender from "./CellRender";
 import Menu from "./Menu/Menu";
 
 const RenderGame: React.FC = (() => {
     console.log("RenderGame")
-    const field: FiedlType = useSelector((state: GlobalStateType) => state.chess.field) // поле с ячейками и фигурами
+    const field: FiedType = useSelector((state: GlobalStateType) => state.chess.field) // поле с ячейками и фигурами
     const fieldWidthHeightLocal = useSelector((state: GlobalStateType) => state.chess.commonGameParam.fieldParams.fieldWidthHeight)
     const showMenu = useSelector((state: GlobalStateType) => state.chess.commonGameParam.showMenu) // нужно ли показывать меню
 

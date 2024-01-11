@@ -120,6 +120,10 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
                      if (isLightenedLocal) {//и в ней есть кружок (засветление - можно сюда походить)
                          console.log("перемещаем сюда фигуру из кликнутой ячейки, и зачищаем в стейте onclickFigue, очищаем засветы и затемнения, передаем ход")
                      }
+                     if (!isLightenedLocal) {//просто пустая клетка
+                         console.log("очищаем засветы и затемнения")
+                         dispatch(fieldActions.clickByEmptyCellAC())
+                     }
                  }
 
              }}

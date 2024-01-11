@@ -2,9 +2,10 @@ import {InferActionsTypes} from "./store-redux";
 import {
     CommonGameParamType,
     ComThunkTp,
-    FiedlType, OnClickFigueType, PlayerType,
+    FiedType, OnClickFigueType, PlayerType,
     RowType
 } from "../components/common/types/commonTypes";
+import {clearLightenedDarkened} from "../assets/functions/clearLightenedDarkened";
 
 const SET_ON_CLICK_FIGUE = "myApp/field-reducer/SET_ON_CLICK_FIGUE";
 const SET_PLAYER1_COLOR = "myApp/field-reducer/SET_PLAYER1_COLOR";
@@ -12,6 +13,7 @@ const SHOW_MENU = "myApp/field-reducer/SHOW_MENU";
 const SET_INITIALISED_APP = "myApp/field-reducer/SET_INITIALISED_APP";
 const GET_UUID = "myApp/field-reducer/GET_UUID";
 const CLICK_BY_OPPOSITE_FIGIUE = "myApp/field-reducer/CLICK_BY_OPPOSITE_FIGIUE";
+const CLICK_BY_EMPTY_CELL = "myApp/field-reducer/CLICK_BY_EMPTY_CELL";
 
 export const fieldActions = {
     setOnclickFigueAC: (onClickFigue: OnClickFigueType) => {// экшн креатор клика по фигуре для хода
@@ -31,6 +33,9 @@ export const fieldActions = {
     },
     clickByOppositeFigueAC: () => { // экшн креатор  клика по вражеской фигуре
         return {type: CLICK_BY_OPPOSITE_FIGIUE} as const
+    },
+    clickByEmptyCellAC: () => { // экшн креатор  клика по пустой ячейке
+        return {type: CLICK_BY_EMPTY_CELL} as const
     },
 }
 
@@ -600,15 +605,15 @@ const initialState = {
             },
         ] as RowType,
 
-    ] as FiedlType,
+    ] as FiedType,
 
 }
 
-type InitialStateFieldType = typeof initialState
+export type InitialStateFieldType = typeof initialState
 
 const FieldReducer = (state: InitialStateFieldType = initialState, action: FieldActionsTypes): InitialStateFieldType => {
     let stateCopy: InitialStateFieldType // объявлениечасти части стейта до изменения редьюсером
-    let fieldFullCopy: FiedlType
+    let fieldFullCopy: FiedType
     switch (action.type) {
         case SET_ON_CLICK_FIGUE: // записать в стейт фигуру при клике и подсветить возможные ходы
             console.log(action.onClickFigue)
@@ -624,14 +629,8 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                 }, // записать в стейт текущую ячейку, по чем кликнули
             }
 
-            fieldFullCopy = structuredClone(state.field) // полная копия поля field
 
-            fieldFullCopy.forEach((ffcItem, ffcInd) => { // обнуление подсветки полей при каждом клике на фигуру
-                ffcItem.forEach((cellItem, cellInd) => {
-                    cellItem.isLightened = false // обнуление подсветки полей при каждом клике на фигуру
-                    cellItem.isDarkened = false // обнуление подсветки полей при каждом клике на фигуру
-                })
-            })
+            fieldFullCopy = clearLightenedDarkened(state.field) // очищаем затемнения и засветы (кружки)
 
             const onClickRowInd = action.onClickFigue.rowInd // индекс ряда фигуры, по которой кликнули
             const onClickCollInd = action.onClickFigue.colInd // индекс колонки фигуры, по которой кликнули
@@ -801,6 +800,15 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
         case CLICK_BY_OPPOSITE_FIGIUE: // экшн клика по вражеской фигуре
             stateCopy = {
                 ...state, // копия всего стейта
+            }
+            return stateCopy; // возврат копии стейта после изменения
+        case CLICK_BY_EMPTY_CELL: // экшн клика по пустой ячейке
+
+            fieldFullCopy = clearLightenedDarkened(state.field) // полная копия поля field с зачисткой засветок и затемнений
+
+            stateCopy = {
+                ...state, // копия всего стейта
+                field: fieldFullCopy
             }
             return stateCopy; // возврат копии стейта после изменения
 

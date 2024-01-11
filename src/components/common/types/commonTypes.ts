@@ -38,7 +38,7 @@ export type OnClickFigueType = { // фигура, по которой кликн
 
 export type RowType = [CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType]
 
-export type FiedlType = [RowType, RowType, RowType, RowType, RowType, RowType, RowType, RowType]
+export type FiedType = [RowType, RowType, RowType, RowType, RowType, RowType, RowType, RowType]
 
 export type ComThunkTp<A extends Action> = ThunkAction<void,    // санка ничего не возвращает
     GlobalStateType,    // глобальный стейт из redux
