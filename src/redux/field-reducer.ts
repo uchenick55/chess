@@ -1,5 +1,6 @@
 import {InferActionsTypes} from "./store-redux";
 import {
+    CelllType,
     CommonGameParamType,
     ComThunkTp,
     FiedType, OnClickFigueType, PlayerType,
@@ -14,6 +15,7 @@ const SET_INITIALISED_APP = "myApp/field-reducer/SET_INITIALISED_APP";
 const GET_UUID = "myApp/field-reducer/GET_UUID";
 const CLICK_BY_OPPOSITE_FIGIUE = "myApp/field-reducer/CLICK_BY_OPPOSITE_FIGIUE";
 const CLICK_BY_EMPTY_CELL = "myApp/field-reducer/CLICK_BY_EMPTY_CELL";
+const SET_ON_CLICK_CELL = "myApp/field-reducer/SET_ON_CLICK_CELL";
 
 export const fieldActions = {
     setOnclickFigueAC: (onClickFigue: OnClickFigueType) => {// экшн креатор клика по фигуре для хода
@@ -31,11 +33,14 @@ export const fieldActions = {
     getUuidAC: () => { // экшн креатор  получения уникального id для фигур
         return {type: GET_UUID} as const
     },
-    clickByOppositeFigueAC: (uuid: string) => { // экшн креатор  клика по вражеской фигуре
-        return {type: CLICK_BY_OPPOSITE_FIGIUE, uuid} as const
+    clickByOppositeFigueAC: (cell: CelllType) => { // экшн креатор  клика по вражеской фигуре
+        return {type: CLICK_BY_OPPOSITE_FIGIUE, cell} as const
     },
     clickByEmptyCellAC: () => { // экшн креатор  клика по пустой ячейке
         return {type: CLICK_BY_EMPTY_CELL} as const
+    },
+    setOnClickCellAC: (cell: CelllType) => { // экшн креатор записи в стейт ячейки с фигурой, куда кликнули
+        return {type: SET_ON_CLICK_CELL, cell} as const
     },
 }
 
@@ -54,6 +59,7 @@ const initialState = {
         currentStep: "whitePlayer", // текущий ход (пока не чередуется)
         player1Color: "unchecked",//какие фигуры будут снизу
         onclickFigue: {},// фигура, по которой кликнули
+        onClickCell: {}, // ячейка с фигурой текущего хода
         showMenu: true, // флаг, показать ли меню выбора цвета фигур в начале
         figueLightenedSteps: { // возможные комбинации подсветки в зависимости от имени фигуры
             "knight": [
@@ -787,9 +793,11 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             const { v4: uuidv4 } = require('uuid');
 
             fieldFullCopy = structuredClone(state.field) // полная копия поля field
-            fieldFullCopy.forEach((rowItem, indItem) => {
-                rowItem.forEach((cellItem, cellInd) => {
+            fieldFullCopy.forEach((rowItem, rowInd) => {
+                rowItem.forEach((cellItem, colInd) => {
                     cellItem.cellFigue.uuid = uuidv4()
+                    cellItem.rowInd = rowInd // заполнили индекс ячейки по горизонтали
+                    cellItem.colInd = colInd// заполнили индекс ячейки по вертикали
                 })
             })
             stateCopy = {
@@ -801,9 +809,10 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             const stateLocal:InitialStateFieldType = structuredClone(state)
 
+
             stateLocal.field.forEach((rowItem)=>{
                 return rowItem.forEach(cellItem=>{
-                    if (cellItem.cellFigue.uuid === action.uuid) {
+                    if (cellItem.cellFigue.uuid === action.cell.cellFigue.uuid) {
                         //console.log(action.uuid)
                       return cellItem.cellFigue = structuredClone(state.commonGameParam.onclickFigue.cellFigue)
 
@@ -824,6 +833,13 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             stateCopy = {
                 ...state, // копия всего стейта
                 field: fieldFullCopy
+            }
+            return stateCopy; // возврат копии стейта после изменения
+        case SET_ON_CLICK_CELL: // экшн клика записи в стейт ячейки, куда кликнули
+
+            stateCopy = {
+                ...state, // копия всего стейта
+                commonGameParam: {...state.commonGameParam, onClickCell: action.cell}
             }
             return stateCopy; // возврат копии стейта после изменения
 

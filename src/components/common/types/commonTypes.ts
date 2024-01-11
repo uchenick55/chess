@@ -24,7 +24,9 @@ export type CelllType = { // тип ячейки
     isDarkened: boolean, // ячейка затемнена, если фигура, по которой мы клинкули, может подить данную фигуру
     cellFigue: FigueType, // тип фигуры
     cellColor: "white" | "black", // цвет ячейки
-    cellAddress: CellAddressType // адрес ячейки
+    cellAddress: CellAddressType, // адрес ячейки
+    rowInd: number,
+    colInd: number
 }
 
 export type OnClickFigueType = { // фигура, по которой кликнули
@@ -57,6 +59,7 @@ export type CommonGameParamType = {
     currentStep: PlayerType,
     player1Color: PlayerType,
     onclickFigue: OnClickFigueType,
+    onClickCell: CelllType,
     showMenu: boolean,
     figueLightenedSteps: FigueLightenedStepsType
 }
