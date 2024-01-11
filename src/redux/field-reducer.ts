@@ -58,7 +58,7 @@ const initialState = {
         },
         currentStep: "whitePlayer", // текущий ход (пока не чередуется)
         player1Color: "unchecked",//какие фигуры будут снизу
-        onclickFigue: {},// фигура, по которой кликнули
+        //  onclickFigue: {},// фигура, по которой кликнули
         onClickCell: {}, // ячейка с фигурой текущего хода
         showMenu: true, // флаг, показать ли меню выбора цвета фигур в начале
         figueLightenedSteps: { // возможные комбинации подсветки в зависимости от имени фигуры
@@ -619,136 +619,10 @@ export type InitialStateFieldType = typeof initialState
 
 const FieldReducer = (state: InitialStateFieldType = initialState, action: FieldActionsTypes): InitialStateFieldType => {
     let stateCopy: InitialStateFieldType // объявлениечасти части стейта до изменения редьюсером
+    let stateLocal: InitialStateFieldType
     let fieldFullCopy: FiedType
     switch (action.type) {
-        case SET_ON_CLICK_FIGUE: // записать в стейт фигуру при клике и подсветить возможные ходы
-            console.log(action.onClickFigue)
-            stateCopy = {
-                ...state,
-                commonGameParam: {
-                    ...state.commonGameParam,
-                    onclickFigue: action.onClickFigue,
-/*                    currentStep: state.commonGameParam.currentStep==="whitePlayer"
-                        ?"blackPlayer" // инвертируем, кто сейчас ходит
-                        :"whitePlayer"*/
 
-                }, // записать в стейт текущую ячейку, по чем кликнули
-            }
-
-
-            fieldFullCopy = clearLightenedDarkened(state.field) // очищаем затемнения и засветы (кружки)
-
-            const onClickRowInd = action.onClickFigue.rowInd // индекс ряда фигуры, по которой кликнули
-            const onClickCollInd = action.onClickFigue.colInd // индекс колонки фигуры, по которой кликнули
-
-            const figueFromAction = action.onClickFigue.cellFigue.figue // получаем фигуру из экшена
-
-            let actionFigueColorCoeffForPawn = 1 // коэффициент цвета кликнутой фигуры для всех кроме пешек равен 1
-
-            actionFigueColorCoeffForPawn = action.onClickFigue.cellFigue.figue !== "empty" //если поле содержит фигуру
-            && figueFromAction === "pawn" // только для пешек, по которым кликнули
-            && action.onClickFigue.cellFigue.color === "white"
-                ? -1// разное направление для светлых и темных пешек, по которым кликнули
-                : 1
-
-            let player1ColorCoeffForPawn = 1 // коэффициент цвета выбранных в начале фигур для всех кроме пешек равен 1
-
-            player1ColorCoeffForPawn = state.commonGameParam.player1Color === "whitePlayer" // если выбраны белые фигуры
-            && figueFromAction === "pawn" // только для пешек
-                ? 1// разное направление для светлых и темных пешек в зависимости от выбора в начале игры
-                : -1
-
-            Object.keys(stateCopy.commonGameParam.figueLightenedSteps).forEach((figue, indFigue) => { // если фигура может сюда ходить, подсвечиваем поле в полной копии field
-
-                if (figue === action.onClickFigue.cellFigue.figue) { // если название фигуры, на которую кликнули совпадает с названием фигуры в массиве проверки подсветки
-
-                    Object.values(stateCopy.commonGameParam.figueLightenedSteps)[indFigue].forEach((item, ind) => {// массив объектов с полями, со смещением от фигуры, по которой кликнули
-
-                        let isBreakRay = false // флаг прерывания луча проверки подсветки полей, если встретилась фигура, или вышли за пределы поля
-
-                        item.forEach((itemRay, indRay) => {// item это луч для каждой фигуры, а itemRay - отдельная ячейка проверки. Если есть фигура в ячеке - луч должен прерываться
-
-                            if (!isBreakRay) { // если прерывания луча еще не было
-
-                                const totalRowInd = onClickRowInd + itemRay.rowInd// итоговый индекс ряда клетки возможной подсветки
-                                    * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn // доп коэффициенты только для пешек (цвет фигуры по которой кликнули и цвет выбранных в начале фигур)
-                                const totalCollInd = onClickCollInd + itemRay.collInd // итоговый индекс столбца клетки возможной подсветки
-
-
-                                const isOutsideTheField = totalRowInd > 7 || totalRowInd < 0 || totalCollInd > 7 || totalCollInd < 0 // ячейка за пределами поля?
-                                if (isOutsideTheField) { // прерывание цикла, если выходим за поле
-                                    isBreakRay = true
-                                    return
-                                }
-
-                                if (action.onClickFigue.cellFigue.figue === "pawn") { // если кликнули по пешке
-
-                                    const isCellNotEmptyStraight1Row = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 1 поле (с фигурой)
-                                    const isCellNotEmptyStraight2Row =
-                                        totalRowInd + 1 * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn >= 0 //проверяем непустое поле перед пешкой в зависимости от выбора цвета фигур в начале и цвета пешки, по которой клинкули
-                                        && fieldFullCopy[totalRowInd + 1 * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 2 поля (с фигурой)
-
-                                    if (!isCellNotEmptyStraight1Row) {
-                                        fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
-                                        if (!isCellNotEmptyStraight2Row && action.onClickFigue.cellFigue.isFirstStep) { // если это первый ход пешки и ячейка на 2 поля вперед пусто, то
-                                            fieldFullCopy[totalRowInd + 1 * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
-                                        }
-                                    }
-
-                                    const isCellNotEmptyLeft = totalCollInd - 1 >= 0 && fieldFullCopy[totalRowInd][totalCollInd - 1].cellFigue.figue !== 'empty' // ячейка не пустая слева (с фигурой)
-                                    const isCellNotEmptyRight = totalCollInd + 1 <= 7 && fieldFullCopy[totalRowInd][totalCollInd + 1].cellFigue.figue !== 'empty' // ячейка не пустая справа (с фигурой)
-
-                                    const actionFigueColor = action.onClickFigue.cellFigue.color // цвет фигуры по которой кликнули
-
-                                    if (isCellNotEmptyLeft || isCellNotEmptyRight) { // прерывание цикла, если клетка справа или слева не пустая
-                                        isBreakRay = true
-                                        const isDarkenedFigueColorLeft = totalCollInd - 1 >= 0 && fieldFullCopy[totalRowInd][totalCollInd - 1].cellFigue.color // цвет фигуры, которую может бить пешка слева от себя
-                                        const isDarkenedFigueColorRight = totalCollInd + 1 <= 7 && fieldFullCopy[totalRowInd][totalCollInd + 1].cellFigue.color // цвет фигуры, которую может бить пешка справа от себя
-                                        if (actionFigueColor !== isDarkenedFigueColorLeft && // цвет пешки и фигуры под боем слева отдичается
-                                            isDarkenedFigueColorLeft !== "unset" && // не бьем пустые поля
-                                            totalCollInd - 1 >= 0) { // и не выходим слева за поле
-                                            fieldFullCopy[totalRowInd][totalCollInd - 1].isDarkened = true // затемняем поле слева с фигурой, которую пешка может побить
-                                        }
-                                        if (actionFigueColor !== isDarkenedFigueColorRight && // цвет пешки и фигуры под боем справа отдичается
-                                            isDarkenedFigueColorRight !== "unset" && // не бьем пустые поля
-                                            totalCollInd + 1 <= 7) {// и не выходим справа за поле
-                                            fieldFullCopy[totalRowInd][totalCollInd + 1].isDarkened = true // затемняем поле справа с фигурой, которую пешка может побить
-                                        }
-                                        return
-                                    }
-
-
-                                }
-                                if (action.onClickFigue.cellFigue.figue !== "pawn") { // если кликнули не по пешке
-                                    const isCellNotEmpty = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая (с фигурой)
-
-                                    const actionFigueColor = action.onClickFigue.cellFigue.color // цвет фигуры по которой кликнули
-
-                                    if (isCellNotEmpty) { // прерывание цикла, если клетка не пустая
-                                        isBreakRay = true
-                                        const isDarkenedFigueColor = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.color // цвет фигуры, до которой доходит луч боя фигуры
-                                        if (actionFigueColor !== isDarkenedFigueColor) {
-                                            fieldFullCopy[totalRowInd][totalCollInd].isDarkened = true // затемняем поле с фигурой, которую фигура что ходит, может побить
-                                        }
-
-                                        return
-                                    }
-                                    fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
-
-                                }
-
-                            }
-                        })
-                    })
-                }
-            })
-
-            stateCopy = { // доюавляем в итоговый стейт поля с подсветкой
-                ...stateCopy,
-                field: fieldFullCopy // добавляем ячейки с подсветкой возможных ходов на поле
-            }
-
-            return stateCopy
         case SET_PLAYER1_COLOR: // установить, кто ходит первым (белые/черные)
             const fieldReversed = structuredClone(state.field) // полная копия поля field
 
@@ -790,7 +664,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             }
             return stateCopy; // возврат копии стейта после изменения
         case GET_UUID: // экшн получения Uuid для фигур
-            const { v4: uuidv4 } = require('uuid');
+            const {v4: uuidv4} = require('uuid');
 
             fieldFullCopy = structuredClone(state.field) // полная копия поля field
             fieldFullCopy.forEach((rowItem, rowInd) => {
@@ -807,18 +681,18 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             return stateCopy; // возврат копии стейта после изменения
         case CLICK_BY_OPPOSITE_FIGIUE: // экшн клика по вражеской фигуре
 
-            const stateLocal:InitialStateFieldType = structuredClone(state)
+            stateLocal = structuredClone(state)
 
-
-            stateLocal.field.forEach((rowItem)=>{
-                return rowItem.forEach(cellItem=>{
+            stateLocal.field.forEach((rowItem) => {
+                rowItem.forEach(cellItem => {
                     if (cellItem.cellFigue.uuid === action.cell.cellFigue.uuid) {
-                        //console.log(action.uuid)
-                      return cellItem.cellFigue = structuredClone(state.commonGameParam.onclickFigue.cellFigue)
+                        cellItem.cellFigue = stateLocal.commonGameParam.onClickCell.cellFigue
 
                     }
                 })
             })
+
+
             stateCopy = {
                 ...stateLocal, // копия всего стейта
                 // commonGameParam: {...state.commonGameParam,
@@ -837,9 +711,122 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             return stateCopy; // возврат копии стейта после изменения
         case SET_ON_CLICK_CELL: // экшн клика записи в стейт ячейки, куда кликнули
 
+
+            ///////////////
+            fieldFullCopy = clearLightenedDarkened(state.field) // очищаем затемнения и засветы (кружки)
+
+            const onClickRowInd = action.cell.rowInd // индекс ряда фигуры, по которой кликнули
+            const onClickCollInd = action.cell.colInd // индекс колонки фигуры, по которой кликнули
+
+            const figueFromAction = action.cell.cellFigue.figue // получаем фигуру из экшена
+
+            let actionFigueColorCoeffForPawn = 1 // коэффициент цвета кликнутой фигуры для всех кроме пешек равен 1
+
+            actionFigueColorCoeffForPawn = action.cell.cellFigue.figue !== "empty" //если поле содержит фигуру
+            && figueFromAction === "pawn" // только для пешек, по которым кликнули
+            && action.cell.cellFigue.color === "white"
+                ? -1// разное направление для светлых и темных пешек, по которым кликнули
+                : 1
+
+            let player1ColorCoeffForPawn = 1 // коэффициент цвета выбранных в начале фигур для всех кроме пешек равен 1
+
+            player1ColorCoeffForPawn = state.commonGameParam.player1Color === "whitePlayer" // если выбраны белые фигуры
+            && figueFromAction === "pawn" // только для пешек
+                ? 1// разное направление для светлых и темных пешек в зависимости от выбора в начале игры
+                : -1
+
+            Object.keys(state.commonGameParam.figueLightenedSteps).forEach((figue, indFigue) => { // если фигура может сюда ходить, подсвечиваем поле в полной копии field
+
+                if (figue === action.cell.cellFigue.figue) { // если название фигуры, на которую кликнули совпадает с названием фигуры в массиве проверки подсветки
+
+                    Object.values(state.commonGameParam.figueLightenedSteps)[indFigue].forEach((item, ind) => {// массив объектов с полями, со смещением от фигуры, по которой кликнули
+
+                        let isBreakRay = false // флаг прерывания луча проверки подсветки полей, если встретилась фигура, или вышли за пределы поля
+
+                        item.forEach((itemRay, indRay) => {// item это луч для каждой фигуры, а itemRay - отдельная ячейка проверки. Если есть фигура в ячеке - луч должен прерываться
+
+                            if (!isBreakRay) { // если прерывания луча еще не было
+
+                                const totalRowInd = onClickRowInd + itemRay.rowInd// итоговый индекс ряда клетки возможной подсветки
+                                    * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn // доп коэффициенты только для пешек (цвет фигуры по которой кликнули и цвет выбранных в начале фигур)
+                                const totalCollInd = onClickCollInd + itemRay.collInd // итоговый индекс столбца клетки возможной подсветки
+
+
+                                const isOutsideTheField = totalRowInd > 7 || totalRowInd < 0 || totalCollInd > 7 || totalCollInd < 0 // ячейка за пределами поля?
+                                if (isOutsideTheField) { // прерывание цикла, если выходим за поле
+                                    isBreakRay = true
+                                    return
+                                }
+
+                                if (action.cell.cellFigue.figue === "pawn") { // если кликнули по пешке
+
+                                    const isCellNotEmptyStraight1Row = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 1 поле (с фигурой)
+                                    const isCellNotEmptyStraight2Row =
+                                        totalRowInd + 1 * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn >= 0 //проверяем непустое поле перед пешкой в зависимости от выбора цвета фигур в начале и цвета пешки, по которой клинкули
+                                        && fieldFullCopy[totalRowInd + 1 * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 2 поля (с фигурой)
+
+                                    if (!isCellNotEmptyStraight1Row) {
+                                        fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
+                                        if (!isCellNotEmptyStraight2Row && action.cell.cellFigue.isFirstStep) { // если это первый ход пешки и ячейка на 2 поля вперед пусто, то
+                                            fieldFullCopy[totalRowInd + 1 * actionFigueColorCoeffForPawn * player1ColorCoeffForPawn][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
+                                        }
+                                    }
+
+                                    const isCellNotEmptyLeft = totalCollInd - 1 >= 0 && fieldFullCopy[totalRowInd][totalCollInd - 1].cellFigue.figue !== 'empty' // ячейка не пустая слева (с фигурой)
+                                    const isCellNotEmptyRight = totalCollInd + 1 <= 7 && fieldFullCopy[totalRowInd][totalCollInd + 1].cellFigue.figue !== 'empty' // ячейка не пустая справа (с фигурой)
+
+                                    const actionFigueColor = action.cell.cellFigue.color // цвет фигуры по которой кликнули
+
+                                    if (isCellNotEmptyLeft || isCellNotEmptyRight) { // прерывание цикла, если клетка справа или слева не пустая
+                                        isBreakRay = true
+                                        const isDarkenedFigueColorLeft = totalCollInd - 1 >= 0 && fieldFullCopy[totalRowInd][totalCollInd - 1].cellFigue.color // цвет фигуры, которую может бить пешка слева от себя
+                                        const isDarkenedFigueColorRight = totalCollInd + 1 <= 7 && fieldFullCopy[totalRowInd][totalCollInd + 1].cellFigue.color // цвет фигуры, которую может бить пешка справа от себя
+                                        if (actionFigueColor !== isDarkenedFigueColorLeft && // цвет пешки и фигуры под боем слева отдичается
+                                            isDarkenedFigueColorLeft !== "unset" && // не бьем пустые поля
+                                            totalCollInd - 1 >= 0) { // и не выходим слева за поле
+                                            fieldFullCopy[totalRowInd][totalCollInd - 1].isDarkened = true // затемняем поле слева с фигурой, которую пешка может побить
+                                        }
+                                        if (actionFigueColor !== isDarkenedFigueColorRight && // цвет пешки и фигуры под боем справа отдичается
+                                            isDarkenedFigueColorRight !== "unset" && // не бьем пустые поля
+                                            totalCollInd + 1 <= 7) {// и не выходим справа за поле
+                                            fieldFullCopy[totalRowInd][totalCollInd + 1].isDarkened = true // затемняем поле справа с фигурой, которую пешка может побить
+                                        }
+                                        return
+                                    }
+
+
+                                }
+                                if (action.cell.cellFigue.figue !== "pawn") { // если кликнули не по пешке
+                                    const isCellNotEmpty = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая (с фигурой)
+
+                                    const actionFigueColor = action.cell.cellFigue.color // цвет фигуры по которой кликнули
+
+                                    if (isCellNotEmpty) { // прерывание цикла, если клетка не пустая
+                                        isBreakRay = true
+                                        const isDarkenedFigueColor = fieldFullCopy[totalRowInd][totalCollInd].cellFigue.color // цвет фигуры, до которой доходит луч боя фигуры
+                                        if (actionFigueColor !== isDarkenedFigueColor) {
+                                            fieldFullCopy[totalRowInd][totalCollInd].isDarkened = true // затемняем поле с фигурой, которую фигура что ходит, может побить
+                                        }
+
+                                        return
+                                    }
+                                    fieldFullCopy[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
+
+                                }
+
+                            }
+                        })
+                    })
+                }
+            })
+
+            ///////////////
+
+
             stateCopy = {
                 ...state, // копия всего стейта
-                commonGameParam: {...state.commonGameParam, onClickCell: action.cell}
+                commonGameParam: {...state.commonGameParam, onClickCell: action.cell},
+                field: fieldFullCopy
             }
             return stateCopy; // возврат копии стейта после изменения
 

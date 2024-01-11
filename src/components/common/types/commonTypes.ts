@@ -58,7 +58,7 @@ export type CommonGameParamType = {
     },
     currentStep: PlayerType,
     player1Color: PlayerType,
-    onclickFigue: OnClickFigueType,
+   // onclickFigue: OnClickFigueType,
     onClickCell: CelllType,
     showMenu: boolean,
     figueLightenedSteps: FigueLightenedStepsType
