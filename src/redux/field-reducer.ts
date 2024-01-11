@@ -31,8 +31,8 @@ export const fieldActions = {
     getUuidAC: () => { // экшн креатор  получения уникального id для фигур
         return {type: GET_UUID} as const
     },
-    clickByOppositeFigueAC: () => { // экшн креатор  клика по вражеской фигуре
-        return {type: CLICK_BY_OPPOSITE_FIGIUE} as const
+    clickByOppositeFigueAC: (uuid: string) => { // экшн креатор  клика по вражеской фигуре
+        return {type: CLICK_BY_OPPOSITE_FIGIUE, uuid} as const
     },
     clickByEmptyCellAC: () => { // экшн креатор  клика по пустой ячейке
         return {type: CLICK_BY_EMPTY_CELL} as const
@@ -798,8 +798,23 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             }
             return stateCopy; // возврат копии стейта после изменения
         case CLICK_BY_OPPOSITE_FIGIUE: // экшн клика по вражеской фигуре
+
+            const stateLocal:InitialStateFieldType = structuredClone(state)
+
+            stateLocal.field.forEach((rowItem)=>{
+                return rowItem.forEach(cellItem=>{
+                    if (cellItem.cellFigue.uuid === action.uuid) {
+                        //console.log(action.uuid)
+                      return cellItem.cellFigue = structuredClone(state.commonGameParam.onclickFigue.cellFigue)
+
+                    }
+                })
+            })
             stateCopy = {
-                ...state, // копия всего стейта
+                ...stateLocal, // копия всего стейта
+                // commonGameParam: {...state.commonGameParam,
+                //     showMenu: !state.commonGameParam.showMenu
+                // }
             }
             return stateCopy; // возврат копии стейта после изменения
         case CLICK_BY_EMPTY_CELL: // экшн клика по пустой ячейке

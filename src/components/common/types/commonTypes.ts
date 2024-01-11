@@ -5,7 +5,7 @@ import {GlobalStateType} from "../../../redux/store-redux";
 export type FigueType = { // тип фигуры
     figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn" | "empty", // все возможные фигуры
     color: "white" | "black" | "unset"// цвет фигуры
-    uuid?: string,
+    uuid: string,
     isFirstStep?: boolean
 }
 

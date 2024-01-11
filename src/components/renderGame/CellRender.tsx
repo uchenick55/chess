@@ -115,6 +115,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
                      && isDarkenedLocal // и фигура затемнена (ее можно побить нашей фигурой)
                  ) {
                      console.log("бьем фигуру противника фигурой из onclickFigue, а побитую фигуру перемещаем в отстойник для своего цвета, очищаем засветы и затемнения, передаем ход")
+                    dispatch(fieldActions.clickByOppositeFigueAC(cell.cellFigue.uuid))
                  }
                  if (cell.cellFigue.color === "unset") { // если кликнули по пустой ячейке,
                      if (isLightenedLocal) {//и в ней есть кружок (засветление - можно сюда походить)
