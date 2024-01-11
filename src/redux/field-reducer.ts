@@ -3,7 +3,7 @@ import {
     CelllType,
     CommonGameParamType,
     ComThunkTp,
-    FiedType, OnClickFigueType, PlayerType,
+    FiedType, PlayerType,
     RowType
 } from "../components/common/types/commonTypes";
 import {clearLightenedDarkened} from "../assets/functions/clearLightenedDarkened";
@@ -18,9 +18,7 @@ const CLICK_BY_EMPTY_CELL = "myApp/field-reducer/CLICK_BY_EMPTY_CELL";
 const SET_ON_CLICK_CELL = "myApp/field-reducer/SET_ON_CLICK_CELL";
 
 export const fieldActions = {
-    setOnclickFigueAC: (onClickFigue: OnClickFigueType) => {// экшн креатор клика по фигуре для хода
-        return {type: SET_ON_CLICK_FIGUE, onClickFigue} as const
-    },
+
     setFirstStepAC: (player1Color: PlayerType) => { // экшн креатор выбора цвета фигур
         return {type: SET_PLAYER1_COLOR, player1Color} as const
     },
@@ -640,6 +638,17 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                 reverseFieldFn()
             }
 
+            fieldFullCopy = structuredClone(fieldReversed) // полная копия поля field
+            fieldFullCopy.forEach((rowItem, rowInd) => {
+                rowItem.forEach((cellItem, colInd) => {
+                  //  cellItem.cellFigue.uuid = uuidv4()
+                    cellItem.rowInd = rowInd // заполнили индекс ячейки по горизонтали
+                    cellItem.colInd = colInd// заполнили индекс ячейки по вертикали
+                })
+            })
+
+
+
             stateCopy = {
                 ...state,
                 commonGameParam: {
@@ -647,7 +656,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                     player1Color: action.player1Color,
                     currentStep: action.player1Color
                 },
-                field: fieldReversed
+                field: fieldFullCopy
 
             }
             return stateCopy
@@ -670,8 +679,8 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             fieldFullCopy.forEach((rowItem, rowInd) => {
                 rowItem.forEach((cellItem, colInd) => {
                     cellItem.cellFigue.uuid = uuidv4()
-                    cellItem.rowInd = rowInd // заполнили индекс ячейки по горизонтали
-                    cellItem.colInd = colInd// заполнили индекс ячейки по вертикали
+                  //  cellItem.rowInd = rowInd // заполнили индекс ячейки по горизонтали
+                 //   cellItem.colInd = colInd// заполнили индекс ячейки по вертикали
                 })
             })
             stateCopy = {
@@ -711,9 +720,10 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             return stateCopy; // возврат копии стейта после изменения
         case SET_ON_CLICK_CELL: // экшн клика записи в стейт ячейки, куда кликнули
 
+            stateLocal = structuredClone(state)
 
             ///////////////
-            fieldFullCopy = clearLightenedDarkened(state.field) // очищаем затемнения и засветы (кружки)
+            fieldFullCopy = clearLightenedDarkened(stateLocal.field) // очищаем затемнения и засветы (кружки)
 
             const onClickRowInd = action.cell.rowInd // индекс ряда фигуры, по которой кликнули
             const onClickCollInd = action.cell.colInd // индекс колонки фигуры, по которой кликнули
@@ -730,16 +740,16 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             let player1ColorCoeffForPawn = 1 // коэффициент цвета выбранных в начале фигур для всех кроме пешек равен 1
 
-            player1ColorCoeffForPawn = state.commonGameParam.player1Color === "whitePlayer" // если выбраны белые фигуры
+            player1ColorCoeffForPawn = stateLocal.commonGameParam.player1Color === "whitePlayer" // если выбраны белые фигуры
             && figueFromAction === "pawn" // только для пешек
                 ? 1// разное направление для светлых и темных пешек в зависимости от выбора в начале игры
                 : -1
 
-            Object.keys(state.commonGameParam.figueLightenedSteps).forEach((figue, indFigue) => { // если фигура может сюда ходить, подсвечиваем поле в полной копии field
+            Object.keys(stateLocal.commonGameParam.figueLightenedSteps).forEach((figue, indFigue) => { // если фигура может сюда ходить, подсвечиваем поле в полной копии field
 
                 if (figue === action.cell.cellFigue.figue) { // если название фигуры, на которую кликнули совпадает с названием фигуры в массиве проверки подсветки
 
-                    Object.values(state.commonGameParam.figueLightenedSteps)[indFigue].forEach((item, ind) => {// массив объектов с полями, со смещением от фигуры, по которой кликнули
+                    Object.values(stateLocal.commonGameParam.figueLightenedSteps)[indFigue].forEach((item, ind) => {// массив объектов с полями, со смещением от фигуры, по которой кликнули
 
                         let isBreakRay = false // флаг прерывания луча проверки подсветки полей, если встретилась фигура, или вышли за пределы поля
 

@@ -29,15 +29,6 @@ export type CelllType = { // тип ячейки
     colInd: number
 }
 
-export type OnClickFigueType = { // фигура, по которой кликнули
-    cellFigue: FigueType, // либо сама фигура, либо пустой объект фигуры
-    rowInd: number, // индес ряда
-    colInd: number // индекс колонки
-    cellAddress: CellAddressType
-    isLightened: boolean,
-    isDarkened: boolean
-}
-
 export type RowType = [CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType]
 
 export type FiedType = [RowType, RowType, RowType, RowType, RowType, RowType, RowType, RowType]

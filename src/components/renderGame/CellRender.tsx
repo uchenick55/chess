@@ -100,15 +100,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
             // по индексу получаем сам рисунок и подставляем в поле (отрисовываем)
              onClick={() => {
                  if (cell.cellFigue.color !== "unset" && currentStep.includes(cell.cellFigue.color)) { // если кликнули по своей фигуре
-                     dispatch(fieldActions.setOnclickFigueAC({
-                         cellFigue: cell.cellFigue, // фигура по которой кликнули
-                         rowInd: rowInd, // адрес ряда
-                         colInd: colInd, // адрес колонки
-                         cellAddress: cell.cellAddress, // буквенный адрес ячейки
-                         isLightened: isLightenedLocal,
-                         isDarkened: isDarkenedLocal
-                     })) // записать в стейт текущую фигуру, по чем мы кликнули, проставить засветки и затемнения
-                     dispatch(fieldActions.setOnClickCellAC(cell))
+                     dispatch(fieldActions.setOnClickCellAC(cell))// записать в стейт текущую ячейку, по чем мы кликнули
                  }
                  if (
                      cell.cellFigue.color !== "unset" // если это не пустая ячейка
@@ -116,7 +108,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
                      && isDarkenedLocal // и фигура затемнена (ее можно побить нашей фигурой)
                  ) {
                      console.log("бьем фигуру противника фигурой из onclickFigue, а побитую фигуру перемещаем в отстойник для своего цвета, очищаем засветы и затемнения, передаем ход")
-                    dispatch(fieldActions.clickByOppositeFigueAC(cell))
+                     dispatch(fieldActions.clickByOppositeFigueAC(cell))
                  }
                  if (cell.cellFigue.color === "unset") { // если кликнули по пустой ячейке,
                      if (isLightenedLocal) {//и в ней есть кружок (засветление - можно сюда походить)
