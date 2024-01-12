@@ -51,6 +51,10 @@ export type CommonGameParamType = {
     player1Color: PlayerType,
    // onclickFigue: OnClickFigueType,
     onClickCell: CelllType,
+    beatenFigures: {
+        white: CelllType[],
+        black: CelllType[],
+    }
     showMenu: boolean,
     figueLightenedSteps: FigueLightenedStepsType
 }

@@ -319,7 +319,7 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "knight", color: "black"},
+            cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
             cellColor: "white",
             cellAddress: "h5"
         },
@@ -377,7 +377,7 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
+            cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
             cellColor: "black",
             cellAddress: "h4"
         },
@@ -435,7 +435,7 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
+            cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
             cellColor: "white",
             cellAddress: "h3"
         },
@@ -485,7 +485,7 @@ export const field = [
         },
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "pawn", color: "white", isFirstStep: true},
+            cellFigue: {figue: "pawn", color: "black", isFirstStep: true},
             cellColor: "black",
             cellAddress: "h2"
         },

@@ -3,7 +3,7 @@ import {
     CelllType,
     CommonGameParamType,
     ComThunkTp,
-    FiedType, FigueLightenedStepsType, PlayerType,
+    FiedType, FigueLightenedStepsType, FigueType, PlayerType,
     RowType
 } from "../components/common/types/commonTypes";
 import {clearLightenedDarkened} from "../assets/functions/clearLightenedDarkened";
@@ -57,6 +57,10 @@ const initialState = {
         currentStep: "whitePlayer", // текущий ход (пока не чередуется)
         player1Color: "unchecked",//какие фигуры будут снизу
         onClickCell: {}, // ячейка с фигурой текущего хода
+        beatenFigures: {
+            white: [] as Array<CelllType>,
+            black: [] as Array<CelllType>
+        },
         showMenu: true, // флаг, показать ли меню выбора цвета фигур в начале
         figueLightenedSteps: figueLightenedSteps
     } as CommonGameParamType,
@@ -70,6 +74,8 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
     let stateCopy: InitialStateFieldType // объявлениечасти части стейта до изменения редьюсером
     let stateLocal: InitialStateFieldType
     let fieldFullCopy: FiedType
+    const {v4: uuidv4} = require('uuid');
+
     switch (action.type) {
 
         case SET_PLAYER1_COLOR: // установить, кто ходит первым (белые/черные)
@@ -121,7 +127,6 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             }
             return stateCopy; // возврат копии стейта после изменения
         case GET_UUID: // экшн получения Uuid для фигур
-            const {v4: uuidv4} = require('uuid');
 
             fieldFullCopy = structuredClone(state.field) // полная копия поля field
             fieldFullCopy.forEach((rowItem, rowInd) => {
@@ -142,30 +147,56 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                 rowItem.forEach(cellItem => {
                     if (cellItem.cellFigue.uuid === action.cell.cellFigue.uuid) {
                         cellItem.cellFigue = stateLocal.commonGameParam.onClickCell.cellFigue
+                        stateLocal.commonGameParam.beatenFigures["white"].push(action.cell)
 
                     }
                 })
             })
+            const rowIndToClear = stateLocal.commonGameParam.onClickCell.rowInd
+            const colIndToClear = stateLocal.commonGameParam.onClickCell.colInd
+
+            stateLocal.field[rowIndToClear][colIndToClear].cellFigue = { // зачиищаем ячейку, где раньше была фигура до удара
+                "figue": "empty",
+                "color": "unset",
+                "uuid": uuidv4()// генерируем новый id для очищенной фигуры ячейки
+            }
+            stateLocal.field = clearLightenedDarkened(stateLocal.field)
+            stateLocal.commonGameParam.onClickCell = {} as CelllType
+/*
+                {
+                    "isLightened": false,
+                    "isDarkened": false,
+                    "cellFigue": {
+                        "figue": "empty",
+                        "color": "unset",
+                        "uuid": "ca537d3a-5f40-4fbb-9b6d-33ba7ef9d1d7"
+                    },
+                    "cellColor": "black",
+                    "cellAddress": "b6",
+                    "rowInd": 5,
+                    "colInd": 6
+                }*/
+
+             stateLocal.commonGameParam.currentStep = stateLocal.commonGameParam.currentStep === "whitePlayer"
+                 ? "blackPlayer"
+                 : "whitePlayer"
+
+            stateCopy = {
+                ...stateLocal, // копия всего стейта
+            }
+            return stateCopy; // возврат копии стейта после изменения
+        case CLICK_BY_EMPTY_CELL: // экшн клика по пустой ячейке
+            stateLocal = structuredClone(state)
+
+            stateLocal.field = clearLightenedDarkened(stateLocal.field) // полная копия поля field с зачисткой засветок и затемнений
 
 
             stateCopy = {
                 ...stateLocal, // копия всего стейта
-                // commonGameParam: {...state.commonGameParam,
-                //     showMenu: !state.commonGameParam.showMenu
-                // }
-            }
-            return stateCopy; // возврат копии стейта после изменения
-        case CLICK_BY_EMPTY_CELL: // экшн клика по пустой ячейке
-
-            fieldFullCopy = clearLightenedDarkened(state.field) // полная копия поля field с зачисткой засветок и затемнений
-
-            stateCopy = {
-                ...state, // копия всего стейта
-                field: fieldFullCopy
             }
             return stateCopy; // возврат копии стейта после изменения
         case SET_ON_CLICK_CELL: // экшн клика записи в стейт ячейки, куда кликнули
-
+            console.log("мы кликнули по ячейке:", action.cell)
             stateLocal = structuredClone(state)
 
             ///////////////
