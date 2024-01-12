@@ -8,6 +8,7 @@ import {
 } from "../components/common/types/commonTypes";
 import {clearLightenedDarkened} from "../assets/functions/clearLightenedDarkened";
 import {field, figueLightenedSteps} from "../assets/constants/constants";
+import {moveOrBiteFigue} from "../assets/functions/moveOrBiteFigue";
 
 const SET_ON_CLICK_FIGUE = "myApp/field-reducer/SET_ON_CLICK_FIGUE";
 const SET_PLAYER1_COLOR = "myApp/field-reducer/SET_PLAYER1_COLOR";
@@ -16,6 +17,7 @@ const SET_INITIALISED_APP = "myApp/field-reducer/SET_INITIALISED_APP";
 const GET_UUID = "myApp/field-reducer/GET_UUID";
 const CLICK_BY_OPPOSITE_FIGIUE = "myApp/field-reducer/CLICK_BY_OPPOSITE_FIGIUE";
 const CLICK_BY_EMPTY_CELL = "myApp/field-reducer/CLICK_BY_EMPTY_CELL";
+const CLICK_BY_LIGHTENED_CELL = "myApp/field-reducer/CLICK_BY_LIGHTENED_CELL";
 const SET_ON_CLICK_CELL = "myApp/field-reducer/SET_ON_CLICK_CELL";
 
 export const fieldActions = {
@@ -32,14 +34,17 @@ export const fieldActions = {
     getUuidAC: () => { // экшн креатор  получения уникального id для фигур
         return {type: GET_UUID} as const
     },
-    clickByOppositeFigueAC: (cell: CelllType) => { // экшн креатор  клика по вражеской фигуре
-        return {type: CLICK_BY_OPPOSITE_FIGIUE, cell} as const
+    setOnClickCellAC: (cell: CelllType) => { // экшн креатор записи в стейт ячейки с фигурой, куда кликнули
+        return {type: SET_ON_CLICK_CELL, cell} as const
     },
     clickByEmptyCellAC: () => { // экшн креатор  клика по пустой ячейке
         return {type: CLICK_BY_EMPTY_CELL} as const
     },
-    setOnClickCellAC: (cell: CelllType) => { // экшн креатор записи в стейт ячейки с фигурой, куда кликнули
-        return {type: SET_ON_CLICK_CELL, cell} as const
+    clickByOppositeFigueAC: (cell: CelllType) => { // экшн креатор  клика по вражеской фигуре
+        return {type: CLICK_BY_OPPOSITE_FIGIUE, cell} as const
+    },
+    clickByLightenedCellAC: (cell: CelllType) => { // экшн креатор записи в стейт ячейки с фигурой, куда кликнули
+        return {type: CLICK_BY_LIGHTENED_CELL, cell} as const
     },
 }
 
@@ -75,6 +80,8 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
     let stateLocal: InitialStateFieldType
     let fieldFullCopy: FiedType
     const {v4: uuidv4} = require('uuid');
+    let rowIndToClear: number
+    let colIndToClear: number
 
     switch (action.type) {
 
@@ -141,45 +148,16 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             return stateCopy; // возврат копии стейта после изменения
         case CLICK_BY_OPPOSITE_FIGIUE: // экшн клика по вражеской фигуре
 
-            stateLocal = structuredClone(state)
 
-            stateLocal.field.forEach((rowItem) => {
-                rowItem.forEach(cellItem => {
-                    if (cellItem.cellFigue.uuid === action.cell.cellFigue.uuid) {
-                        cellItem.cellFigue = stateLocal.commonGameParam.onClickCell.cellFigue
-                        stateLocal.commonGameParam.beatenFigures["white"].push(action.cell)
+            stateLocal = moveOrBiteFigue (state, action.cell)
 
-                    }
-                })
-            })
-            const rowIndToClear = stateLocal.commonGameParam.onClickCell.rowInd
-            const colIndToClear = stateLocal.commonGameParam.onClickCell.colInd
-
-            stateLocal.field[rowIndToClear][colIndToClear].cellFigue = { // зачиищаем ячейку, где раньше была фигура до удара
-                "figue": "empty",
-                "color": "unset",
-                "uuid": uuidv4()// генерируем новый id для очищенной фигуры ячейки
+            stateCopy = {
+                ...stateLocal, // копия всего стейта
             }
-            stateLocal.field = clearLightenedDarkened(stateLocal.field)
-            stateLocal.commonGameParam.onClickCell = {} as CelllType
-/*
-                {
-                    "isLightened": false,
-                    "isDarkened": false,
-                    "cellFigue": {
-                        "figue": "empty",
-                        "color": "unset",
-                        "uuid": "ca537d3a-5f40-4fbb-9b6d-33ba7ef9d1d7"
-                    },
-                    "cellColor": "black",
-                    "cellAddress": "b6",
-                    "rowInd": 5,
-                    "colInd": 6
-                }*/
+            return stateCopy; // возврат копии стейта после изменения
+        case CLICK_BY_LIGHTENED_CELL: // экшн клика по вражеской фигуре
 
-             stateLocal.commonGameParam.currentStep = stateLocal.commonGameParam.currentStep === "whitePlayer"
-                 ? "blackPlayer"
-                 : "whitePlayer"
+            stateLocal = moveOrBiteFigue (state, action.cell)
 
             stateCopy = {
                 ...stateLocal, // копия всего стейта
