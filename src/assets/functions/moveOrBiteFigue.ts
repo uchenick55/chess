@@ -1,18 +1,22 @@
 import {clearLightenedDarkened} from "./clearLightenedDarkened";
 import {CelllType} from "../../components/common/types/commonTypes";
 import {InitialStateFieldType} from "../../redux/field-reducer";
+
 const {v4: uuidv4} = require('uuid');
 
 export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) => {
     const stateLocal: InitialStateFieldType = structuredClone(state) // полная копия стейта
 
-    stateLocal.field.forEach((rowItem ) => { // пробегаем по всему field
+    stateLocal.field.forEach((rowItem) => { // пробегаем по всему field
         rowItem.forEach(cellItem => {
-            if (cellItem.cellFigue.uuid === cell.cellFigue.uuid) { // если нашли ячейку для боя по ее ключу
+            if (cellItem.cellFigue.uuid === cell.cellFigue.uuid) { // если нашли ячейку для боя/перемещения по ее ключу
 
                 if (cellItem.cellFigue.figue !== "empty") {// если мы бьем фигуру, а не просто перемещаем в пустую ячейку
                     const figueColorIndex = cellItem.cellFigue.color === "white" ? "white" : "black" // в какой массив закинуть побитую фигуру
                     stateLocal.commonGameParam.beatenFigures[figueColorIndex].push(cell) // переносим побитую фигуру в массив побитых белых/черных
+                    if (cellItem.cellFigue.isFirstStep === true) { // если фигура еще не ходила
+                        cellItem.cellFigue.isFirstStep = false // меняем флаг на "уже ходила"
+                    }
                 }
                 cellItem.cellFigue = {...stateLocal.commonGameParam.onClickCell.cellFigue} // копируем фигуру из onClickCell в ячейку, куда ходим (перемещение/побитие)
             }

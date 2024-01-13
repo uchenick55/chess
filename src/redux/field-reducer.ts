@@ -85,7 +85,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
     switch (action.type) {
 
         case SET_PLAYER1_COLOR: // установить, кто ходит первым (белые/черные)
-            stateLocal = structuredClone(state)
+            stateLocal = structuredClone(state) // полная копия стейта
 
             const reverseFieldFn = () => {
 
@@ -129,7 +129,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             }
             return stateCopy; // возврат копии стейта после изменения
         case GET_UUID: // экшн получения Uuid для фигур
-            stateLocal = structuredClone(state)
+            stateLocal = structuredClone(state) // полная копия стейта
 
             stateLocal.field.forEach((rowItem, rowInd) => {
                 rowItem.forEach((cellItem, colInd) => {
@@ -155,7 +155,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             return stateCopy; // возврат копии стейта после изменения
         case CLICK_BY_EMPTY_CELL: // экшн клика по пустой ячейке
-            stateLocal = structuredClone(state)
+            stateLocal = structuredClone(state) // полная копия стейта
 
             stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
 
@@ -165,16 +165,11 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
         case SET_ON_CLICK_CELL: // экшн клика записи в стейт ячейки, куда кликнули
             // console.log("мы кликнули по ячейке:", action.cell)
 
-            stateLocal = structuredClone(state)
+            stateLocal = structuredClone(state) // полная копия стейта
 
             stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
 
             ///////////////
-
-            const onClickRowInd = action.cell.rowInd // индекс ряда фигуры, по которой кликнули
-            const onClickCollInd = action.cell.colInd // индекс колонки фигуры, по которой кликнули
-
-            const figueFromAction = action.cell.cellFigue.figue // получаем фигуру из экшена
 
             const actionFigueColorCoeff: number = // коэффициент цвета кликнутой фигуры
                 action.cell.cellFigue.figue !== "empty" //если поле содержит фигуру
@@ -201,9 +196,9 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
                             if (!isBreakRay) { // если прерывания луча еще не было
 
-                                const totalRowInd = onClickRowInd + itemRay.rowInd// итоговый индекс ряда клетки возможной подсветки
+                                const totalRowInd = action.cell.rowInd + itemRay.rowInd// итоговый индекс ряда клетки возможной подсветки
                                     * actionFigueColorCoeff * player1ColorCoeff // доп коэффициенты только для пешек (цвет фигуры по которой кликнули и цвет выбранных в начале фигур)
-                                const totalCollInd = onClickCollInd + itemRay.collInd // итоговый индекс столбца клетки возможной подсветки
+                                const totalCollInd = action.cell.colInd + itemRay.collInd // итоговый индекс столбца клетки возможной подсветки
 
                                 const isOutsideTheField = totalRowInd > 7 || totalRowInd < 0 || totalCollInd > 7 || totalCollInd < 0 // ячейка за пределами поля?
                                 if (isOutsideTheField) { // прерывание цикла, если выходим за поле
@@ -214,14 +209,16 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                                 if (action.cell.cellFigue.figue === "pawn") { // если кликнули по пешке
 
                                     const isCellNotEmptyStraight1Row = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 1 поле (с фигурой)
+                                    const totalRowIndCoeff = totalRowInd + actionFigueColorCoeff * player1ColorCoeff // номер ряда с учетом коэффициентов
+                                    const figueLocal = totalRowIndCoeff >=0 && stateLocal.field[totalRowIndCoeff][totalCollInd].cellFigue.figue // фигура, что двигается
                                     const isCellNotEmptyStraight2Row =
-                                        totalRowInd + 1 * actionFigueColorCoeff * player1ColorCoeff >= 0 //проверяем непустое поле перед пешкой в зависимости от выбора цвета фигур в начале и цвета пешки, по которой клинкули
-                                        && stateLocal.field[totalRowInd + 1 * actionFigueColorCoeff * player1ColorCoeff][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 2 поля (с фигурой)
+                                        totalRowIndCoeff >= 0 // не выходим за поле
+                                        && figueLocal !== 'empty' // ячейка не пустая прямо на 2 поля (с фигурой)
 
                                     if (!isCellNotEmptyStraight1Row) {
                                         stateLocal.field[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
-                                        if (!isCellNotEmptyStraight2Row && action.cell.cellFigue.isFirstStep) { // если это первый ход пешки и ячейка на 2 поля вперед пусто, то
-                                            stateLocal.field[totalRowInd + 1 * actionFigueColorCoeff * player1ColorCoeff][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
+                                        if (figueLocal && !isCellNotEmptyStraight2Row && action.cell.cellFigue.isFirstStep) { // если это первый ход пешки и ячейка на 2 поля вперед пусто, то
+                                            stateLocal.field[totalRowIndCoeff][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
                                         }
                                     }
 

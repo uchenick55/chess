@@ -93,8 +93,6 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
                      ? nonEmpty
                      : Object.values(srcObj)[Object.keys(srcObj).indexOf(srcLocal)]
              }
-            // alt={`r:${rowInd},c:${colInd}`}
-
             // srcLocal - составить ключ по которому ищем название ключа рисунка в массиве из объекта всех фигур
             // по этому ключу находим индекс картнки в массиве, полученном из объекта всех картинок
             // по индексу получаем сам рисунок и подставляем в поле (отрисовываем)
@@ -107,17 +105,14 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
                      && !currentStep.includes(cell.cellFigue.color) // и фигура противника
                      && isDarkenedLocal // и фигура затемнена (ее можно побить нашей фигурой)
                  ) {
-                     console.log("бьем фигуру противника фигурой из onclickFigue, а побитую фигуру перемещаем в отстойник для своего цвета, очищаем засветы и затемнения, передаем ход")
-                     dispatch(fieldActions.clickByOppositeFigueAC(cell))
+                     dispatch(fieldActions.clickByOppositeFigueAC(cell))//бьем фигуру противника фигурой из onclickFigue, а побитую фигуру перемещаем в отстойник для своего цвета, очищаем засветы и затемнения, передаем ход
                  }
                  if (cell.cellFigue.color === "unset") { // если кликнули по пустой ячейке,
                      if (isLightenedLocal) {//и в ней есть кружок (засветление - можно сюда походить)
-                         console.log("перемещаем сюда фигуру из кликнутой ячейки, и зачищаем в стейте onclickFigue, очищаем засветы и затемнения, передаем ход")
-                         dispatch(fieldActions.clickByLightenedCellAC(cell))
+                         dispatch(fieldActions.clickByLightenedCellAC(cell))//перемещаем сюда фигуру из кликнутой ячейки, и зачищаем в стейте onclickFigue, очищаем засветы и затемнения, передаем ход
                      }
                      if (!isLightenedLocal) {//просто пустая клетка
-                         console.log("очищаем засветы и затемнения")
-                         dispatch(fieldActions.clickByEmptyCellAC())
+                         dispatch(fieldActions.clickByEmptyCellAC()) //очищаем засветы и затемнения
                      }
                  }
 
