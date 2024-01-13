@@ -10,15 +10,17 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
     stateLocal.field.forEach((rowItem) => { // пробегаем по всему field
         rowItem.forEach(cellItem => {
             if (cellItem.cellFigue.uuid === cell.cellFigue.uuid) { // если нашли ячейку для боя/перемещения по ее ключу
+                console.log(cellItem.cellFigue)
 
                 if (cellItem.cellFigue.figue !== "empty") {// если мы бьем фигуру, а не просто перемещаем в пустую ячейку
                     const figueColorIndex = cellItem.cellFigue.color === "white" ? "white" : "black" // в какой массив закинуть побитую фигуру
                     stateLocal.commonGameParam.beatenFigures[figueColorIndex].push(cell) // переносим побитую фигуру в массив побитых белых/черных
-                    if (cellItem.cellFigue.isFirstStep === true) { // если фигура еще не ходила
-                        cellItem.cellFigue.isFirstStep = false // меняем флаг на "уже ходила"
-                    }
                 }
-                cellItem.cellFigue = {...stateLocal.commonGameParam.onClickCell.cellFigue} // копируем фигуру из onClickCell в ячейку, куда ходим (перемещение/побитие)
+                cellItem.cellFigue = {
+                    ...stateLocal.commonGameParam.onClickCell.cellFigue,
+                    stepCount: state.commonGameParam.onClickCell.cellFigue.stepCount + 1
+                } // копируем фигуру из onClickCell в ячейку, куда ходим (перемещение/побитие)
+                console.log(cellItem.cellFigue)
             }
         })
     })
@@ -28,7 +30,8 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
     stateLocal.field[rowIndToClear][colIndToClear].cellFigue = { // зачиищаем ячейку, где раньше была фигура до удара
         "figue": "empty",
         "color": "unset",
-        "uuid": uuidv4()// генерируем новый id для очищенной фигуры ячейки
+        "uuid": uuidv4(),// генерируем новый id для очищенной фигуры ячейки
+        stepCount: 0
     }
     stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
     stateLocal.commonGameParam.onClickCell = {} as CelllType // зачищаем onClickCell в стейте

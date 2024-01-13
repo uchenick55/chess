@@ -6,7 +6,7 @@ export type FigueType = { // тип фигуры
     figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn" | "empty", // все возможные фигуры
     color: "white" | "black" | "unset"// цвет фигуры
     uuid: string,
-    isFirstStep?: boolean
+    stepCount: number
 }
 
 type CellAddressType = // возможные варианты ячеек

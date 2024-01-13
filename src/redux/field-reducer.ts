@@ -134,13 +134,13 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             stateLocal.field.forEach((rowItem, rowInd) => {
                 rowItem.forEach((cellItem, colInd) => {
                     cellItem.cellFigue.uuid = uuidv4()
+                    cellItem.cellFigue.stepCount = 0
                 })
             })
             stateCopy = {...stateLocal} // копия всего стейта
 
             return stateCopy; // возврат копии стейта после изменения
         case CLICK_BY_OPPOSITE_FIGIUE: // экшн клика по вражеской фигуре
-
 
             stateLocal = moveOrBiteFigue(state, action.cell)
 
@@ -210,14 +210,14 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
                                     const isCellNotEmptyStraight1Row = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 1 поле (с фигурой)
                                     const totalRowIndCoeff = totalRowInd + actionFigueColorCoeff * player1ColorCoeff // номер ряда с учетом коэффициентов
-                                    const figueLocal = totalRowIndCoeff >=0 && stateLocal.field[totalRowIndCoeff][totalCollInd].cellFigue.figue // фигура, что двигается
+                                    const figueLocal = totalRowIndCoeff >=0 && totalRowIndCoeff <=7 && stateLocal.field[totalRowIndCoeff][totalCollInd].cellFigue.figue // фигура, что двигается
                                     const isCellNotEmptyStraight2Row =
                                         totalRowIndCoeff >= 0 // не выходим за поле
                                         && figueLocal !== 'empty' // ячейка не пустая прямо на 2 поля (с фигурой)
 
                                     if (!isCellNotEmptyStraight1Row) {
                                         stateLocal.field[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
-                                        if (figueLocal && !isCellNotEmptyStraight2Row && action.cell.cellFigue.isFirstStep) { // если это первый ход пешки и ячейка на 2 поля вперед пусто, то
+                                        if (figueLocal && !isCellNotEmptyStraight2Row && action.cell.cellFigue.stepCount===0) { // если это первый ход пешки и ячейка на 2 поля вперед пусто, то
                                             stateLocal.field[totalRowIndCoeff][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
                                         }
                                     }
