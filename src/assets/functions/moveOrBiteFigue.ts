@@ -26,7 +26,7 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
         "color": "unset",
         "uuid": uuidv4()// генерируем новый id для очищенной фигуры ячейки
     }
-    stateLocal.field = clearLightenedDarkened(stateLocal.field) // очищаем все подсветки и затемнения
+    stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
     stateLocal.commonGameParam.onClickCell = {} as CelllType // зачищаем onClickCell в стейте
 
     stateLocal.commonGameParam.currentStep = stateLocal.commonGameParam.currentStep === "whitePlayer"
