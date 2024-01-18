@@ -12,5 +12,15 @@
     border: 1.5rem solid rgb(16,117,125);
     border-radius: 1.5rem;
 }
+.goBackArrow {
+    position: absolute;
+    left: 2rem;
+    top:2rem;
+    width: 5rem;
+    z-index: 1;
+}
 
-
+.num123 {
+    position: absolute;
+    color: rgb(184,214,217);
+}

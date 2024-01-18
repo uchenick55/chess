@@ -6,7 +6,7 @@ export type FigueType = { // тип фигуры
     figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn" | "empty", // все возможные фигуры
     color: "white" | "black" | "unset"// цвет фигуры
     uuid: string,
-    stepCount: number
+    stepCount: number,
 }
 
 type CellAddressType = // возможные варианты ячеек
@@ -44,8 +44,8 @@ export type CommonGameParamType = {
     initialisedApp: boolean,
     fieldParams: {
         fieldWidthHeight: number,
-        numABC: ["a", "b", "c", "d", "e", "f", "g", "h"],
-        num123: ["1", "2", "3", "4", "5", "6", "7", "8"]
+        numABC: Array<string>,
+        num123: Array<string>
     },
     currentStep: PlayerType,
     player1Color: PlayerType,

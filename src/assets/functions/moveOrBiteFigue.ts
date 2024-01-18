@@ -7,20 +7,20 @@ const {v4: uuidv4} = require('uuid');
 export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) => {
     const stateLocal: InitialStateFieldType = structuredClone(state) // полная копия стейта
 
+    stateLocal.fieldHistory.push(stateLocal.field)
+
     stateLocal.field.forEach((rowItem) => { // пробегаем по всему field
         rowItem.forEach(cellItem => {
             if (cellItem.cellFigue.uuid === cell.cellFigue.uuid) { // если нашли ячейку для боя/перемещения по ее ключу
-                console.log(cellItem.cellFigue)
 
                 if (cellItem.cellFigue.figue !== "empty") {// если мы бьем фигуру, а не просто перемещаем в пустую ячейку
                     const figueColorIndex = cellItem.cellFigue.color === "white" ? "white" : "black" // в какой массив закинуть побитую фигуру
                     stateLocal.commonGameParam.beatenFigures[figueColorIndex].push(cell) // переносим побитую фигуру в массив побитых белых/черных
                 }
                 cellItem.cellFigue = {
-                    ...stateLocal.commonGameParam.onClickCell.cellFigue,
-                    stepCount: state.commonGameParam.onClickCell.cellFigue.stepCount + 1
-                } // копируем фигуру из onClickCell в ячейку, куда ходим (перемещение/побитие)
-                console.log(cellItem.cellFigue)
+                    ...stateLocal.commonGameParam.onClickCell.cellFigue,// копируем фигуру из onClickCell в ячейку, куда ходим (перемещение/побитие)
+                    stepCount: state.commonGameParam.onClickCell.cellFigue.stepCount + 1 // увеличиваем счетчик ходов
+                }
             }
         })
     })

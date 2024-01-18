@@ -18,7 +18,8 @@ const GET_UUID = "myApp/field-reducer/GET_UUID";
 const CLICK_BY_OPPOSITE_FIGIUE = "myApp/field-reducer/CLICK_BY_OPPOSITE_FIGIUE";
 const CLICK_BY_EMPTY_CELL = "myApp/field-reducer/CLICK_BY_EMPTY_CELL";
 const CLICK_BY_LIGHTENED_CELL = "myApp/field-reducer/CLICK_BY_LIGHTENED_CELL";
-const SET_ON_CLICK_CELL = "myApp/field-reducer/SET_ON_CLICK_CELL";
+const ON_CELL_CLICK = "myApp/field-reducer/ON_CELL_CLICK";
+const CLICK_GO_BACK_ARROW = "myApp/field-reducer/CLICK_GO_BACK_ARROW";
 
 export const fieldActions = {
 
@@ -35,7 +36,7 @@ export const fieldActions = {
         return {type: GET_UUID} as const
     },
     setOnClickCellAC: (cell: CelllType) => { // экшн креатор записи в стейт ячейки с фигурой, куда кликнули
-        return {type: SET_ON_CLICK_CELL, cell} as const
+        return {type: ON_CELL_CLICK, cell} as const
     },
     clickByEmptyCellAC: () => { // экшн креатор  клика по пустой ячейке
         return {type: CLICK_BY_EMPTY_CELL} as const
@@ -45,6 +46,9 @@ export const fieldActions = {
     },
     clickByLightenedCellAC: (cell: CelllType) => { // экшн креатор записи в стейт ячейки с фигурой, куда кликнули
         return {type: CLICK_BY_LIGHTENED_CELL, cell} as const
+    },
+    clickGoBackArrowAC: () => { // экшн креатор записи в стейт ячейки с фигурой, куда кликнули
+        return {type: CLICK_GO_BACK_ARROW} as const
     },
 }
 
@@ -56,8 +60,8 @@ const initialState = {
     commonGameParam: {
         fieldParams: {
             fieldWidthHeight: 55 as number,
-            numABC: ["a", "b", "c", "d", "e", "f", "g", "h"],
-            num123: ["1", "2", "3", "4", "5", "6", "7", "8"]
+            numABC: [] as Array<string>,
+            num123: [] as Array<string>
         },
         currentStep: "whitePlayer", // текущий ход (пока не чередуется)
         player1Color: "unchecked",//какие фигуры будут снизу
@@ -70,6 +74,7 @@ const initialState = {
         figueLightenedSteps: figueLightenedSteps
     } as CommonGameParamType,
     field: field as FiedType,
+    fieldHistory: [] as Array<FiedType>
 
 }
 
@@ -113,6 +118,15 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             stateLocal.commonGameParam.player1Color = action.player1Color
             stateLocal.commonGameParam.currentStep = action.player1Color
+
+            if (action.player1Color === "whitePlayer") {
+                stateLocal.commonGameParam.fieldParams.num123 = ["8", "7", "6", "5", "4", "3", "2", "1"]
+                stateLocal.commonGameParam.fieldParams.numABC = ["a", "b", "c", "d", "e", "f", "g", "h"]
+            }
+            if (action.player1Color === "blackPlayer") {
+                stateLocal.commonGameParam.fieldParams.num123 = ["1", "2", "3", "4", "5", "6", "7", "8"]
+                stateLocal.commonGameParam.fieldParams.numABC = ["h", "g", "f", "e", "d", "c", "b", "a"]
+           }
 
             stateCopy = {...stateLocal} // копия всего стейта
             return stateCopy
@@ -162,8 +176,21 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             stateCopy = {...stateLocal} // копия всего стейта
 
             return stateCopy; // возврат копии стейта после изменения
-        case SET_ON_CLICK_CELL: // экшн клика записи в стейт ячейки, куда кликнули
-            // console.log("мы кликнули по ячейке:", action.cell)
+        case CLICK_GO_BACK_ARROW: // экшн клика по стрелке шаг назад
+
+            stateLocal = structuredClone(state) // полная копия стейта
+
+            //stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
+
+            stateLocal.field = structuredClone(stateLocal.fieldHistory[stateLocal.fieldHistory.length-1]) // взять последний элемент истории
+
+            stateLocal.fieldHistory.pop() // удалить последний элемент истории
+
+            stateCopy = {...stateLocal} // копия всего стейта
+
+            return stateCopy; // возврат копии стейта после изменения
+        case ON_CELL_CLICK: // экшн клика записи в стейт ячейки, куда кликнули
+            console.log(action.cell)
 
             stateLocal = structuredClone(state) // полная копия стейта
 
