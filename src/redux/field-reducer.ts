@@ -74,8 +74,10 @@ const initialState = {
         figueLightenedSteps: figueLightenedSteps
     } as CommonGameParamType,
     field: field as FiedType,
-    fieldHistory: [] as Array<FiedType>
-
+    history: {
+        fieldHistory: [] as Array<FiedType>,
+        commonGameParamHistory: [] as Array<CommonGameParamType>
+    }
 }
 
 export type InitialStateFieldType = typeof initialState
@@ -180,11 +182,13 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             stateLocal = structuredClone(state) // полная копия стейта
 
-            //stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
+            stateLocal.field = stateLocal.history.fieldHistory[stateLocal.history.fieldHistory.length-1] // взять последний элемент истории поля
+            stateLocal.commonGameParam = stateLocal.history.commonGameParamHistory[stateLocal.history.commonGameParamHistory.length-1] // взять последний элемент истории параметров игры
 
-            stateLocal.field = structuredClone(stateLocal.fieldHistory[stateLocal.fieldHistory.length-1]) // взять последний элемент истории
+            stateLocal.history.fieldHistory.pop() // удалить последний элемент истории поля
+            stateLocal.history.commonGameParamHistory.pop() // удалить последний элемент истории параметров игры
 
-            stateLocal.fieldHistory.pop() // удалить последний элемент истории
+            stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
 
             stateCopy = {...stateLocal} // копия всего стейта
 

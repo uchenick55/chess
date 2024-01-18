@@ -7,7 +7,8 @@ const {v4: uuidv4} = require('uuid');
 export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) => {
     const stateLocal: InitialStateFieldType = structuredClone(state) // полная копия стейта
 
-    stateLocal.fieldHistory.push(stateLocal.field)
+    stateLocal.history.fieldHistory.push(structuredClone(stateLocal.field)) // делаем копию field
+    stateLocal.history.commonGameParamHistory.push(structuredClone((stateLocal.commonGameParam))) // архивируем общие параметры игры
 
     stateLocal.field.forEach((rowItem) => { // пробегаем по всему field
         rowItem.forEach(cellItem => {
