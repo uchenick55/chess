@@ -5,6 +5,11 @@ import {InitialStateFieldType} from "../../redux/field-reducer";
 const {v4: uuidv4} = require('uuid');
 
 export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) => {
+
+    if (cell.cellFigue.figue === "king") {
+        return state
+    }
+
     const stateLocal: InitialStateFieldType = structuredClone(state) // полная копия стейта
 
     stateLocal.history.fieldHistory.push(structuredClone(stateLocal.field)) // делаем копию field
@@ -41,7 +46,7 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
         ? "blackPlayer"
         : "whitePlayer"
 
-    if (stateLocal.commonGameParam.showMenu === true) {
+    if (stateLocal.commonGameParam.showMenu) {
         stateLocal.commonGameParam.showMenu = false //скрытие меню выбора цвета фигур после первого хода
     }
 

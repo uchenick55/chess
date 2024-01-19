@@ -42,8 +42,11 @@ export type PlayerType =    "whitePlayer" | "blackPlayer" | "unchecked"
 
 export type CommonGameParamType = {
     initialisedApp: boolean,
+    mobileWidth: number,
     fieldParams: {
         fieldWidthHeight: number,
+        pageWidth: number, // ширина страницы по умолчанию
+        pageHeight: number, // высота страницы по умолчанию
         numABC: Array<string>,
         num123: Array<string>
     },

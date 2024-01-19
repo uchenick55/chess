@@ -8,6 +8,7 @@ import Menu from "./Menu/Menu";
 import goBack from "../../assets/svg/go-back-white.svg"
 import bgImage from "../../assets/svg/bgImage.svg"
 import {fieldActions} from "../../redux/field-reducer";
+import Radio from "./Menu/Radio";
 
 
 const RenderGame: React.FC = (() => {
@@ -86,15 +87,16 @@ const RenderGame: React.FC = (() => {
         <div className={classes.div2} style={{ // основное поле помимо клеток (бордер)
             width: 8 * fieldWidthHeightLocal, // стилизация ширины и высоты ячеек от переменных в стейте
             height: 8 * fieldWidthHeightLocal,
-            transform: showMenu? "translateX(-200px)": "unset"
+            //transform: showMenu? "translateX(-200px)": "unset"
         }}>
             {rendr123ABC} {/* отрисовка полей 123ABC*/}
 
             {fieldRender} {/*отрисовка самого поля c ячейками и фигурами*/}
+            {showMenu && <Menu/>} {/*отрисовка меню в зависимости от флага показа меню*/}
+            <Radio/>
 
         </div>
 
-        {showMenu && <Menu/>} {/*отрисовка меню в зависимости от флага показа меню*/}
 
     </div>
 })

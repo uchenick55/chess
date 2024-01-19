@@ -57,9 +57,12 @@ type FieldActionsTypes =
 
 const initialState = {
     initialisedApp: false,
+    mobileWidth: 620,
     commonGameParam: {
         fieldParams: {
-            fieldWidthHeight: 55 as number,
+            fieldWidthHeight: document.documentElement.scrollHeight>document.documentElement.scrollWidth
+                ? document.documentElement.scrollWidth/10 // если ширина меньше (мобильный или горизонтальный мобильнник)
+                : document.documentElement.scrollHeight/10 , // если высота меньше (десктоп)
             numABC: [] as Array<string>,
             num123: [] as Array<string>
         },
@@ -269,7 +272,9 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                                         }
                                         if (actionFigueColor !== isDarkenedFigueColorRight && // цвет пешки и фигуры под боем справа отдичается
                                             isDarkenedFigueColorRight !== "unset" && // не бьем пустые поля
-                                            totalCollInd + 1 <= 7) {// и не выходим справа за поле
+                                            totalCollInd + 1 <= 7
+
+                                        ) {// и не выходим справа за поле
                                             stateLocal.field[totalRowInd][totalCollInd + 1].isDarkened = true // затемняем поле справа с фигурой, которую пешка может побить
                                         }
                                         return
