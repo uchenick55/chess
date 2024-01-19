@@ -40,6 +40,11 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
     stateLocal.commonGameParam.currentStep = stateLocal.commonGameParam.currentStep === "whitePlayer"
         ? "blackPlayer"
         : "whitePlayer"
+
+    if (stateLocal.commonGameParam.showMenu === true) {
+        stateLocal.commonGameParam.showMenu = false //скрытие меню выбора цвета фигур после первого хода
+    }
+
     return stateLocal
 
 }

@@ -1,22 +1,33 @@
 .div1 {
-    background-color: rgb(92,209,203);
     position: absolute;
     left: 0px;
     top: 0px;
     right: 0px;
     bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
 }
 
 .div2 {
     position: absolute;
     border: 1.5rem solid rgb(16,117,125);
     border-radius: 1.5rem;
+    transition: 0.5s ease-in-out;
+
+
 }
 .goBackArrow {
     position: absolute;
     left: 2rem;
-    top:2rem;
-    width: 5rem;
+    top:1rem;
+    width: 3rem;
     z-index: 1;
 }
 
