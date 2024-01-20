@@ -1,39 +1,86 @@
-.App {
+.radioCommon {
     font-family: sans-serif;
     text-align: center;
+    background: white;
+    position: absolute;
+    top: 3rem;
+    border-radius: 2rem;
+    padding: 1rem;
+    height: 20rem;
 }
 
-.radiobutton-input {
+.radiobuttonInput {
     visibility: hidden;
+
 }
 
-.radiobutton-label {
+.radiobuttonLabel {
     display: flex;
-    align-items: center;
-    gap: 5px;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
 }
 
-.custom-radiobutton {
-    height: 17px;
-    width: 17px;
+.customRadiobutton {
+    height: 1.4rem;
+    width: 1.4rem;
     border-radius: 50%;
     cursor: pointer;
-    background-color: #d2c5ef;
-    display: inline-block;
+    background-color: rgb(255,251,255);
+    border: 0.4rem solid rgb(255,251,255);
+
+
 }
-.radiobutton-input:checked + .custom-radiobutton {
-    border: 2px solid #261ba4;
-    background-color: #3f27b3;
+.radiobuttonInput:checked + .customRadiobutton {
+    border: 0.4rem solid rgb(255,251,255);
+    background-color: rgb(167,149,231);
 }
 
-/* .radiobutton-input:checked + span {
-  border: 2px solid #261BA4;
-  background-color: #3F27B3;
-} */
-
-.radiobutton-div {
+.radiobuttonDiv {
     display: flex;
-    justify-content: center;
+    width: 15rem;
+    background-color: rgb(226,218,255);
+    border-radius: 2rem;
+    height: 3rem;
+    margin: 0.5rem;
+    position: relative;
+}
+.rook {
+    width: 1.7rem;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+    transform: rotate(12deg);
+    position: absolute;
+    left: 4rem;
+    top: 0.5rem;
+}
+.text {
+    position: absolute;
+    left: 7rem;
+    top: 0.8rem;
+    font-family: sans-serif;
+    font-size: 1.2rem;
+
+}
+
+
+.checkboxCommon {
+    position: absolute;
+    bottom: 2rem;
+    left: 4rem;
+    right: 4rem;
+    display: flex;
     align-items: center;
+    justify-content: center;
+}
+.checkboxDisabled {
+    width: 4rem;
+}
+.checkbox {
+    width: 4rem;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+}
+.checkbox:hover {
+    transform: scale(1.1);
 }

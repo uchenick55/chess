@@ -1,14 +1,16 @@
-import "./styles.css";
+import classes from "./radioButton.module.css"
+import blackRook from "../../../assets/svg/black-rook.svg";
+import React from "react";
 
 type RadioButtonType = {
-    id: any, text:any, name:any, onChange:any, checked:any, value:any
+    id: any, text:any, name:any, onChange:any, checked:any, value:any, src: any
 }
 
-const RadioButton: React.FC< RadioButtonType> = ({ id, text, name, onChange, checked, value }) => {
+const RadioButton: React.FC< RadioButtonType> = ({ id, text, name, onChange, checked, value, src }) => {
     return (
-        <label htmlFor={id} className="radiobutton-label">
+        <label htmlFor={id} className={classes.radiobuttonLabel}>
             <input
-                className="radiobutton-input"
+                className= {classes.radiobuttonInput}
                 type="radio"
                 name={name}
                 id={id}
@@ -16,8 +18,9 @@ const RadioButton: React.FC< RadioButtonType> = ({ id, text, name, onChange, che
                 onChange={onChange}
                 checked={checked}
             />
-            <span className="custom-radiobutton" />
-            {text}
+            <span className={classes.customRadiobutton}/>
+            <img src={src} alt="" className={classes.rook}/>
+            <div className={classes.text}>text</div>
         </label>
     );
 };

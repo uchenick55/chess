@@ -15,60 +15,56 @@ const Menu: React.FC = () => {
 
     const dispatch = useDispatch()
 
-    return <div className={classes.menuCommonUp}>
+    return <div className={classes.menuCommon} style={{width: fieldWidthHeightLocal*8, height:fieldWidthHeightLocal*8 }}>
+        <div className={classes.chooseWhooPlay}>Выбери, за кого играть</div>
 
-        <div className={classes.menuCommon} style={{width: fieldWidthHeightLocal*8, height:fieldWidthHeightLocal*8 }}>
-            <div className={classes.chooseWhooPlay}>Выбери, за кого играть</div>
-            <br/>
-            <div className={classes.radio}>
-                <label className={classes.customRadio}>
-                    <input
-                        type="radio"
-                        name="site_name"
-                        value="value"
-                        onChange={() => {
-                            dispatch(fieldActions.setFirstStepAC("whitePlayer"))
-                        }}
-                        checked={player1Color === "whitePlayer"}
-                    />
-
-                    <div>
-                        <img src={whiteRook} alt="" className={classes.rook}/>
-                        за белых
-
-                    </div>
-
-                </label>
-            </div>
-
-            <div className={classes.radio}>
-                <label className={classes.customRadio}>
-                    <input
-                        type="radio"
-                        name="site_name"
-                        value="value"
-                        onChange={() => {
-                            dispatch(fieldActions.setFirstStepAC("blackPlayer"))
-                        }}
-                        checked={player1Color === "blackPlayer"}
-                    />
-                    <div>
-                        <img src={blackRook} alt="" className={classes.rook}/>
-                        за чёрных
-
-                    </div>
-                </label>
-            </div>
-            <div className={classes.checkboxCommon} >
-                <img src={player1Color==="unchecked" ?checkboxNotChoosen :checkboxChoosen} alt=""
-                     className={player1Color==="unchecked"?classes.checkboxDisabled: classes.checkbox}
-                     onClick={()=>{
-                         player1Color!=="unchecked" && dispatch(fieldActions.showMenuAC(false))
-                     }}
+        <div className={classes.radio}>
+            <label className={classes.customRadio}>
+                <input
+                    type="radio"
+                    name="site_name"
+                    value="value"
+                    onChange={() => {
+                        dispatch(fieldActions.setFirstStepAC("whitePlayer"))
+                    }}
+                    checked={player1Color === "whitePlayer"}
                 />
-            </div>
+
+                <div>
+                    <img src={whiteRook} alt="" className={classes.rook}/>
+                    за белых
+
+                </div>
+
+            </label>
         </div>
 
+        <div className={classes.radio}>
+            <label className={classes.customRadio}>
+                <input
+                    type="radio"
+                    name="site_name"
+                    value="value"
+                    onChange={() => {
+                        dispatch(fieldActions.setFirstStepAC("blackPlayer"))
+                    }}
+                    checked={player1Color === "blackPlayer"}
+                />
+                <div>
+                    <img src={blackRook} alt="" className={classes.rook}/>
+                    за чёрных
+
+                </div>
+            </label>
+        </div>
+        <div className={classes.checkboxCommon} >
+            <img src={player1Color==="unchecked" ?checkboxNotChoosen :checkboxChoosen} alt=""
+                 className={player1Color==="unchecked"?classes.checkboxDisabled: classes.checkbox}
+                onClick={()=>{
+                    player1Color!=="unchecked" && dispatch(fieldActions.showMenuAC(false))
+                }}
+            />
+        </div>
 
     </div>
 }
