@@ -7,6 +7,7 @@ export type FigueType = { // тип фигуры
     color: "white" | "black" | "unset"// цвет фигуры
     uuid: string,
     stepCount: number,
+    pawnTransform: boolean
 }
 
 type CellAddressType = // возможные варианты ячеек

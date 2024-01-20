@@ -118,6 +118,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
 
              }}
         />}
+        {cell.cellFigue.pawnTransform && <div> 123 </div>}
     </div>
 }
 export default CellRender

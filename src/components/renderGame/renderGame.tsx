@@ -88,8 +88,10 @@ const RenderGame: React.FC = (() => {
             height: 8 * fieldWidthHeightLocal,
             border: `${fieldWidthHeightLocal*0.5}px solid rgb(16,117,125)`,
             borderRadius: `${fieldWidthHeightLocal*0.5}px`
+            //transform: showMenu? "translateX(-200px)": "unset"
         }}>
             {rendr123ABC} {/* отрисовка полей 123ABC*/}
+
             {fieldRender} {/*отрисовка самого поля c ячейками и фигурами*/}
             {showMenu && <Radio/>} {/*отрисовка меню в зависимости от флага показа меню*/}
 

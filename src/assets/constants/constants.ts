@@ -167,7 +167,7 @@ export const field = [
         },
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "pawn", color: "black"},
+            cellFigue: {figue: "pawn", color: "white"},
             cellColor: "white",
             cellAddress: "b7"
         },
@@ -479,7 +479,7 @@ export const field = [
         },
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "pawn", color: "white"},
+            cellFigue: {figue: "pawn", color: "black"},
             cellColor: "white",
             cellAddress: "g2"
         },

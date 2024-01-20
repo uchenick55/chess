@@ -25,19 +25,26 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
                 }
                 cellItem.cellFigue = {
                     ...stateLocal.commonGameParam.onClickCell.cellFigue,// копируем фигуру из onClickCell в ячейку, куда ходим (перемещение/побитие)
-                    stepCount: state.commonGameParam.onClickCell.cellFigue.stepCount + 1 // увеличиваем счетчик ходов
+                    stepCount: state.commonGameParam.onClickCell.cellFigue.stepCount + 1, // увеличиваем счетчик ходов
                 }
+                if (cellItem.cellFigue.figue === "pawn") { // проверяем достижение пешкой противоположного края доски
+                    if (cellItem.rowInd === 0 || cellItem.rowInd === 7) {
+                        cellItem.cellFigue.pawnTransform = true // помечаем флаг трансформации пешки
+                    }
+                }
+
             }
         })
     })
     const rowIndToClear = stateLocal.commonGameParam.onClickCell.rowInd // индекс ряда для зачистик
     const colIndToClear = stateLocal.commonGameParam.onClickCell.colInd // индекс колонки для зачистки
 
-    stateLocal.field[rowIndToClear][colIndToClear].cellFigue = { // зачиищаем ячейку, где раньше была фигура до удара
+    stateLocal.field[rowIndToClear][colIndToClear].cellFigue = { // зачиищаем ячейку, где раньше была фигура до удара/хода
         "figue": "empty",
         "color": "unset",
         "uuid": uuidv4(),// генерируем новый id для очищенной фигуры ячейки
-        stepCount: 0
+        stepCount: 0,
+        pawnTransform: false
     }
     stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
     stateLocal.commonGameParam.onClickCell = {} as CelllType // зачищаем onClickCell в стейте
