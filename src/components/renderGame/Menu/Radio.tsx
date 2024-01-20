@@ -24,10 +24,21 @@ function Radio() {
 
     const isChecked = (value: any) => fruits === value;
 
-    return (
-        <div className={classes.radioCommon}>
-            <h2>Выбери, за кого играть</h2>
-            <div className={classes.radiobuttonDiv}>
+    return <div className={classes.menuCommon}>
+        <div className={classes.radioCommon} style={{
+            left: fieldWidthHeightLocal * 1.1,
+            top: fieldWidthHeightLocal * 1.1,
+            right: fieldWidthHeightLocal * 1.1,
+            bottom: fieldWidthHeightLocal * 1.1,
+
+        }}>
+            <div style={{fontSize: `${fieldWidthHeightLocal * 0.4}px`, fontWeight: "bold"}}>Выбери, за кого играть</div>
+            <div className={classes.radiobuttonDiv}
+                 style={{
+                     width: `${fieldWidthHeightLocal * 5}px`,
+                     height: `${fieldWidthHeightLocal * 0.8}px`,
+
+                 }}>
                 <RadioButton
                     id="за белых"
                     name="за белых"
@@ -41,30 +52,40 @@ function Radio() {
                 />
 
             </div>
-            <div className={classes.radiobuttonDiv}>
-                <RadioButton
-                    id="за чёрных"
-                    name="за чёрных"
-                    value="за чёрных"
-                    text="за чёрных"
-                    onChange={() => {
-                        dispatch(fieldActions.setFirstStepAC("blackPlayer"))
-                    }}
-                    checked={player1Color === "blackPlayer"}
-                    src={blackRook}
+            <div className={classes.radiobuttonDiv}
+                 style={{
+                     width: `${fieldWidthHeightLocal * 5}px`,
+                     height: `${fieldWidthHeightLocal * 0.8}px`,
+                 }}>
+            <RadioButton
+                id="за чёрных"
+                name="за чёрных"
+                value="за чёрных"
+                text="за чёрных"
+                onChange={() => {
+                dispatch(fieldActions.setFirstStepAC("blackPlayer"))
+            }}
+                checked={player1Color === "blackPlayer"}
+                src={blackRook}
                 />
-            </div>
-
-            <div className={classes.checkboxCommon} >
-                <img src={player1Color==="unchecked" ?checkboxNotChoosen :checkboxChoosen} alt=""
-                     className={player1Color==="unchecked"?classes.checkboxDisabled: classes.checkbox}
-                     onClick={()=>{
-                         player1Color!=="unchecked" && dispatch(fieldActions.showMenuAC(false))
-                     }}
-                />
-            </div>
         </div>
-    );
+
+        <div className={classes.checkboxCommon} >
+            <img src={player1Color === "unchecked" ? checkboxNotChoosen : checkboxChoosen} alt=""
+                 className={player1Color === "unchecked" ? classes.checkboxDisabled : classes.checkbox}
+                 style={{
+                     width: `${fieldWidthHeightLocal * 1}px`,
+                     top: `${fieldWidthHeightLocal * 1}px`,
+
+                 }}
+                 onClick={() => {
+                     player1Color !== "unchecked" && dispatch(fieldActions.showMenuAC(false))
+
+                 }}
+            />
+        </div>
+    </div>
+</div>
 }
 
 export default Radio;

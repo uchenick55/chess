@@ -61,8 +61,8 @@ const initialState = {
     commonGameParam: {
         fieldParams: {
             fieldWidthHeight: document.documentElement.scrollHeight>document.documentElement.scrollWidth
-                ? document.documentElement.scrollWidth/10 // если ширина меньше (мобильный или горизонтальный мобильнник)
-                : document.documentElement.scrollHeight/10 , // если высота меньше (десктоп)
+                ? document.documentElement.scrollWidth/9.5 // если ширина меньше (мобильный или горизонтальный мобильнник)
+                : document.documentElement.scrollHeight/9.5 , // если высота меньше (десктоп)
             numABC: [] as Array<string>,
             num123: [] as Array<string>
         },

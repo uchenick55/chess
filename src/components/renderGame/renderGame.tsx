@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {FiedType} from "../common/types/commonTypes";
 import classes from "./renderGame.module.css"
 import CellRender from "./CellRender";
-import Menu from "./Menu/Menu";
 import goBack from "../../assets/svg/go-back-white.svg"
 import bgImage from "../../assets/svg/bgImage.svg"
 import {fieldActions} from "../../redux/field-reducer";
@@ -87,10 +86,10 @@ const RenderGame: React.FC = (() => {
         <div className={classes.div2} style={{ // основное поле помимо клеток (бордер)
             width: 8 * fieldWidthHeightLocal, // стилизация ширины и высоты ячеек от переменных в стейте
             height: 8 * fieldWidthHeightLocal,
-            //transform: showMenu? "translateX(-200px)": "unset"
+            border: `${fieldWidthHeightLocal*0.5}px solid rgb(16,117,125)`,
+            borderRadius: `${fieldWidthHeightLocal*0.5}px`
         }}>
             {rendr123ABC} {/* отрисовка полей 123ABC*/}
-
             {fieldRender} {/*отрисовка самого поля c ячейками и фигурами*/}
             {showMenu && <Radio/>} {/*отрисовка меню в зависимости от флага показа меню*/}
 

@@ -1,12 +1,17 @@
+.menuCommon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .radioCommon {
     font-family: sans-serif;
     text-align: center;
     background: white;
     position: absolute;
-    top: 3rem;
+
     border-radius: 2rem;
     padding: 1rem;
-    height: 20rem;
 }
 
 .radiobuttonInput {
@@ -22,8 +27,7 @@
 }
 
 .customRadiobutton {
-    height: 1.4rem;
-    width: 1.4rem;
+    position: absolute;
     border-radius: 50%;
     cursor: pointer;
     background-color: rgb(255,251,255);
@@ -46,27 +50,20 @@
     position: relative;
 }
 .rook {
-    width: 1.7rem;
-    padding-left: 0.7rem;
-    padding-right: 0.7rem;
+
     transform: rotate(12deg);
     position: absolute;
-    left: 4rem;
-    top: 0.5rem;
+
 }
 .text {
     position: absolute;
-    left: 7rem;
-    top: 0.8rem;
     font-family: sans-serif;
-    font-size: 1.2rem;
 
 }
 
 
 .checkboxCommon {
     position: absolute;
-    bottom: 2rem;
     left: 4rem;
     right: 4rem;
     display: flex;
@@ -75,6 +72,8 @@
 }
 .checkboxDisabled {
     width: 4rem;
+    position: absolute;
+
 }
 .checkbox {
     width: 4rem;
