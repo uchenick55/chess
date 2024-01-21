@@ -5,9 +5,16 @@
     opacity: 100%;
     border: 2px solid red;
     border-radius: 2rem;
+
 }
 
 .figueItem {
     position: absolute;
+    transition: 0.5s ease-in-out;
+    opacity: 50%;
 
+}
+.figueItem:hover {
+    transform: scale(1.1);
+    opacity: 100%;
 }

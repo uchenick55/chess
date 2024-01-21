@@ -1,9 +1,9 @@
 import {InferActionsTypes} from "./store-redux";
 import {
-    CelllType,
+    CelllType, ColorType,
     CommonGameParamType,
     ComThunkTp,
-    FiedType, FigueLightenedStepsType, FigueType, PlayerType,
+    FiedType, FigueType, PlayerType,
     RowType
 } from "../components/common/types/commonTypes";
 import {clearLightenedDarkened} from "../assets/functions/clearLightenedDarkened";
@@ -20,6 +20,7 @@ const CLICK_BY_EMPTY_CELL = "myApp/field-reducer/CLICK_BY_EMPTY_CELL";
 const CLICK_BY_LIGHTENED_CELL = "myApp/field-reducer/CLICK_BY_LIGHTENED_CELL";
 const ON_CELL_CLICK = "myApp/field-reducer/ON_CELL_CLICK";
 const CLICK_GO_BACK_ARROW = "myApp/field-reducer/CLICK_GO_BACK_ARROW";
+const SET_PAWN_TRANSFORM = "myApp/field-reducer/SET_PAWN_TRANSFORM";
 
 export const fieldActions = {
 
@@ -49,6 +50,9 @@ export const fieldActions = {
     },
     clickGoBackArrowAC: () => { // экшн креатор записи в стейт ячейки с фигурой, куда кликнули
         return {type: CLICK_GO_BACK_ARROW} as const
+    },
+    setPawnTransformAC: (uuid: string, color: ColorType, figue: FigueType  ) => { // экшн креатор трансформации пешки после клика мышью
+        return {type: SET_PAWN_TRANSFORM, uuid, color, figue } as const
     },
 }
 
@@ -192,6 +196,22 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             stateLocal.history.commonGameParamHistory.pop() // удалить последний элемент истории параметров игры
 
             stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
+
+            stateCopy = {...stateLocal} // копия всего стейта
+
+            return stateCopy; // возврат копии стейта после изменения
+        case SET_PAWN_TRANSFORM: // экшн трансформации пешки в конце поля
+
+            stateLocal = structuredClone(state) // полная копия стейта
+
+            stateLocal.field.forEach((rowItem)=>{
+                rowItem.forEach((collItem)=>{
+                    if (collItem.cellFigue.uuid === action.uuid) { // если мы наши изменяемую фигуру
+                        collItem.cellFigue.figue = action.figue // сменяем тип фигуры с пешки на выбранную
+                        collItem.cellFigue.pawnTransform = false // убираем флаг смена пешки (скрытие меню)
+                    }
+                })
+            })
 
             stateCopy = {...stateLocal} // копия всего стейта
 

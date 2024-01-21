@@ -2,9 +2,13 @@ import {Action} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "../../../redux/store-redux";
 
-export type FigueType = { // тип фигуры
-    figue: "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn" | "empty", // все возможные фигуры
-    color: "white" | "black" | "unset"// цвет фигуры
+export type ColorType = "white" | "black" | "unset"// цвет фигуры
+
+export type FigueType = "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn" | "empty" // все возможные фигуры
+
+export type FigueTypeCommon = { // тип фигуры
+    figue: FigueType
+    color: ColorType
     uuid: string,
     stepCount: number,
     pawnTransform: boolean
@@ -23,8 +27,8 @@ type CellAddressType = // возможные варианты ячеек
 export type CelllType = { // тип ячейки
     isLightened: boolean, // ячейка подсвечена, если фигура по которой кликнули может сюда ходить
     isDarkened: boolean, // ячейка затемнена, если фигура, по которой мы клинкули, может подить данную фигуру
-    cellFigue: FigueType, // тип фигуры
-    cellColor: "white" | "black", // цвет ячейки
+    cellFigue: FigueTypeCommon, // тип фигуры
+    cellColor: ColorType, // цвет ячейки
     cellAddress: CellAddressType, // адрес ячейки
     rowInd: number,
     colInd: number
@@ -53,7 +57,7 @@ export type CommonGameParamType = {
     },
     currentStep: PlayerType,
     player1Color: PlayerType,
-   // onclickFigue: OnClickFigueType,
+   // onclickFigue: OnClickFigueTypeCommon,
     onClickCell: CelllType,
     beatenFigures: {
         white: CelllType[],
