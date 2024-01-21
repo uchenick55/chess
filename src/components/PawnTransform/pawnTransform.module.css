@@ -1,0 +1,13 @@
+.commonPawnTransform {
+    position: absolute;
+    background-color: rgb(90,209,203);
+    z-index: 5;
+    opacity: 100%;
+    border: 2px solid red;
+    border-radius: 2rem;
+}
+
+.figueItem {
+    position: absolute;
+
+}

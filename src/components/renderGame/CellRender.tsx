@@ -18,6 +18,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fieldActions} from "../../redux/field-reducer";
 import {GlobalStateType} from "../../redux/store-redux";
 import circle from "../../assets/svg/circle.svg"
+import PawnTransform from "../PawnTransform/PawnTransform";
 
 
 type CellRenderType = {
@@ -76,7 +77,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
         backgroundColor: cell.cellColor === "white" ? cellColorWhite : cellColorBlack, // и отличающийся цвет
     }}>
         {isLightenedLocal &&
-        <img src={circle} style={{width: "1rem", opacity: "50%"}} alt=""/>
+        <img src={circle} style={{width: `${fieldWHLocal/3.5}px`, opacity: "50%"}} alt=""/>
 
         } {/*рисуем кружок возможного хода фигуры*/}
 
@@ -118,7 +119,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
 
              }}
         />}
-        {cell.cellFigue.pawnTransform && <div> 123 </div>}
+        {cell.cellFigue.pawnTransform && <div> <PawnTransform cell={cell}/> </div>}
     </div>
 }
 export default CellRender

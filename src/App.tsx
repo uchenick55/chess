@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import RenderGame from "./components/renderGame/renderGame";
+import RenderGame from "./components/renderGame/RenderGame";
 import {useDispatch} from "react-redux";
 import {initialisedAppThunkCreator} from "./redux/field-reducer";
 import {AppDispatch} from "./redux/store-redux";
