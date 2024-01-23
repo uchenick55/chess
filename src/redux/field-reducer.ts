@@ -60,8 +60,8 @@ type FieldActionsTypes =
     InferActionsTypes<typeof fieldActions>
 
 const initialState = {
-    initialisedApp: false,
-    mobileWidth: 620,
+    initialisedApp: false,// инициализация приложения
+    popoverBlockScreen: false,// блокировка кликов при всплывающем окне
     commonGameParam: {
         fieldParams: {
             fieldWidthHeight: document.documentElement.scrollHeight>document.documentElement.scrollWidth
@@ -285,14 +285,21 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                                         isBreakRay = true
                                         const isDarkenedFigueColorLeft = totalCollInd - 1 >= 0 && stateLocal.field[totalRowInd][totalCollInd - 1].cellFigue.color // цвет фигуры, которую может бить пешка слева от себя
                                         const isDarkenedFigueColorRight = totalCollInd + 1 <= 7 && stateLocal.field[totalRowInd][totalCollInd + 1].cellFigue.color // цвет фигуры, которую может бить пешка справа от себя
+                                        const bittenFigueLeft = stateLocal.field[totalRowInd][totalCollInd- 1].cellFigue.figue // цвет фигуры, до которой доходит луч боя пешки слева
+                                        const bittenFigueRight = stateLocal.field[totalRowInd][totalCollInd+ 1].cellFigue.figue // цвет фигуры, до которой доходит луч боя пешки справа
+
                                         if (actionFigueColor !== isDarkenedFigueColorLeft && // цвет пешки и фигуры под боем слева отдичается
                                             isDarkenedFigueColorLeft !== "unset" && // не бьем пустые поля
-                                            totalCollInd - 1 >= 0) { // и не выходим слева за поле
+                                            totalCollInd - 1 >= 0 &&
+                                            bittenFigueLeft !== "king"
+
+                                        ) { // и не выходим слева за поле
                                             stateLocal.field[totalRowInd][totalCollInd - 1].isDarkened = true // затемняем поле слева с фигурой, которую пешка может побить
                                         }
                                         if (actionFigueColor !== isDarkenedFigueColorRight && // цвет пешки и фигуры под боем справа отдичается
                                             isDarkenedFigueColorRight !== "unset" && // не бьем пустые поля
-                                            totalCollInd + 1 <= 7
+                                            totalCollInd + 1 <= 7 &&
+                                            bittenFigueRight !== "king"
 
                                         ) {// и не выходим справа за поле
                                             stateLocal.field[totalRowInd][totalCollInd + 1].isDarkened = true // затемняем поле справа с фигурой, которую пешка может побить
@@ -308,7 +315,8 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                                     if (isCellNotEmpty) { // прерывание цикла, если клетка не пустая
                                         isBreakRay = true
                                         const isDarkenedFigueColor = stateLocal.field[totalRowInd][totalCollInd].cellFigue.color // цвет фигуры, до которой доходит луч боя фигуры
-                                        if (actionFigueColor !== isDarkenedFigueColor) {
+                                        const bittenFigue = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue // цвет фигуры, до которой доходит луч боя фигуры
+                                        if (actionFigueColor !== isDarkenedFigueColor && bittenFigue !== "king") {
                                             stateLocal.field[totalRowInd][totalCollInd].isDarkened = true // затемняем поле с фигурой, которую фигура что ходит, может побить
                                         }
                                         return

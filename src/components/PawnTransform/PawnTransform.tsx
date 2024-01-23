@@ -37,19 +37,22 @@ const PawnTransform: React.FC<PawnTransformType> = ({cell}) => {
     const currentFiguesObject = cell.cellFigue.color === "white" // какой объект используем, с белыми или черными?
         ? whitePawnTransformObj
         : blackPawnTransformObj
-
+    const divTopDirection = cell.cellFigue.color === "white"
+        ? -2.6
+        : 2.05
     return <div className={classes.commonPawnTransform} style={{ // общая дивка всплывашки при преобразовании пешки
         width: `${fieldWidthHeightLocal * 4.5}px`,
         height: `${fieldWidthHeightLocal * 1.5}px`,
         left: `-${fieldWidthHeightLocal * 2}px`,
-        top: `-${fieldWidthHeightLocal * 0.25}px`,
+        top: `${fieldWidthHeightLocal * divTopDirection}px`,
     }}>
+        <div className={classes.showBacklight}/>
         {Object.values(currentFiguesObject).map((Item, ItemInd) => { // пробегаем массив фигур на замену пешки
             return <div key={ItemInd}>
                 <img src={Item} alt="" className={classes.figueItem} style={{
                     width: `${fieldWidthHeightLocal}px`,
                     left: `${(ItemInd + 0.30) * fieldWidthHeightLocal}px`,
-                    top: `${(0.20) * fieldWidthHeightLocal}px`,
+                    top: `${(0.25) * fieldWidthHeightLocal}px`,
                 }}
                      onClick={() => {
                          console.log(Object.keys(currentFiguesObject)[ItemInd])

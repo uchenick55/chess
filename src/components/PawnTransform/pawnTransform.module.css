@@ -1,7 +1,7 @@
 .commonPawnTransform {
     position: absolute;
-    background-color: rgb(90,209,203);
-    z-index: 5;
+    background-color: aqua;
+    z-index: 10;
     opacity: 100%;
     border: 2px solid red;
     border-radius: 2rem;
@@ -17,4 +17,14 @@
 .figueItem:hover {
     transform: scale(1.1);
     opacity: 100%;
+}
+.showBacklight {
+    position: fixed;
+    left: 0;
+    right:0;
+    bottom: 0;
+    top: 0;
+    background-color: darkslategray;
+    opacity: 10%;
+
 }

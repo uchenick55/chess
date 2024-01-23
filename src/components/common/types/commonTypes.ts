@@ -47,7 +47,7 @@ export type PlayerType =    "whitePlayer" | "blackPlayer" | "unchecked"
 
 export type CommonGameParamType = {
     initialisedApp: boolean,
-    mobileWidth: number,
+    popoverBlockScreen: boolean // блокировка кликов при всплывающем окне
     fieldParams: {
         fieldWidthHeight: number,
         pageWidth: number, // ширина страницы по умолчанию
