@@ -9,7 +9,7 @@ import {
 import {clearLightenedDarkened} from "../assets/functions/clearLightenedDarkened";
 import {field, figueLightenedSteps} from "../assets/constants/constants";
 import {moveOrBiteFigue} from "../assets/functions/moveOrBiteFigue";
-import {checkLightenedOrHitCell} from "../assets/functions/checkLightenedOrHitCell";
+import {checkLightenedOrHitCellComm} from "../assets/functions/checkLightenedOrHitCellComm";
 
 const SET_ON_CLICK_FIGUE = "myApp/field-reducer/SET_ON_CLICK_FIGUE";
 const SET_PLAYER1_COLOR = "myApp/field-reducer/SET_PLAYER1_COLOR";
@@ -224,12 +224,9 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
 
-            ///////////////
-            checkLightenedOrHitCell(action.cell, stateLocal)
+            checkLightenedOrHitCellComm(action.cell, stateLocal) // проверка подсветки ячейки для кликнутой фигуры
 
-            stateLocal.commonGameParam.onClickCell = action.cell
-
-            ///////////////
+            stateLocal.commonGameParam.onClickCell = action.cell // записываем кликнутую ячейку в стейт
 
             stateCopy = {
                 ...stateLocal, // копия всего стейта
