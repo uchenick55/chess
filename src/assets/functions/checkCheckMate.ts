@@ -10,6 +10,9 @@ export const checkCheckMate = (stateLocal: InitialStateFieldType) => {
 
     stateLocal.field.forEach((rowItem) => {
         rowItem.forEach(cellItem => {
+
+
+
             const actionFigueColorCoeff: number = // коэффициент цвета кликнутой фигуры
 
                 cellItem.cellFigue.figue !== "empty" //если поле содержит фигуру
