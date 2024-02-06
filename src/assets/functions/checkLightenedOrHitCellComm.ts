@@ -1,8 +1,9 @@
 import {InitialStateFieldType} from "../../redux/field-reducer";
 import {CelllType} from "../../components/common/types/commonTypes";
 import {checkLightenedCell} from "./checkLightenedCell";
+import {checkHitCell} from "./checkHitCell";
 
-export const checkLightenedOrHitCellComm = (cellItem: CelllType, stateLocal: InitialStateFieldType) => {
+export const checkLightenedOrHitCellComm = (cellItem: CelllType, stateLocal: InitialStateFieldType, direction: "lightened" | "hit") => {
     // проверка подсветки хода фигуры, либо проверка под ударом ли ячейка
 
     const actionFigueColorCoeff: number = // коэффициент цвета кликнутой фигуры
@@ -40,11 +41,20 @@ export const checkLightenedOrHitCellComm = (cellItem: CelllType, stateLocal: Ini
                             return
                         }
 
+                        const setIsBreakRay = (isBreak:boolean) => {
+                            isBreakRay = isBreak
+                        }
+
                         // здесь будет различие поведения
 
-                        checkLightenedCell( cellItem, stateLocal, totalRowInd, // проверка подсветок
-                            totalCollInd, actionFigueColorCoeff, player1ColorCoeff, isBreakRay )
-
+                        if (direction === "lightened") { // проверка подсветок
+                            checkLightenedCell( cellItem, stateLocal, totalRowInd,
+                                totalCollInd, actionFigueColorCoeff, player1ColorCoeff, setIsBreakRay )
+                        }
+                        if (direction === "hit") { // проверка клеток под ударом
+                            checkHitCell( cellItem, stateLocal, totalRowInd,
+                                totalCollInd, actionFigueColorCoeff, player1ColorCoeff, setIsBreakRay )
+                        }
                         //
 
                     }

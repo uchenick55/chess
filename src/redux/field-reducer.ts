@@ -224,7 +224,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
 
-            checkLightenedOrHitCellComm(action.cell, stateLocal) // проверка подсветки ячейки для кликнутой фигуры
+            checkLightenedOrHitCellComm(action.cell, stateLocal, "lightened") // проверка подсветки ячейки для кликнутой фигуры
 
             stateLocal.commonGameParam.onClickCell = action.cell // записываем кликнутую ячейку в стейт
 

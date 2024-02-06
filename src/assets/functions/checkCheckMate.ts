@@ -1,12 +1,15 @@
 import {InitialStateFieldType} from "../../redux/field-reducer";
 
 export const checkCheckMate = (stateLocal: InitialStateFieldType) => {
-    stateLocal.field.forEach((rowItem) => {
-        rowItem.forEach(cellItem => { // обнулили все флаги ячеек под ударом после каждого хода
+    stateLocal.field.forEach((rowItem) => { // обнулили все флаги ячеек под ударом после каждого хода
+        rowItem.forEach(cellItem => {
             cellItem.isUnderBlackHit = false
             cellItem.isUnderWhiteHit = false
         })
     })
+
+
+
 
     stateLocal.field.forEach((rowItem) => {
         rowItem.forEach(cellItem => {

@@ -8,7 +8,7 @@ export const checkLightenedCell = ( // проверка подсветок во�
     totalCollInd: number, // колонка со смещением подсветки, в пределах поля
     actionFigueColorCoeff: number, // коэффициент цвета фигуры текущего хода (поворот доски и направление хода фигур)
     player1ColorCoeff: number, // коэффициент выбора цвета фигур в начале
-    isBreakRay: boolean // луч прервался, или нет
+    setIsBreakRay: (isBreak: boolean) => void  // колбек обрыва луча
 ) => {
     if (cellItem.cellFigue.figue === "pawn") { // если кликнули по пешке
 
@@ -32,7 +32,7 @@ export const checkLightenedCell = ( // проверка подсветок во�
         const actionFigueColor = cellItem.cellFigue.color // цвет фигуры по которой кликнули
 
         if (isCellNotEmptyLeft || isCellNotEmptyRight) { // прерывание цикла, если клетка справа или слева не пустая
-            isBreakRay = true
+            setIsBreakRay (true)
             const isDarkenedFigueColorLeft = totalCollInd - 1 >= 0 && stateLocal.field[totalRowInd][totalCollInd - 1].cellFigue.color // цвет фигуры, которую может бить пешка слева от себя
             const isDarkenedFigueColorRight = totalCollInd + 1 <= 7 && stateLocal.field[totalRowInd][totalCollInd + 1].cellFigue.color // цвет фигуры, которую может бить пешка справа от себя
             const bittenFigueLeft = stateLocal.field[totalRowInd][totalCollInd- 1].cellFigue.figue // цвет фигуры, до которой доходит луч боя пешки слева
@@ -63,7 +63,7 @@ export const checkLightenedCell = ( // проверка подсветок во�
         const actionFigueColor = cellItem.cellFigue.color // цвет фигуры по которой кликнули
 
         if (isCellNotEmpty) { // прерывание цикла, если клетка не пустая
-            isBreakRay = true
+            setIsBreakRay (true)
             const isDarkenedFigueColor = stateLocal.field[totalRowInd][totalCollInd].cellFigue.color // цвет фигуры, до которой доходит луч боя фигуры
             const bittenFigue = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue // цвет фигуры, до которой доходит луч боя фигуры
             if (actionFigueColor !== isDarkenedFigueColor && bittenFigue !== "king") {
