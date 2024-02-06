@@ -31,7 +31,9 @@ export type CelllType = { // тип ячейки
     cellColor: ColorType, // цвет ячейки
     cellAddress: CellAddressType, // адрес ячейки
     rowInd: number,
-    colInd: number
+    colInd: number,
+    isUnderBlackHit: boolean,
+    isUnderWhiteHit:boolean
 }
 
 export type RowType = [CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType]

@@ -260,6 +260,8 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                                     return
                                 }
 
+                                // здесь будет различие поведения
+
                                 if (action.cell.cellFigue.figue === "pawn") { // если кликнули по пешке
 
                                     const isCellNotEmptyStraight1Row = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая прямо на 1 поле (с фигурой)

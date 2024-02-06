@@ -1,6 +1,7 @@
 import {clearLightenedDarkened} from "./clearLightenedDarkened";
 import {CelllType} from "../../components/common/types/commonTypes";
 import {InitialStateFieldType} from "../../redux/field-reducer";
+import {checkCheckMate} from "./checkCheckMate";
 
 const {v4: uuidv4} = require('uuid');
 
@@ -56,6 +57,7 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
     if (stateLocal.commonGameParam.showMenu) {
         stateLocal.commonGameParam.showMenu = false //скрытие меню выбора цвета фигур после первого хода
     }
+    checkCheckMate(stateLocal)
 
     return stateLocal
 
