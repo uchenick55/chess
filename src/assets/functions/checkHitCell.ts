@@ -11,5 +11,23 @@ export const checkHitCell = (
     setIsBreakRay: (isBreak: boolean) => void  // колбек обрыва луча
 
 ) => {
+    if (cellItem.cellFigue.figue !== "pawn") { // если пробегаемая фигура не пешка
+
+        const isCellNotEmpty = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая (с фигурой)
+        const bittenFigue = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue // цвет фигуры, до которой доходит луч боя фигуры
+
+        const actionFigueColor = cellItem.cellFigue.color // цвет фигуры по которой кликнули
+        if (actionFigueColor === "white") {
+            stateLocal.field[totalRowInd][totalCollInd].isUnderWhiteHit = true // делаем метку, что поле под ударом белых
+        }
+        if (actionFigueColor === "black") {
+            stateLocal.field[totalRowInd][totalCollInd].isUnderBlackHit = true // делаем метку, что поле под ударом белых
+        }
+        if (isCellNotEmpty && bittenFigue !== "king") { // прерывание луча, если клетка не пустая и это не король
+            setIsBreakRay(true)
+            return
+        }
+
+    }
     return stateLocal
 }

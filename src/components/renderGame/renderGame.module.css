@@ -34,3 +34,14 @@
     position: absolute;
     color: rgb(184,214,217);
 }
+
+.BHit {
+    position: absolute;
+    right: 1rem;
+    top: 0;
+}
+.WHit {
+    position: absolute;
+    right: 0;
+    top: 0;
+}

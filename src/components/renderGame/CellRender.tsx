@@ -13,6 +13,7 @@ import whitePawnVal from "../../assets/svg/white-pawn.svg"
 import whiteQueenVal from "../../assets/svg/white-queen.svg"
 import whiteRookVal from "../../assets/svg/white-rook.svg"
 import nonEmpty from "../../assets/svg/non-empty.svg"
+import classes from "./renderGame.module.css"
 
 import {useDispatch, useSelector} from "react-redux";
 import {fieldActions} from "../../redux/field-reducer";
@@ -120,6 +121,8 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
              }}
         />}
         {cell.cellFigue.pawnTransform && <div> <PawnTransform cell={cell}/> </div>}
+        {cell.isUnderWhiteHit && <span className={classes.WHit}>W</span>}
+        {cell.isUnderBlackHit && <span className={classes.BHit}>B</span>}
     </div>
 }
 export default CellRender

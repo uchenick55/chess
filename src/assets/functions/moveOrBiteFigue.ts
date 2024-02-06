@@ -59,6 +59,7 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
     }
     checkCheckMate(stateLocal)
 
+
     return stateLocal
 
 }

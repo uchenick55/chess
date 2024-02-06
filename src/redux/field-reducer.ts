@@ -10,6 +10,7 @@ import {clearLightenedDarkened} from "../assets/functions/clearLightenedDarkened
 import {field, figueLightenedSteps} from "../assets/constants/constants";
 import {moveOrBiteFigue} from "../assets/functions/moveOrBiteFigue";
 import {checkLightenedOrHitCellComm} from "../assets/functions/checkLightenedOrHitCellComm";
+import {checkCheckMate} from "../assets/functions/checkCheckMate";
 
 const SET_ON_CLICK_FIGUE = "myApp/field-reducer/SET_ON_CLICK_FIGUE";
 const SET_PLAYER1_COLOR = "myApp/field-reducer/SET_PLAYER1_COLOR";
@@ -141,8 +142,13 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             stateCopy = {...stateLocal} // копия всего стейта
             return stateCopy
         case SHOW_MENU: // показать/скрыть меню
+
+            stateLocal = structuredClone(state) // полная копия стейта
+
+            checkCheckMate(stateLocal)
+
             stateCopy = {
-                ...state,
+                ...stateLocal,
                 commonGameParam: {...state.commonGameParam, showMenu: action.showMenu},
             }
             return stateCopy
@@ -213,6 +219,8 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                     }
                 })
             })
+
+            checkCheckMate(stateLocal)
 
             stateCopy = {...stateLocal} // копия всего стейта
 
