@@ -104,39 +104,34 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-           cellFigue: {figue: "empty", color: "unset"},
-//             cellFigue: {figue: "rook", color: "black"},
+            cellFigue: {figue: "rook", color: "black"},
             cellColor: "white",
             cellAddress: "a8"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "knight", color: "black"},
+            cellFigue: {figue: "knight", color: "black"},
             cellColor: "black",
             cellAddress: "b8"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "bishop", color: "black"},
+            cellFigue: {figue: "bishop", color: "black"},
             cellColor: "white",
             cellAddress: "c8"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "queen", color: "black"},
+            cellFigue: {figue: "queen", color: "black"},
             cellColor: "black",
             cellAddress: "d8"
         },
         {
             isLightened: false,
             isDarkened: false,
-//            cellFigue: {figue: "empty", color: "unset"},
             cellFigue: {figue: "king", color: "black"},
             cellColor: "white",
             cellAddress: "e8"
@@ -144,24 +139,21 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "bishop", color: "black"},
+            cellFigue: {figue: "bishop", color: "black"},
             cellColor: "black",
             cellAddress: "f8"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "knight", color: "black"},
+            cellFigue: {figue: "knight", color: "black"},
             cellColor: "white",
             cellAddress: "g8"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "rook", color: "black"},
+            cellFigue: {figue: "rook", color: "black"},
             cellColor: "black",
             cellAddress: "h8"
         },
@@ -169,57 +161,49 @@ export const field = [
     [
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "pawn", color: "black"},
+            cellFigue: {figue: "pawn", color: "black"},
             cellColor: "black",
             cellAddress: "a7"
         },
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "pawn", color: "white"},
+            cellFigue: {figue: "pawn", color: "black"},
             cellColor: "white",
             cellAddress: "b7"
         },
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "pawn", color: "black"},
+            cellFigue: {figue: "pawn", color: "black"},
             cellColor: "black",
             cellAddress: "c7"
         },
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "pawn", color: "black"},
+            cellFigue: {figue: "pawn", color: "black"},
             cellColor: "white",
             cellAddress: "d7"
         },
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "pawn", color: "black"},
+            cellFigue: {figue: "pawn", color: "black"},
             cellColor: "black",
             cellAddress: "e7"
         },
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "pawn", color: "black"},
+            cellFigue: {figue: "pawn", color: "black"},
             cellColor: "white",
             cellAddress: "f7"
         },
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "pawn", color: "black"},
+            cellFigue: {figue: "pawn", color: "black"},
             cellColor: "black",
             cellAddress: "g7"
         },
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "pawn", color: "black"},
+            cellFigue: {figue: "pawn", color: "black"},
             cellColor: "white",
             cellAddress: "h7"
         },
@@ -489,7 +473,7 @@ export const field = [
         },
         {
             isLightened: false, isDarkened: false,
-            cellFigue: {figue: "pawn", color: "black"},
+            cellFigue: {figue: "pawn", color: "white"},
             cellColor: "black",
             cellAddress: "f2"
         },

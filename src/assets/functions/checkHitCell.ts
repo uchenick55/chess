@@ -11,12 +11,13 @@ export const checkHitCell = (
     setIsBreakRay: (isBreak: boolean) => void  // колбек обрыва луча
 
 ) => {
+    const actionFigueColor = cellItem.cellFigue.color // цвет фигуры по которой кликнули
+
     if (cellItem.cellFigue.figue !== "pawn") { // если пробегаемая фигура не пешка
 
         const isCellNotEmpty = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая (с фигурой)
-        const bittenFigue = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue // цвет фигуры, до которой доходит луч боя фигуры
+        const bittenFigue = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue // фигура, до которой доходит луч боя фигуры
 
-        const actionFigueColor = cellItem.cellFigue.color // цвет фигуры по которой кликнули
         if (actionFigueColor === "white") {
             stateLocal.field[totalRowInd][totalCollInd].isUnderWhiteHit = true // делаем метку, что поле под ударом белых
         }
@@ -28,6 +29,31 @@ export const checkHitCell = (
             return
         }
 
+    }
+
+    if (cellItem.cellFigue.figue === "pawn") { // если кликнули по пешке
+
+        const isCellLeftExists = totalCollInd-1 >=0 // ячейка слева от пешки в пределах поля
+        const isCellRightExists = totalCollInd+1 <=7 // ячейка справа от пешки в пределах поля
+
+       // const totalRowIndCoeff = totalRowInd + actionFigueColorCoeff * player1ColorCoeff // номер ряда с учетом коэффициентов
+
+        if (actionFigueColor === "white") {
+            if (isCellLeftExists) {
+                stateLocal.field[totalRowInd][totalCollInd-1].isUnderWhiteHit = true // делаем метку, что поле под ударом белых
+            }
+            if (isCellRightExists) {
+                stateLocal.field[totalRowInd][totalCollInd+1].isUnderWhiteHit = true // делаем метку, что поле под ударом белых
+            }
+        }
+        if (actionFigueColor === "black") {
+            if (isCellLeftExists) {
+                stateLocal.field[totalRowInd][totalCollInd-1].isUnderBlackHit = true // делаем метку, что поле под ударом белых
+            }
+            if (isCellRightExists) {
+                stateLocal.field[totalRowInd][totalCollInd+1].isUnderBlackHit = true // делаем метку, что поле под ударом белых
+            }
+        }
     }
     return stateLocal
 }

@@ -43,8 +43,8 @@ const PawnTransform: React.FC<PawnTransformType> = ({cell}) => {
     return <div className={classes.commonPawnTransform} style={{ // общая дивка всплывашки при преобразовании пешки
         width: `${fieldWidthHeightLocal * 4.5}px`,
         height: `${fieldWidthHeightLocal * 1.5}px`,
-        left: `-${fieldWidthHeightLocal * 2}px`,
-        top: `${fieldWidthHeightLocal * divTopDirection}px`,
+        left: `-${fieldWidthHeightLocal * 1.8}px`,
+        top: `-${fieldWidthHeightLocal * 0.3}px`,
     }}>
         <div className={classes.showBacklight}/>
         {Object.values(currentFiguesObject).map((Item, ItemInd) => { // пробегаем массив фигур на замену пешки
