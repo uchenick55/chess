@@ -58,6 +58,15 @@ export const checkLightenedCell = ( // проверка подсветок во�
         }
     }
     if (cellItem.cellFigue.figue !== "pawn") { // если кликнули не по пешке
+
+        if (cellItem.cellFigue.figue === "king") {
+            if (cellItem.cellFigue.color=== "white" && stateLocal.field[totalRowInd][totalCollInd].isUnderBlackHit) { // обрыв хода для белого короля под ударом ячейки от черных
+                return
+            }
+            if (cellItem.cellFigue.color=== "black" && stateLocal.field[totalRowInd][totalCollInd].isUnderWhiteHit) { // обрыв хода для черного короля под ударом ячейки от белых
+                return
+            }
+        }
         const isCellNotEmpty = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая (с фигурой)
 
         const actionFigueColor = cellItem.cellFigue.color // цвет фигуры по которой кликнули
@@ -66,11 +75,12 @@ export const checkLightenedCell = ( // проверка подсветок во�
             setIsBreakRay (true)
             const isDarkenedFigueColor = stateLocal.field[totalRowInd][totalCollInd].cellFigue.color // цвет фигуры, до которой доходит луч боя фигуры
             const bittenFigue = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue // цвет фигуры, до которой доходит луч боя фигуры
-            if (actionFigueColor !== isDarkenedFigueColor && bittenFigue !== "king") {
+            if (actionFigueColor !== isDarkenedFigueColor && bittenFigue !== "king") { // бить можно всех кроме короля
                 stateLocal.field[totalRowInd][totalCollInd].isDarkened = true // затемняем поле с фигурой, которую фигура что ходит, может побить
             }
             return
         }
+
         stateLocal.field[totalRowInd][totalCollInd].isLightened = true // подсвечиваем пустую ячейку, куда фигура может ходить
     }
 

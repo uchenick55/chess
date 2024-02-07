@@ -270,7 +270,8 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
+            cellFigue: {figue: "rook", color: "white"},
+//            cellFigue: {figue: "empty", color: "unset"},
             cellColor: "black",
             cellAddress: "a5"
         },
@@ -363,7 +364,8 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
+            cellFigue: {figue: "king", color: "black"},
+//            cellFigue: {figue: "empty", color: "unset"},
             cellColor: "black",
             cellAddress: "f4"
         },
