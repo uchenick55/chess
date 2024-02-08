@@ -35,8 +35,8 @@ export const checkLightenedCell = ( // проверка подсветок во�
             setIsBreakRay (true)
             const isDarkenedFigueColorLeft = totalCollInd - 1 >= 0 && stateLocal.field[totalRowInd][totalCollInd - 1].cellFigue.color // цвет фигуры, которую может бить пешка слева от себя
             const isDarkenedFigueColorRight = totalCollInd + 1 <= 7 && stateLocal.field[totalRowInd][totalCollInd + 1].cellFigue.color // цвет фигуры, которую может бить пешка справа от себя
-            const bittenFigueLeft = stateLocal.field[totalRowInd][totalCollInd- 1].cellFigue.figue // цвет фигуры, до которой доходит луч боя пешки слева
-            const bittenFigueRight = stateLocal.field[totalRowInd][totalCollInd+ 1].cellFigue.figue // цвет фигуры, до которой доходит луч боя пешки справа
+            const bittenFigueLeft = totalCollInd - 1 >= 0 && stateLocal.field[totalRowInd][totalCollInd- 1].cellFigue.figue // цвет фигуры, до которой доходит луч боя пешки слева
+            const bittenFigueRight = totalCollInd + 1 <= 7 && stateLocal.field[totalRowInd][totalCollInd+ 1].cellFigue.figue // цвет фигуры, до которой доходит луч боя пешки справа
 
             if (actionFigueColor !== isDarkenedFigueColorLeft && // цвет пешки и фигуры под боем слева отдичается
                 isDarkenedFigueColorLeft !== "unset" && // не бьем пустые поля
