@@ -72,6 +72,10 @@ const initialState = {
             numABC: [] as Array<string>,
             num123: [] as Array<string>
         },
+        isCheckMate: {
+            isBlackUnderCheck: false,
+            isWhiteUnderCheck: false
+        },
         currentStep: "whitePlayer", // текущий ход (пока не чередуется)
         player1Color: "unchecked",//какие фигуры будут снизу
         onClickCell: {}, // ячейка с фигурой текущего хода

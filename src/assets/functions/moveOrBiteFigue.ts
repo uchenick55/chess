@@ -47,7 +47,6 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
         "uuid": uuidv4(),// генерируем новый id для очищенной фигуры ячейки
         stepCount: 0,
         pawnTransform: false,
-        isKingCheckMate: isKingCheckMateInitial
     }
     stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
     stateLocal.commonGameParam.onClickCell = {} as CelllType // зачищаем onClickCell в стейте

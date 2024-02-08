@@ -22,13 +22,13 @@ export const checkHitCell = (
         if (actionFigueColor === "white") { // если мы перебираем белую фигуру
             stateLocal.field[totalRowInd][totalCollInd].isUnderWhiteHit = true // делаем метку, что поле под ударом белых
             if (bittenFigue === "king" && bittenFigueColor === "black") { // если фигура до которой дошел луч - король и его цвет черный
-                stateLocal.field[totalRowInd][totalCollInd].cellFigue.isKingCheckMate.check = true // отмечаем статус шах у короля
+               stateLocal.commonGameParam.isCheckMate.isBlackUnderCheck = true  // в общих параметрах помечаем шах королю черных
             }
         }
         if (actionFigueColor === "black") {// если мы перебираем черную фигуру
             stateLocal.field[totalRowInd][totalCollInd].isUnderBlackHit = true // делаем метку, что поле под ударом белых
             if (bittenFigue === "king" && bittenFigueColor === "white") { // если фигура до которой дошел луч - король и его цвет белый
-                stateLocal.field[totalRowInd][totalCollInd].cellFigue.isKingCheckMate.check = true // отмечаем статус шах у короля
+                stateLocal.commonGameParam.isCheckMate.isWhiteUnderCheck = true// в общих параметрах помечаем шах королю белых
             }
         }
         if (isCellNotEmpty) { // прерывание луча, если клетка не пустая и это не король

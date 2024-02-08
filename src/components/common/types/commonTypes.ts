@@ -8,7 +8,6 @@ export type FigueType = "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn"
 
 export type IsKingCheckMateType = {
     check: boolean
-    mate: boolean
 }
 export type FigueTypeCommon = { // тип фигуры
     figue: FigueType
@@ -16,7 +15,6 @@ export type FigueTypeCommon = { // тип фигуры
     uuid: string,
     stepCount: number,
     pawnTransform: boolean,
-    isKingCheckMate: IsKingCheckMateType
 }
 
 type CellAddressType = // возможные варианты ячеек
@@ -62,6 +60,12 @@ export type CommonGameParamType = {
         numABC: Array<string>,
         num123: Array<string>
     },
+    isCheckMate: {
+        isWhiteUnderCheck: boolean,
+        isBlackUnderCheck: boolean,
+        isWhiteUnderMate: boolean,
+        isBlackUnderMate: boolean,
+    }
     currentStep: PlayerType,
     player1Color: PlayerType,
     // onclickFigue: OnClickFigueTypeCommon,

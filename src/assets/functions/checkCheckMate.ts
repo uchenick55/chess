@@ -7,15 +7,14 @@ export const checkCheckMate = (stateLocal: InitialStateFieldType) => {
         rowItem.forEach(cellItem => {
             cellItem.isUnderBlackHit = false
             cellItem.isUnderWhiteHit = false
-            cellItem.cellFigue.isKingCheckMate = {
-                check: false,
-                mate: false
-            }
-            if (cellItem.cellFigue.figue === "king") {
-                console.log(cellItem.cellFigue.figue, cellItem.cellFigue.color, cellItem.cellFigue.isKingCheckMate)
-            }
         })
     })
+    stateLocal.commonGameParam.isCheckMate = {
+        isWhiteUnderCheck: false,
+        isBlackUnderCheck: false,
+        isBlackUnderMate: false,
+        isWhiteUnderMate: false
+    }
 
     stateLocal.field.forEach((rowItem) => {
         rowItem.forEach(cellItem => {

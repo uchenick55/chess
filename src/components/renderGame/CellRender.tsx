@@ -34,6 +34,8 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
     const dispatch = useDispatch()
     const player1Color: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.player1Color) // кто первый ходит
     const currentStep: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.currentStep) // кто сейчас ходит
+    const isWhiteUnderCheck: boolean = useSelector((state: GlobalStateType) => state.chess.commonGameParam.isCheckMate.isWhiteUnderCheck) // белые под шахом?
+    const isBlackUnderCheck: boolean = useSelector((state: GlobalStateType) => state.chess.commonGameParam.isCheckMate.isBlackUnderCheck) // черные под шахом?
 
     let srcLocal = ""// srcLocal - составить ключ по которому ищем название ключа рисунка в объекте рисунков
     const figueColor = cell.cellFigue.color
@@ -67,6 +69,11 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
             ? "rgb(34,166,150)"
             : "rgb(34,166,170)"
 
+    const isKingUnderCheck = cell.cellFigue.figue === "king" && ( // условие что королю шах
+        cell.cellFigue.color === "white" && isWhiteUnderCheck || // и белый король с флагом белым шах
+        cell.cellFigue.color === "black" && isBlackUnderCheck // или черный король с флагом черным шах
+    )
+
     return <div style={{ //стилизация ячееки общая
         width: `${fieldWHLocal}px`,// ширина
         height: `${fieldWHLocal}px`, // высота
@@ -76,10 +83,10 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
         display: "flex", alignItems: "center", justifyContent: "center", // выравнивание всего внутри
 
         backgroundColor: cell.cellColor === "white" ? cellColorWhite : cellColorBlack, // и отличающийся цвет
-        // backgroundColor: cell.cellFigue.isKingCheckMate?.check.black? "red" : cellColorBlack,
+        // backgroundColor: cell.cellFigue.isKingCheckMate?.check? "red" : cellColorBlack,
     }}>
         {isLightenedLocal &&
-        <img src={circle} style={{width: `${fieldWHLocal/3.5}px`, opacity: "50%"}} alt=""/>
+        <img src={circle} style={{width: `${fieldWHLocal / 3.5}px`, opacity: "50%"}} alt=""/>
 
         } {/*рисуем кружок возможного хода фигуры*/}
 
@@ -90,9 +97,9 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
             transform: isDarkenedLocal ? "scale(1.05)" : "scale(1)",// увеличение фигуры под боем 50%
             transition: "0.5s ease-in-out",
             opacity: isLightenedLocal || cell.cellFigue.color === "unset" ? "0%" : "100%",
-            boxShadow: cell.cellFigue.isKingCheckMate?.check ?  '0 0 10px red': "unset",
-            backgroundColor: cell.cellFigue.isKingCheckMate?.check  ? "rgba(253,17,0, 0.5)": "unset", // красный цвет фона шаха королю
-            borderRadius: cell.cellFigue.isKingCheckMate?.check ? "1rem" : "unset" // радиус красной подсветки шаха королю
+            backgroundColor: isKingUnderCheck ? "rgba(253,17,0, 0.5)" : "unset", // фон шаха королю
+            boxShadow: isKingUnderCheck ? '0 0 10px red' : "unset", // тень подсветки шаха королю
+            borderRadius: isKingUnderCheck ? "0.5rem" : "unset" // радиус красной подсветки шаха королю
         }} // сами фигуры
              src={
                  cell.cellFigue.color === "unset"
@@ -124,7 +131,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
 
              }}
         />}
-        {cell.cellFigue.pawnTransform && <div> <PawnTransform cell={cell}/> </div>}
+        {cell.cellFigue.pawnTransform && <div><PawnTransform cell={cell}/></div>}
         {cell.isUnderWhiteHit && <span className={classes.WHit}>W</span>}
         {cell.isUnderBlackHit && <span className={classes.BHit}>B</span>}
     </div>
