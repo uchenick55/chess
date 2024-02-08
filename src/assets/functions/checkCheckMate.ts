@@ -1,11 +1,19 @@
 import {InitialStateFieldType} from "../../redux/field-reducer";
 import {checkLightenedOrHitCellComm} from "./checkLightenedOrHitCellComm";
+import {isKingCheckMateInitial} from "../constants/constants";
 
 export const checkCheckMate = (stateLocal: InitialStateFieldType) => {
-    stateLocal.field.forEach((rowItem) => { // обнулили все флаги ячеек под ударом после каждого хода
+    stateLocal.field.forEach((rowItem) => { // обнулили все флаги ячеек под ударом и шах/мат после каждого хода
         rowItem.forEach(cellItem => {
             cellItem.isUnderBlackHit = false
             cellItem.isUnderWhiteHit = false
+            cellItem.cellFigue.isKingCheckMate = {
+                check: false,
+                mate: false
+            }
+            if (cellItem.cellFigue.figue === "king") {
+                console.log(cellItem.cellFigue.figue, cellItem.cellFigue.color, cellItem.cellFigue.isKingCheckMate)
+            }
         })
     })
 

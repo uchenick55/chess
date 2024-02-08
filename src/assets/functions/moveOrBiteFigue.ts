@@ -2,6 +2,7 @@ import {clearLightenedDarkened} from "./clearLightenedDarkened";
 import {CelllType} from "../../components/common/types/commonTypes";
 import {InitialStateFieldType} from "../../redux/field-reducer";
 import {checkCheckMate} from "./checkCheckMate";
+import {isKingCheckMateInitial} from "../constants/constants";
 
 const {v4: uuidv4} = require('uuid');
 
@@ -45,7 +46,8 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
         "color": "unset",
         "uuid": uuidv4(),// генерируем новый id для очищенной фигуры ячейки
         stepCount: 0,
-        pawnTransform: false
+        pawnTransform: false,
+        isKingCheckMate: isKingCheckMateInitial
     }
     stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
     stateLocal.commonGameParam.onClickCell = {} as CelllType // зачищаем onClickCell в стейте

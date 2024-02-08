@@ -1,4 +1,9 @@
-import {FiedType, FigueLightenedStepsType, RowType} from "../../components/common/types/commonTypes";
+import {
+    FiedType,
+    FigueLightenedStepsType,
+    IsKingCheckMateType,
+    RowType
+} from "../../components/common/types/commonTypes";
 
 export const figueLightenedSteps = { // возможные комбинации подсветки в зависимости от имени фигуры
     "knight": [
@@ -343,7 +348,8 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
+            cellFigue: {figue: "king", color: "white"},
+//            cellFigue: {figue: "empty", color: "unset"},
             cellColor: "white",
             cellAddress: "c4"
         },
@@ -552,3 +558,8 @@ export const field = [
     ] as RowType,
 
 ] as FiedType
+
+export const isKingCheckMateInitial = {
+    check: false ,
+    mate: false
+} as IsKingCheckMateType

@@ -6,12 +6,17 @@ export type ColorType = "white" | "black" | "unset"// цвет фигуры
 
 export type FigueType = "rook" | "knight" | "bishop" | 'king' | "queen" | "pawn" | "empty" // все возможные фигуры
 
+export type IsKingCheckMateType = {
+    check: boolean
+    mate: boolean
+}
 export type FigueTypeCommon = { // тип фигуры
     figue: FigueType
     color: ColorType
     uuid: string,
     stepCount: number,
-    pawnTransform: boolean
+    pawnTransform: boolean,
+    isKingCheckMate: IsKingCheckMateType
 }
 
 type CellAddressType = // возможные варианты ячеек
@@ -33,7 +38,7 @@ export type CelllType = { // тип ячейки
     rowInd: number,
     colInd: number,
     isUnderBlackHit: boolean,
-    isUnderWhiteHit:boolean
+    isUnderWhiteHit: boolean
 }
 
 export type RowType = [CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType, CelllType]
@@ -45,7 +50,7 @@ export type ComThunkTp<A extends Action> = ThunkAction<void,    // санка н
     unknown,    // нет доп параметров
     A // все типы ActionCreator
     >
-export type PlayerType =    "whitePlayer" | "blackPlayer" | "unchecked"
+export type PlayerType = "whitePlayer" | "blackPlayer" | "unchecked"
 
 export type CommonGameParamType = {
     initialisedApp: boolean,
@@ -59,7 +64,7 @@ export type CommonGameParamType = {
     },
     currentStep: PlayerType,
     player1Color: PlayerType,
-   // onclickFigue: OnClickFigueTypeCommon,
+    // onclickFigue: OnClickFigueTypeCommon,
     onClickCell: CelllType,
     beatenFigures: {
         white: CelllType[],
@@ -112,7 +117,7 @@ export type FigueLightenedStepsType = {
         [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }],
         [{ rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }, { rowInd: number, collInd: number }]
     ],
-    "pawn" : [
+    "pawn": [
         [{ rowInd: number, collInd: number }]
     ]
 

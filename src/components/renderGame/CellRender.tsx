@@ -76,6 +76,7 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
         display: "flex", alignItems: "center", justifyContent: "center", // выравнивание всего внутри
 
         backgroundColor: cell.cellColor === "white" ? cellColorWhite : cellColorBlack, // и отличающийся цвет
+        // backgroundColor: cell.cellFigue.isKingCheckMate?.check.black? "red" : cellColorBlack,
     }}>
         {isLightenedLocal &&
         <img src={circle} style={{width: `${fieldWHLocal/3.5}px`, opacity: "50%"}} alt=""/>
@@ -88,7 +89,10 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
             position: "absolute", height: `${fieldWHLocal * 0.8}px`,
             transform: isDarkenedLocal ? "scale(1.05)" : "scale(1)",// увеличение фигуры под боем 50%
             transition: "0.5s ease-in-out",
-            opacity: isLightenedLocal || cell.cellFigue.color === "unset" ? "0%" : "100%"
+            opacity: isLightenedLocal || cell.cellFigue.color === "unset" ? "0%" : "100%",
+            boxShadow: cell.cellFigue.isKingCheckMate?.check ?  '0 0 10px red': "unset",
+            backgroundColor: cell.cellFigue.isKingCheckMate?.check  ? "rgba(253,17,0, 0.5)": "unset", // красный цвет фона шаха королю
+            borderRadius: cell.cellFigue.isKingCheckMate?.check ? "1rem" : "unset" // радиус красной подсветки шаха королю
         }} // сами фигуры
              src={
                  cell.cellFigue.color === "unset"
