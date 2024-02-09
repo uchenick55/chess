@@ -1,4 +1,4 @@
-import {CelllType} from "../../components/common/types/commonTypes";
+import {CelllType, ColorType, FigueType} from "../../components/common/types/commonTypes";
 import {InitialStateFieldType} from "../../redux/field-reducer";
 
 export const checkHitCell = (
@@ -13,23 +13,30 @@ export const checkHitCell = (
 ) => {
     const actionFigueColor = cellItem.cellFigue.color // цвет фигуры по которой кликнули
 
+    const setIsBlackUnderCheck = (stateLocal:InitialStateFieldType, bittenFigue: FigueType, bittenFigueColor: 'black' | "white" | "unset") => {
+        if (bittenFigue === "king" && bittenFigueColor === "black") { // если фигура до которой дошел луч - король и его цвет черный
+            stateLocal.commonGameParam.isCheckMate.isBlackUnderCheck = true  // в общих параметрах помечаем шах королю черных
+        }
+    }
+    const setIsWhiteUnderCheck = (stateLocal:InitialStateFieldType, bittenFigue: FigueType, bittenFigueColor: 'black' | "white" | "unset") => {
+        if (bittenFigue === "king" && bittenFigueColor === "white") { // если фигура до которой дошел луч - король и его цвет белый
+            stateLocal.commonGameParam.isCheckMate.isWhiteUnderCheck = true// в общих параметрах помечаем шах королю белых
+        }
+    }
+    let bittenFigue:  FigueType = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue // фигура, до которой доходит луч боя фигуры
+    let bittenFigueColor: ColorType = stateLocal.field[totalRowInd][totalCollInd].cellFigue.color // цвет фигуры, до которой доходит луч боя
+
     if (cellItem.cellFigue.figue !== "pawn") { // если пробегаемая фигура не пешка
 
         const isCellNotEmpty = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая (с фигурой)
-        const bittenFigue = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue // фигура, до которой доходит луч боя фигуры
-        const bittenFigueColor = stateLocal.field[totalRowInd][totalCollInd].cellFigue.color // цвет фигуры, до которой доходит луч боя
 
         if (actionFigueColor === "white") { // если мы перебираем белую фигуру
             stateLocal.field[totalRowInd][totalCollInd].isUnderWhiteHit = true // делаем метку, что поле под ударом белых
-            if (bittenFigue === "king" && bittenFigueColor === "black") { // если фигура до которой дошел луч - король и его цвет черный
-               stateLocal.commonGameParam.isCheckMate.isBlackUnderCheck = true  // в общих параметрах помечаем шах королю черных
-            }
+            setIsBlackUnderCheck(stateLocal, bittenFigue, bittenFigueColor)
         }
         if (actionFigueColor === "black") {// если мы перебираем черную фигуру
             stateLocal.field[totalRowInd][totalCollInd].isUnderBlackHit = true // делаем метку, что поле под ударом белых
-            if (bittenFigue === "king" && bittenFigueColor === "white") { // если фигура до которой дошел луч - король и его цвет белый
-                stateLocal.commonGameParam.isCheckMate.isWhiteUnderCheck = true// в общих параметрах помечаем шах королю белых
-            }
+            setIsWhiteUnderCheck(stateLocal, bittenFigue, bittenFigueColor)
         }
         if (isCellNotEmpty) { // прерывание луча, если клетка не пустая и это не король
             setIsBreakRay(true)
@@ -39,8 +46,6 @@ export const checkHitCell = (
             setIsBreakRay(true)
             return
         }
-
-
     }
 
     if (cellItem.cellFigue.figue === "pawn") { // если кликнули по пешке
@@ -52,18 +57,30 @@ export const checkHitCell = (
 
         if (actionFigueColor === "white") {
             if (isCellLeftExists) {
+                bittenFigue = stateLocal.field[totalRowInd][totalCollInd-1].cellFigue.figue // фигура, до которой доходит луч боя фигуры
+                bittenFigueColor = stateLocal.field[totalRowInd][totalCollInd-1].cellFigue.color // цвет фигуры, до которой доходит луч боя
                 stateLocal.field[totalRowInd][totalCollInd-1].isUnderWhiteHit = true // делаем метку, что поле под ударом белых
+                setIsBlackUnderCheck(stateLocal, bittenFigue, bittenFigueColor)
             }
             if (isCellRightExists) {
+                bittenFigue = stateLocal.field[totalRowInd][totalCollInd+1].cellFigue.figue // фигура, до которой доходит луч боя фигуры
+                bittenFigueColor = stateLocal.field[totalRowInd][totalCollInd+1].cellFigue.color // цвет фигуры, до которой доходит луч боя
                 stateLocal.field[totalRowInd][totalCollInd+1].isUnderWhiteHit = true // делаем метку, что поле под ударом белых
+                setIsBlackUnderCheck(stateLocal,bittenFigue, bittenFigueColor)
             }
         }
         if (actionFigueColor === "black") {
             if (isCellLeftExists) {
+                bittenFigue = stateLocal.field[totalRowInd][totalCollInd-1].cellFigue.figue // фигура, до которой доходит луч боя фигуры
+                bittenFigueColor = stateLocal.field[totalRowInd][totalCollInd-1].cellFigue.color // цвет фигуры, до которой доходит луч боя
                 stateLocal.field[totalRowInd][totalCollInd-1].isUnderBlackHit = true // делаем метку, что поле под ударом белых
+                setIsWhiteUnderCheck(stateLocal, bittenFigue, bittenFigueColor)
             }
             if (isCellRightExists) {
+                bittenFigue = stateLocal.field[totalRowInd][totalCollInd+1].cellFigue.figue // фигура, до которой доходит луч боя фигуры
+                bittenFigueColor = stateLocal.field[totalRowInd][totalCollInd+1].cellFigue.color // цвет фигуры, до которой доходит луч боя
                 stateLocal.field[totalRowInd][totalCollInd+1].isUnderBlackHit = true // делаем метку, что поле под ударом белых
+                setIsWhiteUnderCheck(stateLocal, bittenFigue, bittenFigueColor)
             }
         }
     }
