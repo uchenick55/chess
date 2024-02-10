@@ -13,16 +13,6 @@ export const checkHitCell = (
 ) => {
     const actionFigueColor = cellItem.cellFigue.color // цвет фигуры по которой кликнули
 
-    const setIsBlackUnderCheck = (stateLocal:InitialStateFieldType, bittenFigue: FigueType, bittenFigueColor: 'black' | "white" | "unset") => {
-        if (bittenFigue === "king" && bittenFigueColor === "black") { // если фигура до которой дошел луч - король и его цвет черный
-            stateLocal.commonGameParam.isCheckMate.isBlackUnderCheck = true  // в общих параметрах помечаем шах королю черных
-        }
-    }
-    const setIsWhiteUnderCheck = (stateLocal:InitialStateFieldType, bittenFigue: FigueType, bittenFigueColor: 'black' | "white" | "unset") => {
-        if (bittenFigue === "king" && bittenFigueColor === "white") { // если фигура до которой дошел луч - король и его цвет белый
-            stateLocal.commonGameParam.isCheckMate.isWhiteUnderCheck = true// в общих параметрах помечаем шах королю белых
-        }
-    }
     let bittenFigue:  FigueType = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue // фигура, до которой доходит луч боя фигуры
     let bittenFigueColor: ColorType = stateLocal.field[totalRowInd][totalCollInd].cellFigue.color // цвет фигуры, до которой доходит луч боя
 
@@ -32,11 +22,15 @@ export const checkHitCell = (
 
         if (actionFigueColor === "white") { // если мы перебираем белую фигуру
             stateLocal.field[totalRowInd][totalCollInd].isUnderWhiteHit = true // делаем метку, что поле под ударом белых
-            setIsBlackUnderCheck(stateLocal, bittenFigue, bittenFigueColor)
+            if (bittenFigue === "king" && bittenFigueColor === "black") { // если фигура до которой дошел луч - король и его цвет черный
+                stateLocal.commonGameParam.isCheckMate.isBlackUnderCheck = true  // в общих параметрах помечаем шах королю черных
+            }
         }
         if (actionFigueColor === "black") {// если мы перебираем черную фигуру
             stateLocal.field[totalRowInd][totalCollInd].isUnderBlackHit = true // делаем метку, что поле под ударом белых
-            setIsWhiteUnderCheck(stateLocal, bittenFigue, bittenFigueColor)
+            if (bittenFigue === "king" && bittenFigueColor === "white") { // если фигура до которой дошел луч - король и его цвет белый
+                stateLocal.commonGameParam.isCheckMate.isWhiteUnderCheck = true// в общих параметрах помечаем шах королю белых
+            }
         }
         if (isCellNotEmpty) { // прерывание луча, если клетка не пустая и это не король
             setIsBreakRay(true)
@@ -53,20 +47,22 @@ export const checkHitCell = (
         const isCellLeftExists = totalCollInd-1 >=0 // ячейка слева от пешки в пределах поля
         const isCellRightExists = totalCollInd+1 <=7 // ячейка справа от пешки в пределах поля
 
-       // const totalRowIndCoeff = totalRowInd + actionFigueColorCoeff * player1ColorCoeff // номер ряда с учетом коэффициентов
-
         if (actionFigueColor === "white") {
             if (isCellLeftExists) {
                 bittenFigue = stateLocal.field[totalRowInd][totalCollInd-1].cellFigue.figue // фигура, до которой доходит луч боя фигуры
                 bittenFigueColor = stateLocal.field[totalRowInd][totalCollInd-1].cellFigue.color // цвет фигуры, до которой доходит луч боя
                 stateLocal.field[totalRowInd][totalCollInd-1].isUnderWhiteHit = true // делаем метку, что поле под ударом белых
-                setIsBlackUnderCheck(stateLocal, bittenFigue, bittenFigueColor)
+                if (bittenFigue === "king" && bittenFigueColor === "black") { // если фигура до которой дошел луч - король и его цвет черный
+                    stateLocal.commonGameParam.isCheckMate.isBlackUnderCheck = true  // в общих параметрах помечаем шах королю черных
+                }
             }
             if (isCellRightExists) {
                 bittenFigue = stateLocal.field[totalRowInd][totalCollInd+1].cellFigue.figue // фигура, до которой доходит луч боя фигуры
                 bittenFigueColor = stateLocal.field[totalRowInd][totalCollInd+1].cellFigue.color // цвет фигуры, до которой доходит луч боя
                 stateLocal.field[totalRowInd][totalCollInd+1].isUnderWhiteHit = true // делаем метку, что поле под ударом белых
-                setIsBlackUnderCheck(stateLocal,bittenFigue, bittenFigueColor)
+                if (bittenFigue === "king" && bittenFigueColor === "black") { // если фигура до которой дошел луч - король и его цвет черный
+                    stateLocal.commonGameParam.isCheckMate.isBlackUnderCheck = true  // в общих параметрах помечаем шах королю черных
+                }
             }
         }
         if (actionFigueColor === "black") {
@@ -74,13 +70,17 @@ export const checkHitCell = (
                 bittenFigue = stateLocal.field[totalRowInd][totalCollInd-1].cellFigue.figue // фигура, до которой доходит луч боя фигуры
                 bittenFigueColor = stateLocal.field[totalRowInd][totalCollInd-1].cellFigue.color // цвет фигуры, до которой доходит луч боя
                 stateLocal.field[totalRowInd][totalCollInd-1].isUnderBlackHit = true // делаем метку, что поле под ударом белых
-                setIsWhiteUnderCheck(stateLocal, bittenFigue, bittenFigueColor)
+                if (bittenFigue === "king" && bittenFigueColor === "white") { // если фигура до которой дошел луч - король и его цвет белый
+                    stateLocal.commonGameParam.isCheckMate.isWhiteUnderCheck = true// в общих параметрах помечаем шах королю белых
+                }
             }
             if (isCellRightExists) {
                 bittenFigue = stateLocal.field[totalRowInd][totalCollInd+1].cellFigue.figue // фигура, до которой доходит луч боя фигуры
                 bittenFigueColor = stateLocal.field[totalRowInd][totalCollInd+1].cellFigue.color // цвет фигуры, до которой доходит луч боя
                 stateLocal.field[totalRowInd][totalCollInd+1].isUnderBlackHit = true // делаем метку, что поле под ударом белых
-                setIsWhiteUnderCheck(stateLocal, bittenFigue, bittenFigueColor)
+                if (bittenFigue === "king" && bittenFigueColor === "white") { // если фигура до которой дошел луч - король и его цвет белый
+                    stateLocal.commonGameParam.isCheckMate.isWhiteUnderCheck = true// в общих параметрах помечаем шах королю белых
+                }
             }
         }
     }

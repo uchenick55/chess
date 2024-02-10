@@ -181,7 +181,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             stateCopy = {...stateLocal} // копия всего стейта
 
             return stateCopy; // возврат копии стейта после изменения
-        case CLICK_BY_LIGHTENED_CELL: // экшн клика по вражеской фигуре
+        case CLICK_BY_LIGHTENED_CELL: // экшн клика по ячейке куда можем ходить
 
             stateLocal = moveOrBiteFigue(state, action.cell)
 

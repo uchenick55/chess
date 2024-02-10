@@ -9,7 +9,7 @@ export const checkCheckMate = (stateLocal: InitialStateFieldType) => {
             cellItem.isUnderWhiteHit = false
         })
     })
-    stateLocal.commonGameParam.isCheckMate = {
+    stateLocal.commonGameParam.isCheckMate = { // обнулили флаги король под шахом и матом
         isWhiteUnderCheck: false,
         isBlackUnderCheck: false,
         isBlackUnderMate: false,

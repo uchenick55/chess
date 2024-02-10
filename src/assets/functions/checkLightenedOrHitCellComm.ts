@@ -8,14 +8,12 @@ export const checkLightenedOrHitCellComm = (cellItem: CelllType, stateLocal: Ini
 
     const actionFigueColorCoeff: number = // коэффициент цвета кликнутой фигуры
         cellItem.cellFigue.figue !== "empty" //если поле содержит фигуру
-        //  && figueFromAction === "pawn" // только для пешек, по которым кликнули
         && cellItem.cellFigue.color === "white"
             ? -1// разное направление для светлых и темных пешек, по которым кликнули
             : 1
 
     const player1ColorCoeff: number = // коэффициент цвета выбранных в начале фигур
         stateLocal.commonGameParam.player1Color === "whitePlayer" // если выбраны белые фигуры
-            // && figueFromAction === "pawn" // только для пешек
             ? 1// разное направление для светлых и темных пешек в зависимости от выбора в начале игры
             : -1
 

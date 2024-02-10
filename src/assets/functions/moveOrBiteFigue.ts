@@ -8,8 +8,8 @@ const {v4: uuidv4} = require('uuid');
 
 export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) => {
 
-    if (cell.cellFigue.figue === "king") {
-        return state
+    if (cell.cellFigue.figue === "king") { // бить короля мы не можем
+        return state // возврат входящего стейта
     }
 
     const stateLocal: InitialStateFieldType = structuredClone(state) // полная копия стейта
@@ -38,7 +38,7 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
             }
         })
     })
-    const rowIndToClear = stateLocal.commonGameParam.onClickCell.rowInd // индекс ряда для зачистик
+    const rowIndToClear = stateLocal.commonGameParam.onClickCell.rowInd // индекс ряда для зачистки
     const colIndToClear = stateLocal.commonGameParam.onClickCell.colInd // индекс колонки для зачистки
 
     stateLocal.field[rowIndToClear][colIndToClear].cellFigue = { // зачиищаем ячейку, где раньше была фигура до удара/хода
@@ -51,14 +51,14 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
     stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
     stateLocal.commonGameParam.onClickCell = {} as CelllType // зачищаем onClickCell в стейте
 
-    stateLocal.commonGameParam.currentStep = stateLocal.commonGameParam.currentStep === "whitePlayer"
+    stateLocal.commonGameParam.currentStep = stateLocal.commonGameParam.currentStep === "whitePlayer" // передаем ход
         ? "blackPlayer"
         : "whitePlayer"
 
-    if (stateLocal.commonGameParam.showMenu) {
-        stateLocal.commonGameParam.showMenu = false //скрытие меню выбора цвета фигур после первого хода
+    if (stateLocal.commonGameParam.showMenu) {//скрытие меню выбора цвета фигур после первого хода
+        stateLocal.commonGameParam.showMenu = false
     }
-    checkCheckMate(stateLocal)
+    checkCheckMate(stateLocal) // проверка шаха и мата
 
 
     return stateLocal
