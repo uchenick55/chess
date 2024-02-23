@@ -1,8 +1,8 @@
 import {InitialStateFieldType} from "../../redux/field-reducer";
 import {checkLightenedOrHitCellComm} from "./checkLightenedOrHitCellComm";
-import {isKingCheckMateInitial} from "../constants/constants";
 
 export const checkCheckMate = (stateLocal: InitialStateFieldType) => {
+
     stateLocal.field.forEach((rowItem) => { // обнулили все флаги ячеек под ударом и шах/мат после каждого хода
         rowItem.forEach(cellItem => {
             cellItem.isUnderBlackHit = false
@@ -13,7 +13,8 @@ export const checkCheckMate = (stateLocal: InitialStateFieldType) => {
         isWhiteUnderCheck: false,
         isBlackUnderCheck: false,
         isBlackUnderMate: false,
-        isWhiteUnderMate: false
+        isWhiteUnderMate: false,
+        shouldClickGoBack: false
     }
 
     stateLocal.field.forEach((rowItem) => {
@@ -23,6 +24,14 @@ export const checkCheckMate = (stateLocal: InitialStateFieldType) => {
 
         })
     })
+    const currentStep = stateLocal.commonGameParam.currentStep
+    const isWhiteUnderCheck = stateLocal.commonGameParam.isCheckMate.isWhiteUnderCheck
+    const isBlackUnderCheck = stateLocal.commonGameParam.isCheckMate.isBlackUnderCheck
+    if ((isWhiteUnderCheck && currentStep === "blackPlayer") || (isBlackUnderCheck && currentStep === "whitePlayer")) {
+        console.log("должно было откатить ход назад")
+        stateLocal.commonGameParam.isCheckMate.shouldClickGoBack = true
+    }
+
 
 
     return stateLocal

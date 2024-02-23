@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {GlobalStateType} from "../../redux/store-redux";
 import {useDispatch, useSelector} from "react-redux";
 import {FiedType} from "../common/types/commonTypes";
@@ -17,6 +17,13 @@ const RenderGame: React.FC = (() => {
     const showMenu = useSelector((state: GlobalStateType) => state.chess.commonGameParam.showMenu) // нужно ли показывать меню
     const fieldParams = useSelector((state: GlobalStateType) => state.chess.commonGameParam.fieldParams) // параметры поля
     const history = useSelector((state: GlobalStateType) => state.chess.history) // история
+    const shouldClickGoBack = useSelector((state: GlobalStateType) => state.chess.commonGameParam.isCheckMate.shouldClickGoBack) // нужно ли откатить ход назад - шах ходом не был убран
+
+    useEffect(()=>{
+        if (shouldClickGoBack) { // если метка хода назад стоит - ходим назад (был шах королю, и своим ходом мы шах не убрали, метку не сняли)
+            dispatch(fieldActions.clickGoBackArrowAC())
+        }
+    },[shouldClickGoBack])
 
     const rendr123ABC = <div>  {/*отрисовка полей 123 и ABC*/}
         {fieldParams.num123.map((num123Item, num123Index) => {

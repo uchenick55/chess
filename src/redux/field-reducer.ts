@@ -11,6 +11,7 @@ import {field, figueLightenedSteps} from "../assets/constants/constants";
 import {moveOrBiteFigue} from "../assets/functions/moveOrBiteFigue";
 import {checkLightenedOrHitCellComm} from "../assets/functions/checkLightenedOrHitCellComm";
 import {checkCheckMate} from "../assets/functions/checkCheckMate";
+import {clickGoBackArrow} from "../assets/functions/clickGoBackArrow";
 
 const SET_ON_CLICK_FIGUE = "myApp/field-reducer/SET_ON_CLICK_FIGUE";
 const SET_PLAYER1_COLOR = "myApp/field-reducer/SET_PLAYER1_COLOR";
@@ -74,7 +75,8 @@ const initialState = {
         },
         isCheckMate: {
             isBlackUnderCheck: false,
-            isWhiteUnderCheck: false
+            isWhiteUnderCheck: false,
+            shouldClickGoBack: false
         },
         currentStep: "whitePlayer", // текущий ход (пока не чередуется)
         player1Color: "unchecked",//какие фигуры будут снизу
@@ -198,15 +200,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             return stateCopy; // возврат копии стейта после изменения
         case CLICK_GO_BACK_ARROW: // экшн клика по стрелке шаг назад
 
-            stateLocal = structuredClone(state) // полная копия стейта
-
-            stateLocal.field = stateLocal.history.fieldHistory[stateLocal.history.fieldHistory.length-1] // взять последний элемент истории поля
-            stateLocal.commonGameParam = stateLocal.history.commonGameParamHistory[stateLocal.history.commonGameParamHistory.length-1] // взять последний элемент истории параметров игры
-
-            stateLocal.history.fieldHistory.pop() // удалить последний элемент истории поля
-            stateLocal.history.commonGameParamHistory.pop() // удалить последний элемент истории параметров игры
-
-            stateLocal.field = clearLightenedDarkened(stateLocal.field) // зачистка засветок и затемнений
+            stateLocal = clickGoBackArrow(state)
 
             stateCopy = {...stateLocal} // копия всего стейта
 

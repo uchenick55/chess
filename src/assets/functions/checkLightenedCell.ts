@@ -15,12 +15,14 @@ export const checkLightenedCell = ( // проверка подсветок во�
     const isWhiteUnderCheck = stateLocal.commonGameParam.isCheckMate.isWhiteUnderCheck // белые под шахом?
     const isBlackUnderCheck = stateLocal.commonGameParam.isCheckMate.isBlackUnderCheck // черные под шахом?
 
+/*
     if (cellItem.cellFigue.figue !== "king") { // если фигура, по которой кликнули, не король
         // и либо белым шах, либо черным шах и цвет кто ходит совпадает со стороной под шахом
         if ((actionFigueColor === "white" && isWhiteUnderCheck) || (actionFigueColor ==="black" && isBlackUnderCheck)) {
             return // никто ходить кроме короля не может
         }
     }
+*/
 
     if (cellItem.cellFigue.figue === "pawn") { // если кликнули по пешке
 

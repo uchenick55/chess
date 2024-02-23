@@ -2,7 +2,6 @@ import {clearLightenedDarkened} from "./clearLightenedDarkened";
 import {CelllType} from "../../components/common/types/commonTypes";
 import {InitialStateFieldType} from "../../redux/field-reducer";
 import {checkCheckMate} from "./checkCheckMate";
-import {isKingCheckMateInitial} from "../constants/constants";
 
 const {v4: uuidv4} = require('uuid');
 

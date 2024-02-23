@@ -65,6 +65,7 @@ export type CommonGameParamType = {
         isBlackUnderCheck: boolean,
         isWhiteUnderMate: boolean,
         isBlackUnderMate: boolean,
+        shouldClickGoBack: boolean
     }
     currentStep: PlayerType,
     player1Color: PlayerType,

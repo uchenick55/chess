@@ -275,8 +275,8 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "rook", color: "white"},
-//            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "rook", color: "white"},
+            cellFigue: {figue: "empty", color: "unset"},
             cellColor: "black",
             cellAddress: "a5"
         },
@@ -348,8 +348,8 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "king", color: "white"},
-//            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "king", color: "white"},
+            cellFigue: {figue: "empty", color: "unset"},
             cellColor: "white",
             cellAddress: "c4"
         },
@@ -370,8 +370,8 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "king", color: "black"},
-//            cellFigue: {figue: "empty", color: "unset"},
+            //           cellFigue: {figue: "king", color: "black"},
+            cellFigue: {figue: "empty", color: "unset"},
             cellColor: "black",
             cellAddress: "f4"
         },
@@ -443,8 +443,8 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "rook", color: "black"},
-//            cellFigue: {figue: "empty", color: "unset"},
+            //            cellFigue: {figue: "rook", color: "black"},
+           cellFigue: {figue: "empty", color: "unset"},
             cellColor: "white",
             cellAddress: "h3"
         },
