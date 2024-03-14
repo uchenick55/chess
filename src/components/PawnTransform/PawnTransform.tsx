@@ -37,9 +37,7 @@ const PawnTransform: React.FC<PawnTransformType> = ({cell}) => {
     const currentFiguesObject = cell.cellFigue.color === "white" // какой объект используем, с белыми или черными?
         ? whitePawnTransformObj
         : blackPawnTransformObj
-    const divTopDirection = cell.cellFigue.color === "white"
-        ? -2.6
-        : 2.05
+
     return <div className={classes.commonPawnTransform} style={{ // общая дивка всплывашки при преобразовании пешки
         width: `${fieldWidthHeightLocal * 4.5}px`,
         height: `${fieldWidthHeightLocal * 1.5}px`,

@@ -70,8 +70,8 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
             : "rgb(34,166,170)"
 
     const isKingUnderCheck = cell.cellFigue.figue === "king" && ( // условие что королю шах
-        cell.cellFigue.color === "white" && isWhiteUnderCheck || // и белый король с флагом белым шах
-        cell.cellFigue.color === "black" && isBlackUnderCheck // или черный король с флагом черным шах
+        (cell.cellFigue.color === "white" && isWhiteUnderCheck) || // и белый король с флагом белым шах
+        (cell.cellFigue.color === "black" && isBlackUnderCheck) // или черный король с флагом черным шах
     )
 
     return <div style={{ //стилизация ячееки общая
@@ -132,8 +132,8 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
              }}
         />}
         {cell.cellFigue.pawnTransform && <div><PawnTransform cell={cell}/></div>}
-        {cell.isUnderWhiteHit && <span className={classes.WHit}>W</span>}
-        {cell.isUnderBlackHit && <span className={classes.BHit}>B</span>}
+        {/*{cell.isUnderWhiteHit && <span className={classes.WHit}>W</span>}*/}
+        {/*{cell.isUnderBlackHit && <span className={classes.BHit}>B</span>}*/}
     </div>
 }
 export default CellRender

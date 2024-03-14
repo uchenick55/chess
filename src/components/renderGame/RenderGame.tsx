@@ -23,7 +23,7 @@ const RenderGame: React.FC = (() => {
         if (shouldClickGoBack) { // если метка хода назад стоит - ходим назад (был шах королю, и своим ходом мы шах не убрали, метку не сняли)
             dispatch(fieldActions.clickGoBackArrowAC())
         }
-    },[shouldClickGoBack])
+    },[shouldClickGoBack])//dispatch
 
     const rendr123ABC = <div>  {/*отрисовка полей 123 и ABC*/}
         {fieldParams.num123.map((num123Item, num123Index) => {

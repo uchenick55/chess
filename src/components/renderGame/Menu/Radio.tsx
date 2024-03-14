@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import RadioButton from "./RadioButton";
 import classes from "./radioButton.module.css"
 import blackRook from "../../../assets/svg/black-rook.svg"
@@ -12,17 +12,8 @@ import {GlobalStateType} from "../../../redux/store-redux";
 
 function Radio() {
     const player1Color: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.player1Color) // кто ходит первым
-    const showMenu = useSelector((state: GlobalStateType) => state.chess.commonGameParam.showMenu) // нужно ли показывать меню
     const fieldWidthHeightLocal = useSelector((state: GlobalStateType) => state.chess.commonGameParam.fieldParams.fieldWidthHeight)
     const dispatch = useDispatch()
-
-    const [fruits, setFruits] = useState("Apple");
-
-    const handleChange = (event: any) => {
-        setFruits(event.target.value);
-    };
-
-    const isChecked = (value: any) => fruits === value;
 
     return <div className={classes.menuCommon}>
         <div className={classes.radioCommon} style={{

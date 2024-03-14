@@ -13,7 +13,6 @@ import {checkLightenedOrHitCellComm} from "../assets/functions/checkLightenedOrH
 import {checkCheckMate} from "../assets/functions/checkCheckMate";
 import {clickGoBackArrow} from "../assets/functions/clickGoBackArrow";
 
-const SET_ON_CLICK_FIGUE = "myApp/field-reducer/SET_ON_CLICK_FIGUE";
 const SET_PLAYER1_COLOR = "myApp/field-reducer/SET_PLAYER1_COLOR";
 const SHOW_MENU = "myApp/field-reducer/SHOW_MENU";
 const SET_INITIALISED_APP = "myApp/field-reducer/SET_INITIALISED_APP";
@@ -101,8 +100,6 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
     let stateCopy: InitialStateFieldType // объявлениечасти части стейта до изменения редьюсером
     let stateLocal: InitialStateFieldType
     const {v4: uuidv4} = require('uuid');
-    let rowIndToClear: number
-    let colIndToClear: number
 
     switch (action.type) {
 
@@ -134,7 +131,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
             })
 
             stateLocal.commonGameParam.player1Color = action.player1Color
-            stateLocal.commonGameParam.currentStep = action.player1Color
+          //  stateLocal.commonGameParam.currentStep = action.player1Color
 
             if (action.player1Color === "whitePlayer") {
                 stateLocal.commonGameParam.fieldParams.num123 = ["8", "7", "6", "5", "4", "3", "2", "1"]
@@ -244,7 +241,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
     }
 }
 
-type ThType = ComThunkTp<FieldActionsTypes> // тип, выведенный из общего типа санок сс учетом локального типа AC
+//type ThType = ComThunkTp<FieldActionsTypes> // тип, выведенный из общего типа санок сс учетом локального типа AC
 
 export const initialisedAppThunkCreator = (): ComThunkTp<FieldActionsTypes> => {// санкреатор инициализации приложения
     return (dispatch, getState) => { // санки  инициализации приложения
