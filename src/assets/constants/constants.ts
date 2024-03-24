@@ -515,8 +515,8 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "empty", color: "unset"},
-//            cellFigue: {figue: "knight", color: "white"},
+           cellFigue: {figue: "empty", color: "unset"},
+//             cellFigue: {figue: "knight", color: "white"},
             cellColor: "white",
             cellAddress: "b1"
         },

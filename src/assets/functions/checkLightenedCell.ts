@@ -12,32 +12,59 @@ export const checkLightenedCell = ( // проверка подсветок во�
 ) => {
 
     const rookRove = () => {
-        let isRookAble:boolean = true
+        let isRookAble: boolean = true
         const checkUnderBiteCells = [0, 1, 2]
         const checkClearCellsFn = (checkClearCells: Array<number>) => {
-            checkClearCells.forEach(item=>{
-                if (stateLocal.field[0][item].cellFigue.figue !== "empty") {
+            checkClearCells.forEach(item => {
+                if (!isRookAble) {return}
+                console.log(stateLocal.field[cellItem.rowInd][item].cellAddress, "checkClearCells")
+                if (isRookAble && stateLocal.field[cellItem.rowInd][item].cellFigue.figue !== "empty") {
                     isRookAble = false
+                    console.log(stateLocal.field[cellItem.rowInd][item].cellAddress, "cell not clear!")
+
                 }
             })
         }
-        const checkUnderBiteCellsFn = (checkUnderBiteCells: Array<number>, side: 1 | -1, isUnderHit:"isUnderBlackHit"|"isUnderWhiteHit") => {
-            checkUnderBiteCells.forEach(item=> {
-                const currentCell = stateLocal.field[cellItem.rowInd][cellItem.colInd+item*side]
-                if (currentCell[isUnderHit]) {
-                    console.log("поле ",currentCell.cellAddress, isUnderHit)
+        const checkUnderBiteCellsFn = (checkUnderBiteCells: Array<number>, side: 1 | -1, isUnderHit: "isUnderBlackHit" | "isUnderWhiteHit") => {
+            checkUnderBiteCells.forEach(item => {
+                if (!isRookAble) {return}
+                const currentCell = stateLocal.field[cellItem.rowInd][cellItem.colInd + item * side]
+                console.log(currentCell.cellAddress, "checkUnderBiteCellsFn")
+                if (isRookAble && currentCell[isUnderHit]) {
+                    console.log("поле ", currentCell.cellAddress, isUnderHit)
+                    isRookAble = false
                 }
             })
         }
         if (cellItem.cellFigue.stepCount === 0) {
             //console.log("король еще не ходил")
+            let isUnderHit:"isUnderBlackHit"|"isUnderWhiteHit" = actionFigueColorCoeff === -1?"isUnderBlackHit":"isUnderWhiteHit"
             if (player1ColorCoeff === -1) { // короли слева (снизу черные)
-                if (stateLocal.field[0][0].cellFigue.stepCount===0) { //rook слева не ходил
-                    console.log("rook слева",stateLocal.field[0][0].cellAddress," не ходил")
+                if (stateLocal.field[cellItem.rowInd][0].cellFigue.stepCount === 0) { //rook слева не ходил
+                    console.log("rook слева", stateLocal.field[cellItem.rowInd][0].cellAddress, " не ходил")
                     checkClearCellsFn([1, 2])
-                    checkUnderBiteCellsFn(checkUnderBiteCells, -1, "isUnderBlackHit" )
-
+                    if (isRookAble) {
+                        checkUnderBiteCellsFn(checkUnderBiteCells, -1, isUnderHit)
+                    }
+                    if (isRookAble) { // если рокировка возможна
+                        stateLocal.field[cellItem.rowInd][cellItem.colInd - 2].isLightened = true
+                    }
+                    console.log(isRookAble, "isRookAble")
                 }
+                isRookAble = true
+                if (stateLocal.field[cellItem.rowInd][7].cellFigue.stepCount === 0) { //rook справа не ходил
+                    console.log("rook справа", stateLocal.field[cellItem.rowInd][7].cellAddress, " не ходил")
+                    checkClearCellsFn([4, 5, 6])
+                    if (isRookAble) {
+                        checkUnderBiteCellsFn(checkUnderBiteCells, 1, isUnderHit)
+                    }
+                    console.log(isRookAble, "isRookAble")
+                     if (isRookAble) { // если рокировка возможна
+                         stateLocal.field[cellItem.rowInd][cellItem.colInd+2].isLightened = true
+                     }
+                }
+
+
             }
             if (player1ColorCoeff === 1) {
                 console.log("короли справа (снизу белые)")
