@@ -10,6 +10,41 @@ export const checkLightenedCell = ( // проверка подсветок во�
     player1ColorCoeff: number, // коэффициент выбора цвета фигур в начале
     setIsBreakRay: (isBreak: boolean) => void  // колбек обрыва луча
 ) => {
+
+    const rookRove = () => {
+        let isRookAble:boolean = true
+        const checkUnderBiteCells = [0, 1, 2]
+        const checkClearCellsFn = (checkClearCells: Array<number>) => {
+            checkClearCells.forEach(item=>{
+                if (stateLocal.field[0][item].cellFigue.figue !== "empty") {
+                    isRookAble = false
+                }
+            })
+        }
+        const checkUnderBiteCellsFn = (checkUnderBiteCells: Array<number>, side: 1 | -1, isUnderHit:"isUnderBlackHit"|"isUnderWhiteHit") => {
+            checkUnderBiteCells.forEach(item=> {
+                const currentCell = stateLocal.field[cellItem.rowInd][cellItem.colInd+item*side]
+                if (currentCell[isUnderHit]) {
+                    console.log("поле ",currentCell.cellAddress, isUnderHit)
+                }
+            })
+        }
+        if (cellItem.cellFigue.stepCount === 0) {
+            //console.log("король еще не ходил")
+            if (player1ColorCoeff === -1) { // короли слева (снизу черные)
+                if (stateLocal.field[0][0].cellFigue.stepCount===0) { //rook слева не ходил
+                    console.log("rook слева",stateLocal.field[0][0].cellAddress," не ходил")
+                    checkClearCellsFn([1, 2])
+                    checkUnderBiteCellsFn(checkUnderBiteCells, -1, "isUnderBlackHit" )
+
+                }
+            }
+            if (player1ColorCoeff === 1) {
+                console.log("короли справа (снизу белые)")
+            }
+        }
+    }
+
     const actionFigueColor = cellItem.cellFigue.color // цвет фигуры по которой кликнули
 
     if (cellItem.cellFigue.figue === "pawn") { // если кликнули по пешке
@@ -66,6 +101,7 @@ export const checkLightenedCell = ( // проверка подсветок во�
             if (cellItem.cellFigue.color === "black" && stateLocal.field[totalRowInd][totalCollInd].isUnderWhiteHit) { // обрыв хода для черного короля под ударом ячейки от белых
                 return
             }
+            rookRove()
         }
         const isCellNotEmpty = stateLocal.field[totalRowInd][totalCollInd].cellFigue.figue !== 'empty' // ячейка не пустая (с фигурой)
 

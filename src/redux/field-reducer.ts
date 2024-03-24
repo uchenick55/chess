@@ -221,7 +221,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
 
             return stateCopy; // возврат копии стейта после изменения
         case ON_CELL_CLICK: // экшн клика записи в стейт ячейки, куда кликнули
-            console.log(action.cell)
+            //console.log(action.cell)
 
             stateLocal = structuredClone(state) // полная копия стейта
 

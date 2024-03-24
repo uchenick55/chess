@@ -11,7 +11,7 @@ import Radio from "./Menu/Radio";
 
 
 const RenderGame: React.FC = (() => {
-    console.log("RenderGame")
+    //console.log("RenderGame")
     const field: FiedType = useSelector((state: GlobalStateType) => state.chess.field) // поле с ячейками и фигурами
     const fieldWidthHeightLocal = useSelector((state: GlobalStateType) => state.chess.commonGameParam.fieldParams.fieldWidthHeight)
     const showMenu = useSelector((state: GlobalStateType) => state.chess.commonGameParam.showMenu) // нужно ли показывать меню

@@ -116,21 +116,24 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "knight", color: "black"},
+            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "knight", color: "black"},
             cellColor: "black",
             cellAddress: "b8"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "bishop", color: "black"},
+            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "bishop", color: "black"},
             cellColor: "white",
             cellAddress: "c8"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "queen", color: "black"},
+            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "queen", color: "black"},
             cellColor: "black",
             cellAddress: "d8"
         },
@@ -144,14 +147,16 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "bishop", color: "black"},
+            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "bishop", color: "black"},
             cellColor: "black",
             cellAddress: "f8"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "knight", color: "black"},
+            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "knight", color: "black"},
             cellColor: "white",
             cellAddress: "g8"
         },
@@ -510,42 +515,47 @@ export const field = [
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "knight", color: "white"},
+            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "knight", color: "white"},
             cellColor: "white",
             cellAddress: "b1"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "bishop", color: "white"},
+            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "bishop", color: "white"},
             cellColor: "black",
             cellAddress: "c1"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "queen", color: "white"},
+            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "queen", color: "white"},
             cellColor: "white",
-            cellAddress: "e1"
+            cellAddress: "d1"
         },
         {
             isLightened: false,
             isDarkened: false,
             cellFigue: {figue: "king", color: "white"},
             cellColor: "black",
-            cellAddress: "d1"
+            cellAddress: "e1"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "bishop", color: "white"},
+            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "bishop", color: "white"},
             cellColor: "white",
             cellAddress: "f1"
         },
         {
             isLightened: false,
             isDarkened: false,
-            cellFigue: {figue: "knight", color: "white"},
+            cellFigue: {figue: "empty", color: "unset"},
+//            cellFigue: {figue: "knight", color: "white"},
             cellColor: "black",
             cellAddress: "g1"
         },

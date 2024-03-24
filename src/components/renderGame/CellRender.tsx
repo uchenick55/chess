@@ -30,7 +30,7 @@ type CellRenderType = {
 }
 
 const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLocal}) => {
-    console.log("CellRender")
+    //console.log("CellRender")
     const dispatch = useDispatch()
     const player1Color: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.player1Color) // кто первый ходит
     const currentStep: PlayerType = useSelector((state: GlobalStateType) => state.chess.commonGameParam.currentStep) // кто сейчас ходит
@@ -132,8 +132,8 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
              }}
         />}
         {cell.cellFigue.pawnTransform && <div><PawnTransform cell={cell}/></div>}
-        {/*{cell.isUnderWhiteHit && <span className={classes.WHit}>W</span>}*/}
-        {/*{cell.isUnderBlackHit && <span className={classes.BHit}>B</span>}*/}
+        {cell.isUnderWhiteHit && <span className={classes.WHit}>W</span>}
+        {cell.isUnderBlackHit && <span className={classes.BHit}>B</span>}
     </div>
 }
 export default CellRender
