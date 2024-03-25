@@ -6,7 +6,7 @@ import {checkCheckMate} from "./checkCheckMate";
 const {v4: uuidv4} = require('uuid');
 
 export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) => {
-
+    console.log(cell)
     if (cell.cellFigue.figue === "king") { // бить короля мы не можем
         return state // возврат входящего стейта
     }

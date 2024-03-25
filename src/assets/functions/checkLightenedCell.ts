@@ -17,7 +17,7 @@ export const checkLightenedCell = ( // проверка подсветок во�
         const checkClearCellsFn = (checkClearCells: Array<number>) => {
             checkClearCells.forEach(item => {
                 if (!isRookAble) {return}
-                console.log(stateLocal.field[cellItem.rowInd][item].cellAddress, "checkClearCells")
+//                console.log(stateLocal.field[cellItem.rowInd][item].cellAddress, "checkClearCells")
                 if (isRookAble && stateLocal.field[cellItem.rowInd][item].cellFigue.figue !== "empty") {
                     isRookAble = false
                     console.log(stateLocal.field[cellItem.rowInd][item].cellAddress, "cell not clear!")
@@ -29,7 +29,7 @@ export const checkLightenedCell = ( // проверка подсветок во�
             checkUnderBiteCells.forEach(item => {
                 if (!isRookAble) {return}
                 const currentCell = stateLocal.field[cellItem.rowInd][cellItem.colInd + item * side]
-                console.log(currentCell.cellAddress, "checkUnderBiteCellsFn")
+//                console.log(currentCell.cellAddress, "checkUnderBiteCellsFn")
                 if (isRookAble && currentCell[isUnderHit]) {
                     console.log("поле ", currentCell.cellAddress, isUnderHit)
                     isRookAble = false
@@ -41,26 +41,30 @@ export const checkLightenedCell = ( // проверка подсветок во�
             let isUnderHit:"isUnderBlackHit"|"isUnderWhiteHit" = actionFigueColorCoeff === -1?"isUnderBlackHit":"isUnderWhiteHit"
             if (player1ColorCoeff === -1) { // короли слева (снизу черные)
                 if (stateLocal.field[cellItem.rowInd][0].cellFigue.stepCount === 0) { //rook слева не ходил
-                    console.log("rook слева", stateLocal.field[cellItem.rowInd][0].cellAddress, " не ходил")
+//                    console.log("rook слева", stateLocal.field[cellItem.rowInd][0].cellAddress, " не ходил")
                     checkClearCellsFn([1, 2])
                     if (isRookAble) {
                         checkUnderBiteCellsFn(checkUnderBiteCells, -1, isUnderHit)
                     }
                     if (isRookAble) { // если рокировка возможна
                         stateLocal.field[cellItem.rowInd][cellItem.colInd - 2].isLightened = true
+                        stateLocal.field[cellItem.rowInd][cellItem.colInd - 2].rookRove.rooK = stateLocal.field[cellItem.rowInd][0].cellAddress
+                        stateLocal.field[cellItem.rowInd][cellItem.colInd - 2].rookRove.rooVe = stateLocal.field[cellItem.rowInd][cellItem.colInd - 1].cellAddress
                     }
-                    console.log(isRookAble, "isRookAble")
+//                    console.log(isRookAble, "isRookAble")
                 }
                 isRookAble = true
                 if (stateLocal.field[cellItem.rowInd][7].cellFigue.stepCount === 0) { //rook справа не ходил
-                    console.log("rook справа", stateLocal.field[cellItem.rowInd][7].cellAddress, " не ходил")
+//                    console.log("rook справа", stateLocal.field[cellItem.rowInd][7].cellAddress, " не ходил")
                     checkClearCellsFn([4, 5, 6])
                     if (isRookAble) {
                         checkUnderBiteCellsFn(checkUnderBiteCells, 1, isUnderHit)
                     }
-                    console.log(isRookAble, "isRookAble")
+//                    console.log(isRookAble, "isRookAble")
                      if (isRookAble) { // если рокировка возможна
                          stateLocal.field[cellItem.rowInd][cellItem.colInd+2].isLightened = true
+                         stateLocal.field[cellItem.rowInd][cellItem.colInd + 2].rookRove.rooK = stateLocal.field[cellItem.rowInd][7].cellAddress
+                         stateLocal.field[cellItem.rowInd][cellItem.colInd + 2].rookRove.rooVe = stateLocal.field[cellItem.rowInd][cellItem.colInd + 1].cellAddress
                      }
                 }
 

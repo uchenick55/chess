@@ -168,6 +168,10 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                 rowItem.forEach((cellItem, colInd) => {
                     cellItem.cellFigue.uuid = uuidv4()
                     cellItem.cellFigue.stepCount = 0
+                    cellItem.rookRove = {
+                        rooK: "",
+                        rooVe: ""
+                    }
                 })
             })
             stateCopy = {...stateLocal} // копия всего стейта

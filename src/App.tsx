@@ -10,7 +10,7 @@ const App = () => {
         dispatch(initialisedAppThunkCreator()) // запускаем инициализацию приложения
     }, [])//dispatch
 
-    console.log("App")
+//    console.log("App")
     return <RenderGame/>
 }
 
