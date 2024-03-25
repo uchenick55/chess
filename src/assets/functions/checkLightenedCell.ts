@@ -49,7 +49,7 @@ export const checkLightenedCell = ( // проверка подсветок во�
                     if (isRookAble) { // если рокировка возможна
                         stateLocal.field[cellItem.rowInd][cellItem.colInd - 2].isLightened = true
                         stateLocal.field[cellItem.rowInd][cellItem.colInd - 2].rookRove.rooK = stateLocal.field[cellItem.rowInd][0].cellAddress
-                        stateLocal.field[cellItem.rowInd][cellItem.colInd - 2].rookRove.rooVe = stateLocal.field[cellItem.rowInd][cellItem.colInd - 1].cellAddress
+                        stateLocal.field[cellItem.rowInd][cellItem.colInd - 2].rookRove.rooVe = 1 // смещаем rook на 1 вправо от короля
                     }
 //                    console.log(isRookAble, "isRookAble")
                 }
@@ -64,7 +64,7 @@ export const checkLightenedCell = ( // проверка подсветок во�
                      if (isRookAble) { // если рокировка возможна
                          stateLocal.field[cellItem.rowInd][cellItem.colInd+2].isLightened = true
                          stateLocal.field[cellItem.rowInd][cellItem.colInd + 2].rookRove.rooK = stateLocal.field[cellItem.rowInd][7].cellAddress
-                         stateLocal.field[cellItem.rowInd][cellItem.colInd + 2].rookRove.rooVe = stateLocal.field[cellItem.rowInd][cellItem.colInd + 1].cellAddress
+                         stateLocal.field[cellItem.rowInd][cellItem.colInd + 2].rookRove.rooVe = -1 // смещаем rook на 1 влево от короля
                      }
                 }
 

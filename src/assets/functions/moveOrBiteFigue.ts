@@ -1,5 +1,11 @@
 import {clearLightenedDarkened} from "./clearLightenedDarkened";
-import {CelllType} from "../../components/common/types/commonTypes";
+import {
+    CellAddressType,
+    CelllType,
+    ColorType,
+    FigueType,
+    FigueTypeCommon
+} from "../../components/common/types/commonTypes";
 import {InitialStateFieldType} from "../../redux/field-reducer";
 import {checkCheckMate} from "./checkCheckMate";
 
@@ -10,8 +16,24 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
     if (cell.cellFigue.figue === "king") { // бить короля мы не можем
         return state // возврат входящего стейта
     }
-
     const stateLocal: InitialStateFieldType = structuredClone(state) // полная копия стейта
+
+    const moveRook = (rooK: CellAddressType, rooVe: number) => {
+        stateLocal.field.forEach(itemRow => {
+            itemRow.forEach(itemCell => {
+                if (itemCell.cellAddress === rooK) {
+                    stateLocal.field[cell.rowInd][cell.colInd + rooVe].cellFigue = structuredClone(itemCell.cellFigue)
+                    itemCell.cellFigue = {
+                        uuid: "",
+                        stepCount: 0,
+                        color: "unset",
+                        pawnTransform: false,
+                        figue: "empty"
+                    }
+                }
+            })
+        })
+    }
 
     stateLocal.history.fieldHistory.push(structuredClone(stateLocal.field)) // делаем копию field
     stateLocal.history.commonGameParamHistory.push(structuredClone((stateLocal.commonGameParam))) // архивируем общие параметры игры
@@ -32,6 +54,9 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
                     if (cellItem.rowInd === 0 || cellItem.rowInd === 7) {
                         cellItem.cellFigue.pawnTransform = true // помечаем флаг трансформации пешки
                     }
+                }
+                if (cellItem.rookRove.rooK !== "") {
+                    moveRook(cellItem.rookRove.rooK, cellItem.rookRove.rooVe)
                 }
 
             }

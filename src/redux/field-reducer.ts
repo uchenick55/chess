@@ -170,7 +170,7 @@ const FieldReducer = (state: InitialStateFieldType = initialState, action: Field
                     cellItem.cellFigue.stepCount = 0
                     cellItem.rookRove = {
                         rooK: "",
-                        rooVe: ""
+                        rooVe: 0
                     }
                 })
             })
