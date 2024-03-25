@@ -12,7 +12,7 @@ import {checkCheckMate} from "./checkCheckMate";
 const {v4: uuidv4} = require('uuid');
 
 export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) => {
-    console.log(cell)
+    //console.log(cell)
     if (cell.cellFigue.figue === "king") { // бить короля мы не можем
         return state // возврат входящего стейта
     }
@@ -22,7 +22,9 @@ export const moveOrBiteFigue = (state: InitialStateFieldType, cell: CelllType) =
         stateLocal.field.forEach(itemRow => {
             itemRow.forEach(itemCell => {
                 if (itemCell.cellAddress === rooK) {
-                    stateLocal.field[cell.rowInd][cell.colInd + rooVe].cellFigue = structuredClone(itemCell.cellFigue)
+                    let rookFigue: FigueTypeCommon = structuredClone(itemCell.cellFigue)
+                    rookFigue.stepCount ++ // увеличиваем счетчик rook при переносе
+                    stateLocal.field[cell.rowInd][cell.colInd + rooVe].cellFigue = rookFigue
                     itemCell.cellFigue = {
                         uuid: "",
                         stepCount: 0,
