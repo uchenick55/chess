@@ -132,8 +132,8 @@ const CellRender: React.FC<CellRenderType> = ({cell, colInd, rowInd, fieldWHLoca
              }}
         />}
         {cell.cellFigue.pawnTransform && <div><PawnTransform cell={cell}/></div>}
-        {cell.isUnderWhiteHit && <span className={classes.WHit}>W</span>}
-        {cell.isUnderBlackHit && <span className={classes.BHit}>B</span>}
+        {/*{cell.isUnderWhiteHit && <span className={classes.WHit}>W</span>}*/}
+        {/*{cell.isUnderBlackHit && <span className={classes.BHit}>B</span>}*/}
     </div>
 }
 export default CellRender
